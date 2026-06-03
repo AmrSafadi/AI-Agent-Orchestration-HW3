@@ -121,11 +121,11 @@ Creates a LaTeX assembly specification. It does not compile the PDF. It prepares
 
 ```text
 config/
-  -> book_plan.json
-  -> research_pack.json
-  -> manuscript.md
-  -> review_report.json
-  -> latex_spec.json
+  -> generated/intermediate/book_plan.json
+  -> generated/intermediate/research_pack.json
+  -> generated/intermediate/manuscript.md
+  -> generated/intermediate/review_report.json
+  -> generated/intermediate/latex_spec.json
   -> references.bib
   -> agent_pipeline_graph.png
   -> validation_report.json
@@ -133,7 +133,7 @@ config/
   -> final.pdf
 ```
 
-Current sample files use the `sample_` prefix because the real CrewAI artifacts are not generated yet.
+Committed example files use the `sample_` prefix under `data/intermediate/`. Dry-run and future real CrewAI outputs use `generated/intermediate/` so runtime files stay separate from examples.
 
 ## 8. Folder Structure
 
@@ -142,10 +142,10 @@ AI-Agent-Orchestration-HW3/
 ├── config/                  # JSON configuration
 ├── data/
 │   ├── input/               # Curated inputs such as source registry
-│   ├── intermediate/        # Sample and future agent artifacts
+│   ├── intermediate/        # Committed sample artifacts
 │   └── references/          # Generated BibTeX
 ├── docs/                    # Project documentation
-├── generated/               # Generated deterministic outputs
+├── generated/               # Generated runtime outputs
 ├── src/bookgen/
 │   ├── document/            # Schemas and validators
 │   ├── harness/             # Deterministic components
@@ -198,7 +198,7 @@ Not implemented:
 Future work should proceed in this order:
 
 1. Add controlled non-dry-run CrewAI execution and persist real task outputs.
-2. Replace sample runtime artifacts with generated artifacts.
+2. Persist generated artifacts under `generated/intermediate/` while keeping `data/intermediate/sample_*` as examples.
 3. Implement LaTeX renderer using templates.
 4. Implement PDF compiler wrapper.
 5. Add integration tests that can run without paid API calls.
@@ -246,6 +246,11 @@ uv run --no-project --with matplotlib python -c "from bookgen.harness.graph_gene
 Current generated outputs:
 
 - `generated/assets/graphs/agent_pipeline_graph.png`
+- `generated/intermediate/book_plan.json`
+- `generated/intermediate/research_pack.json`
+- `generated/intermediate/manuscript.md`
+- `generated/intermediate/review_report.json`
+- `generated/intermediate/latex_spec.json`
 - `data/references/references.bib`
 
 ## Guidance For Future AI Assistants

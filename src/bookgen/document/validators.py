@@ -8,11 +8,11 @@ from bookgen.document.schemas import BookPlan, LatexSpec, ValidationCheck, Valid
 from bookgen.harness.citations import extract_citation_keys
 
 REQUIRED_ARTIFACTS = (
-    "data/intermediate/book_plan.json",
-    "data/intermediate/research_pack.json",
-    "data/intermediate/manuscript.md",
-    "data/intermediate/review_report.json",
-    "data/intermediate/latex_spec.json",
+    "generated/intermediate/book_plan.json",
+    "generated/intermediate/research_pack.json",
+    "generated/intermediate/manuscript.md",
+    "generated/intermediate/review_report.json",
+    "generated/intermediate/latex_spec.json",
 )
 
 REQUIRED_FEATURES = (
@@ -116,9 +116,9 @@ def validate_project(
     root = Path(root_dir)
     artifact_report = validate_required_artifacts(root)
 
-    plan = Path(book_plan_path) if book_plan_path else root / "data/intermediate/book_plan.json"
-    spec = Path(latex_spec_path) if latex_spec_path else root / "data/intermediate/latex_spec.json"
-    manuscript = Path(manuscript_path) if manuscript_path else root / "data/intermediate/manuscript.md"
+    plan = Path(book_plan_path) if book_plan_path else root / "generated/intermediate/book_plan.json"
+    spec = Path(latex_spec_path) if latex_spec_path else root / "generated/intermediate/latex_spec.json"
+    manuscript = Path(manuscript_path) if manuscript_path else root / "generated/intermediate/manuscript.md"
 
     if not (plan.exists() and spec.exists() and manuscript.exists()):
         return artifact_report

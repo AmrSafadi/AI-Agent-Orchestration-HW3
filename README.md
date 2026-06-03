@@ -52,9 +52,13 @@ The blueprint is the single source of truth for the intended final system.
    - Writer Agent
    - Reviewer Agent
    - LaTeX Agent
-3. Save structured intermediate artifacts.
+3. Save structured runtime artifacts under `generated/intermediate/`.
 4. Use deterministic Python components for citation management, graph generation, validation, LaTeX rendering, and PDF compilation.
 5. Produce a final professional PDF with cover page, table of contents, chapters, citations, images, a Python graph, formula, table, and Hebrew-English mixed text.
+
+## Artifact Policy
+
+Committed examples live in `data/intermediate/sample_*`. Dry-run and future real execution outputs live in `generated/intermediate/`, which is ignored by git.
 
 ## Quick Commands
 

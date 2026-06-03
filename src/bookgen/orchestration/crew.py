@@ -21,11 +21,11 @@ from bookgen.orchestration.tasks import create_all_tasks
 from bookgen.shared.config import load_config, project_root
 
 EXPECTED_ARTIFACTS = {
-    "book_plan": Path("data/intermediate/book_plan.json"),
-    "research_pack": Path("data/intermediate/research_pack.json"),
-    "manuscript": Path("data/intermediate/manuscript.md"),
-    "review_report": Path("data/intermediate/review_report.json"),
-    "latex_spec": Path("data/intermediate/latex_spec.json"),
+    "book_plan": Path("generated/intermediate/book_plan.json"),
+    "research_pack": Path("generated/intermediate/research_pack.json"),
+    "manuscript": Path("generated/intermediate/manuscript.md"),
+    "review_report": Path("generated/intermediate/review_report.json"),
+    "latex_spec": Path("generated/intermediate/latex_spec.json"),
 }
 
 SAMPLE_ARTIFACTS = {
@@ -78,8 +78,8 @@ def run_crew(dry_run: bool = True, root_dir: Path | str | None = None) -> CrewRu
     """Run the crew safely.
 
     Dry-run is the default and never calls ``kickoff``. It creates or reuses the
-    expected intermediate artifacts so later deterministic milestones can be
-    tested without an API key.
+    expected runtime artifacts so later deterministic milestones can be tested
+    without an API key.
     """
     root = Path(root_dir) if root_dir else project_root()
 
@@ -102,10 +102,10 @@ def run_crew(dry_run: bool = True, root_dir: Path | str | None = None) -> CrewRu
 
 
 def create_or_reuse_dry_run_artifacts(root_dir: Path | str) -> list[Path]:
-    """Create or reuse the expected intermediate artifacts for dry-run mode."""
+    """Create or reuse the expected generated artifacts for dry-run mode."""
     root = Path(root_dir)
-    intermediate_dir = root / "data/intermediate"
-    intermediate_dir.mkdir(parents=True, exist_ok=True)
+    runtime_dir = root / "generated/intermediate"
+    runtime_dir.mkdir(parents=True, exist_ok=True)
 
     created_or_existing: list[Path] = []
     for artifact_name, relative_path in EXPECTED_ARTIFACTS.items():
