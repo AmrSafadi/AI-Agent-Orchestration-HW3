@@ -24,7 +24,7 @@ The next implementation milestone should be Milestone 5: sequential crew executi
 | Milestone | Goal | Notes |
 |---|---|---|
 | 5. Sequential Crew Execution | Add controlled non-dry-run execution and artifact persistence. | Must remain opt-in and API-key guarded. |
-| 6. Artifact Generation | Persist real intermediate outputs from task results. | Replace `sample_` files with runtime artifacts. |
+| 6. Artifact Generation | Persist real intermediate outputs from task results. | Write runtime artifacts to `generated/intermediate/`; keep `sample_` files as committed examples. |
 | 7. LaTeX Rendering | Render `.tex` files from templates. | Still no PDF compilation unless requested. |
 | 8. PDF Compilation | Compile final PDF with LuaLaTeX/XeLaTeX and bibliography backend. | Capture build logs and validation report. |
 | 9. Submission Polish | README evidence, tests, final cleanup. | Prepare course-grader walkthrough. |
@@ -47,6 +47,11 @@ Known passing result from Milestone 4:
 | Output | Path |
 |---|---|
 | Agent pipeline graph | `generated/assets/graphs/agent_pipeline_graph.png` |
+| Dry-run BookPlan | `generated/intermediate/book_plan.json` |
+| Dry-run ResearchPack | `generated/intermediate/research_pack.json` |
+| Dry-run manuscript | `generated/intermediate/manuscript.md` |
+| Dry-run review report | `generated/intermediate/review_report.json` |
+| Dry-run LaTeX spec | `generated/intermediate/latex_spec.json` |
 | Bibliography | `data/references/references.bib` |
 
 ## Not Yet Implemented

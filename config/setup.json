@@ -17,7 +17,7 @@
     ]
   },
   "paths": {
-    "intermediate_dir": "data/intermediate",
+    "intermediate_dir": "generated/intermediate",
     "generated_dir": "generated",
     "template_dir": "templates/latex"
   }

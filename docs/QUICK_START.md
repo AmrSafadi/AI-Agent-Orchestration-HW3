@@ -62,6 +62,8 @@ Outputs:
 - `generated/assets/graphs/agent_pipeline_graph.png`
 - `data/references/references.bib`
 
+Dry-run CrewAI artifacts are written to `generated/intermediate/`. The `data/intermediate/sample_*` files are committed examples for documentation, tests, and demos.
+
 ## 5. What Not To Expect Yet
 
 The current repository does not yet:

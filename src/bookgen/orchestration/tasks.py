@@ -30,7 +30,7 @@ def create_planning_task(agent: Any, use_real_crewai: bool = False) -> Any:
             "and acceptance checklist."
         ),
         expected_output=(
-            "A JSON object suitable for data/intermediate/book_plan.json matching the BookPlan schema."
+            "A JSON object suitable for generated/intermediate/book_plan.json matching the BookPlan schema."
         ),
         agent=agent,
         use_real_crewai=use_real_crewai,
@@ -45,7 +45,7 @@ def create_research_task(agent: Any, planning_task: Any, use_real_crewai: bool =
             "source candidates, notes per chapter, and unsupported-claim warnings."
         ),
         expected_output=(
-            "A JSON object suitable for data/intermediate/research_pack.json matching the ResearchPack schema."
+            "A JSON object suitable for generated/intermediate/research_pack.json matching the ResearchPack schema."
         ),
         agent=agent,
         context=[planning_task],
@@ -66,7 +66,7 @@ def create_writing_task(
             "Include citation markers and placeholders for image, graph, table, formula, and a "
             "Hebrew-English mixed section."
         ),
-        expected_output="Markdown manuscript suitable for data/intermediate/manuscript.md.",
+        expected_output="Markdown manuscript suitable for generated/intermediate/manuscript.md.",
         agent=agent,
         context=[planning_task, research_task],
         use_real_crewai=use_real_crewai,
@@ -81,7 +81,7 @@ def create_review_task(agent: Any, writing_task: Any, use_real_crewai: bool = Fa
             "Report approval status, checklist results, notes, and required fixes."
         ),
         expected_output=(
-            "A JSON object suitable for data/intermediate/review_report.json matching the ReviewReport schema."
+            "A JSON object suitable for generated/intermediate/review_report.json matching the ReviewReport schema."
         ),
         agent=agent,
         context=[writing_task],
@@ -97,7 +97,7 @@ def create_latex_spec_task(agent: Any, review_task: Any, use_real_crewai: bool =
             "chapter files, asset references, bibliography file, output PDF path, engine, and BiDi settings."
         ),
         expected_output=(
-            "A JSON object suitable for data/intermediate/latex_spec.json matching the LatexSpec schema."
+            "A JSON object suitable for generated/intermediate/latex_spec.json matching the LatexSpec schema."
         ),
         agent=agent,
         context=[review_task],
