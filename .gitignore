@@ -20,6 +20,7 @@ credentials.json
 
 # Generated outputs
 generated/
+data/references/
 
 # LaTeX build artifacts
 *.aux

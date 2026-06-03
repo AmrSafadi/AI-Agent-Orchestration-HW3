@@ -1,0 +1,27 @@
+{
+  "topic": "AI Agent Orchestration: From Prompting to Production-Ready Crews",
+  "key_concepts": [
+    "Agent",
+    "Task",
+    "Crew",
+    "Process",
+    "Context",
+    "Harness"
+  ],
+  "terminology": {
+    "CrewAI": "Framework for role-based agent teams.",
+    "Harness": "Deterministic software wrapper around model reasoning."
+  },
+  "source_candidates": [
+    {
+      "source_id": "crewai_docs",
+      "title": "CrewAI Documentation",
+      "url": "https://docs.crewai.com/",
+      "notes": "Reference source for CrewAI concepts."
+    }
+  ],
+  "chapter_notes": {
+    "From Prompt To Crew": "Explain why specialized agents improve clarity."
+  },
+  "unsupported_claim_warnings": []
+}

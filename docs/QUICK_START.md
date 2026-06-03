@@ -16,7 +16,7 @@ cd C:\Users\amrsa\OneDrive\Desktop\OrchAI\AI-Agent-Orchestration-HW3
 
 ## 2. Run The Local Startup Check
 
-This loads config and exits. It does not call any API.
+This loads config, assembles the dry-run crew, and creates or reuses dry-run artifacts. It does not call any API.
 
 ```powershell
 $env:PYTHONPATH="src"
@@ -30,7 +30,9 @@ BookGen configuration loaded successfully.
 Project title: AI Agent Orchestration HW3
 Topic: AI Agent Orchestration: From Prompting to Production-Ready Crews
 Output directory: ...\generated
+Artifact output directory: ...\generated\intermediate
 Execution mode: DRY-RUN (default). CrewAI kickoff will not be called.
+Crew assembled: 5 agents, 5 tasks, process=sequential.
 Dry-run completed. CrewAI kickoff was not called.
 PDF generation is not implemented yet.
 ```
@@ -62,7 +64,15 @@ Outputs:
 - `generated/assets/graphs/agent_pipeline_graph.png`
 - `data/references/references.bib`
 
-Dry-run CrewAI artifacts are written to `generated/intermediate/`. The `data/intermediate/sample_*` files are committed examples for documentation, tests, and demos.
+Dry-run CrewAI artifacts are written to `generated/intermediate/`:
+
+- `book_plan.json`
+- `research_pack.json`
+- `manuscript.md`
+- `review_report.json`
+- `latex_spec.json`
+
+The `data/intermediate/sample_*` files are committed examples for documentation, tests, and demos.
 
 ## 5. What Not To Expect Yet
 

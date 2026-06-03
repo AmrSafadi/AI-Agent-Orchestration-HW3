@@ -1,0 +1,18 @@
+{
+  "approved": true,
+  "checklist": {
+    "cover": true,
+    "toc": true,
+    "chapters": true,
+    "citations": true,
+    "image": true,
+    "graph": true,
+    "table": true,
+    "formula": true,
+    "hebrew_english_section": true
+  },
+  "notes": [
+    "Dry-run artifact created without CrewAI kickoff."
+  ],
+  "required_fixes": []
+}
