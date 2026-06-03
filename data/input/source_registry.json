@@ -1,0 +1,29 @@
+[
+  {
+    "key": "crewai_docs",
+    "entry_type": "online",
+    "author": "CrewAI",
+    "title": "CrewAI Documentation",
+    "year": "2026",
+    "url": "https://docs.crewai.com/",
+    "note": "Framework documentation for CrewAI agents, tasks, crews, and processes"
+  },
+  {
+    "key": "langchain_docs",
+    "entry_type": "online",
+    "author": "LangChain",
+    "title": "LangChain Documentation",
+    "year": "2026",
+    "url": "https://python.langchain.com/",
+    "note": "Reference material for harness-style LLM application design"
+  },
+  {
+    "key": "latex_project",
+    "entry_type": "online",
+    "author": "The LaTeX Project",
+    "title": "LaTeX Project Documentation",
+    "year": "2026",
+    "url": "https://www.latex-project.org/help/documentation/",
+    "note": "Reference documentation for professional LaTeX document preparation"
+  }
+]

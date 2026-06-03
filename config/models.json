@@ -1,0 +1,12 @@
+{
+  "default_provider": "openai",
+  "default_model": "gpt-4o-mini",
+  "temperature": 0.2,
+  "agent_models": {
+    "planner": "gpt-4o-mini",
+    "research": "gpt-4o-mini",
+    "writer": "gpt-4o-mini",
+    "reviewer": "gpt-4o-mini",
+    "latex": "gpt-4o-mini"
+  }
+}

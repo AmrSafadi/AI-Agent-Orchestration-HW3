@@ -1,0 +1,36 @@
+{
+  "title": "AI Agent Orchestration: From Prompting to Production-Ready Crews",
+  "subtitle": "A course-aligned short book generated with CrewAI and LaTeX",
+  "audience": "University course evaluator and AI orchestration students",
+  "chapters": [
+    {
+      "title": "From Prompt To Crew",
+      "summary": "Explains why a team of specialized agents is clearer than one large prompt.",
+      "sections": [
+        {
+          "title": "Agent, Task, Crew, Process",
+          "purpose": "Introduce the four core CrewAI concepts emphasized in the course."
+        }
+      ]
+    }
+  ],
+  "required_feature_placement": {
+    "cover": "front matter",
+    "toc": "front matter",
+    "citations": "throughout chapters",
+    "image": "chapter 1",
+    "graph": "chapter 2",
+    "table": "chapter 2",
+    "formula": "chapter 3",
+    "hebrew_english_section": "chapter 3"
+  },
+  "acceptance_checklist": [
+    "cover page",
+    "table of contents",
+    "chapters and sections",
+    "bibliography",
+    "Python-generated graph",
+    "Hebrew-English mixed section"
+  ],
+  "estimated_pages": 15
+}

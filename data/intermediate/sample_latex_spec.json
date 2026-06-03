@@ -1,0 +1,37 @@
+{
+  "title": "AI Agent Orchestration: From Prompting to Production-Ready Crews",
+  "engine": "lualatex",
+  "main_template": "main.tex.j2",
+  "output_pdf": "generated/pdf/final.pdf",
+  "chapter_files": [
+    "chapters/chapter_01.tex"
+  ],
+  "assets": [
+    {
+      "asset_id": "course_concept_image",
+      "kind": "image",
+      "target_path": "generated/assets/images/course_concept_image.png",
+      "caption": "Conceptual illustration of agent orchestration."
+    },
+    {
+      "asset_id": "agent_pipeline_graph",
+      "kind": "graph",
+      "target_path": "generated/assets/graphs/agent_pipeline_graph.png",
+      "caption": "Sequential agent and deterministic harness pipeline."
+    },
+    {
+      "asset_id": "agent_roles_table",
+      "kind": "table",
+      "target_path": "generated/latex/tables/agent_roles_table.tex",
+      "caption": "Responsibilities of each agent and deterministic component."
+    },
+    {
+      "asset_id": "quality_score_formula",
+      "kind": "formula",
+      "target_path": "generated/latex/formulas/quality_score_formula.tex",
+      "caption": "Example weighted document quality score."
+    }
+  ],
+  "bibliography_file": "data/references/references.bib",
+  "bidi_required": true
+}

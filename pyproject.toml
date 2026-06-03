@@ -1,0 +1,30 @@
+[project]
+name = "ai-agent-orchestration-hw3"
+version = "0.1.0"
+description = "CrewAI-based article/book generator with deterministic LaTeX PDF production harness."
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+  { name = "Amr Safadi" }
+]
+dependencies = [
+  "crewai",
+  "python-dotenv",
+  "pydantic",
+  "jinja2",
+  "matplotlib",
+]
+
+[project.scripts]
+bookgen = "bookgen.main:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
