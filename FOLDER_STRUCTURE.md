@@ -95,8 +95,10 @@ AI-Agent-Orchestration-HW3/
 |   |
 |   |-- intermediate/
 |   |   |-- sample_book_plan.json
-|   |   |-- sample_latex_spec.json
+|   |   |-- sample_research_pack.json
 |   |   |-- sample_manuscript.md
+|   |   |-- sample_review_report.json
+|   |   |-- sample_latex_spec.json
 |   |
 |   |-- references/
 |       |-- references.bib

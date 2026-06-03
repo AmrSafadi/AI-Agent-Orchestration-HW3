@@ -84,11 +84,11 @@ Located in `config/`. They define project metadata, model defaults, LaTeX settin
 
 ### `bookgen.main`
 
-Current entry point. It loads config and runs dry-run by default. Real CrewAI execution requires `--run-crew` and `OPENAI_API_KEY`.
+Current entry point. It loads config, prints output directories, and runs dry-run by default. Real CrewAI execution requires `--run-crew` and `OPENAI_API_KEY`.
 
 ### CrewAI Sequential Crew
 
-Implemented orchestration layer. It assembles the five agents and five tasks using `Process.sequential`, with dry-run safety as the default.
+Implemented orchestration layer. `build_crew()` assembles the five agents and five tasks using `Process.sequential`, with dry-run safety as the default.
 
 ### Planner Agent
 
@@ -112,7 +112,7 @@ Implemented factory for the future agent that creates a LaTeX assembly specifica
 
 ### Structured Artifacts
 
-The planned file-based handoff between stages:
+The planned file-based handoff between stages. Dry-run writes these under `generated/intermediate/`:
 
 - `book_plan.json`
 - `research_pack.json`

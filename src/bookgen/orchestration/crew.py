@@ -30,7 +30,9 @@ EXPECTED_ARTIFACTS = {
 
 SAMPLE_ARTIFACTS = {
     "book_plan": Path("data/intermediate/sample_book_plan.json"),
+    "research_pack": Path("data/intermediate/sample_research_pack.json"),
     "manuscript": Path("data/intermediate/sample_manuscript.md"),
+    "review_report": Path("data/intermediate/sample_review_report.json"),
     "latex_spec": Path("data/intermediate/sample_latex_spec.json"),
 }
 
@@ -55,7 +57,7 @@ class CrewRunResult:
     output: Any | None = None
 
 
-def create_document_generation_crew(use_real_crewai: bool = False) -> Any:
+def build_crew(use_real_crewai: bool = False) -> Any:
     """Create the sequential CrewAI crew, or a dry-run-compatible crew object."""
     agents_by_name = create_all_agents(use_real_crewai=use_real_crewai)
     tasks = create_all_tasks(agents_by_name, use_real_crewai=use_real_crewai)
@@ -74,6 +76,11 @@ def create_document_generation_crew(use_real_crewai: bool = False) -> Any:
     )
 
 
+def create_document_generation_crew(use_real_crewai: bool = False) -> Any:
+    """Backward-compatible alias for ``build_crew``."""
+    return build_crew(use_real_crewai=use_real_crewai)
+
+
 def run_crew(dry_run: bool = True, root_dir: Path | str | None = None) -> CrewRunResult:
     """Run the crew safely.
 
@@ -84,6 +91,8 @@ def run_crew(dry_run: bool = True, root_dir: Path | str | None = None) -> CrewRu
     root = Path(root_dir) if root_dir else project_root()
 
     if dry_run:
+        crew = build_crew(use_real_crewai=False)
+        print(_describe_crew(crew))
         artifacts = create_or_reuse_dry_run_artifacts(root)
         message = "Dry-run completed. CrewAI kickoff was not called."
         print(message)
@@ -92,7 +101,8 @@ def run_crew(dry_run: bool = True, root_dir: Path | str | None = None) -> CrewRu
     if not os.getenv("OPENAI_API_KEY"):
         raise RuntimeError("OPENAI_API_KEY is required for real CrewAI execution.")
 
-    crew = create_document_generation_crew(use_real_crewai=True)
+    crew = build_crew(use_real_crewai=True)
+    print(_describe_crew(crew))
 
     app_config = load_config(root / "config")
     result = crew.kickoff(inputs={"topic": app_config.setup.project.topic})
@@ -117,11 +127,25 @@ def create_or_reuse_dry_run_artifacts(root_dir: Path | str) -> list[Path]:
     return created_or_existing
 
 
+def _describe_crew(crew: Any) -> str:
+    process = getattr(crew, "process", "sequential")
+    return (
+        "Crew assembled: "
+        f"{len(getattr(crew, 'agents', []))} agents, "
+        f"{len(getattr(crew, 'tasks', []))} tasks, "
+        f"process={process}."
+    )
+
+
 def _create_dry_run_artifact(root: Path, artifact_name: str, target: Path) -> None:
     sample_path = SAMPLE_ARTIFACTS.get(artifact_name)
-    if sample_path is not None and (root / sample_path).exists():
-        shutil.copyfile(root / sample_path, target)
-        return
+    if sample_path is not None:
+        for sample_root in (root, project_root()):
+            source = sample_root / sample_path
+            if source.exists():
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(source, target)
+                return
 
     target.parent.mkdir(parents=True, exist_ok=True)
     if artifact_name == "research_pack":

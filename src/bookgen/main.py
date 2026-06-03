@@ -44,6 +44,7 @@ def main(argv: list[str] | None = None) -> int:
     print(f"Project title: {project.name}")
     print(f"Topic: {project.topic}")
     print(f"Output directory: {app_config.output_dir}")
+    print(f"Artifact output directory: {app_config.root_dir / app_config.setup.paths.intermediate_dir}")
 
     dry_run = not args.run_crew
     if dry_run:
@@ -52,7 +53,7 @@ def main(argv: list[str] | None = None) -> int:
         print("Execution mode: REAL CREWAI RUN. OPENAI_API_KEY is required.")
 
     try:
-        run_crew(dry_run=dry_run)
+        run_crew(dry_run=dry_run, root_dir=app_config.root_dir)
     except RuntimeError as exc:
         logger.error("%s", exc)
         return 1

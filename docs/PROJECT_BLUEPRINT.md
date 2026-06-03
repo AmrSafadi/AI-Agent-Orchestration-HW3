@@ -113,7 +113,7 @@ Creates a LaTeX assembly specification. It does not compile the PDF. It prepares
 | Validator | Checks artifacts and required document features. | Implemented |
 | CrewAI Agent Factories | Defines the five approved agents. | Implemented |
 | CrewAI Task Factories | Defines five context-linked tasks. | Implemented |
-| Crew Assembly | Assembles a sequential crew with dry-run safety. | Implemented |
+| Crew Assembly | `build_crew()` assembles a sequential crew with dry-run safety. | Implemented |
 | LaTeX Renderer | Will render `.tex` from templates. | Placeholder |
 | PDFCompiler | Will run LaTeX compilation. | Placeholder |
 
@@ -133,7 +133,7 @@ config/
   -> final.pdf
 ```
 
-Committed example files use the `sample_` prefix under `data/intermediate/`. Dry-run and future real CrewAI outputs use `generated/intermediate/` so runtime files stay separate from examples.
+Committed example files use the `sample_` prefix under `data/intermediate/`. Dry-run copies those examples into `generated/intermediate/` and never calls `crew.kickoff()`. Future real CrewAI outputs will use the same generated runtime directory.
 
 ## 8. Folder Structure
 

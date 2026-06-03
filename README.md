@@ -19,8 +19,8 @@ Completed:
 - Deterministic graph generation
 - Deterministic citation registry and BibTeX generation
 - Deterministic document requirement validation
-- CrewAI agent, task, and crew definitions
-- Dry-run crew execution path that creates/reuses intermediate artifacts without API calls
+- Milestone 4 CrewAI orchestration: five agents, five tasks, `build_crew()`, and sequential process assembly
+- Dry-run crew execution path that creates/reuses `generated/intermediate/` artifacts without API calls
 - Sample data and unit tests
 - Repository documentation milestone
 
@@ -59,6 +59,14 @@ The blueprint is the single source of truth for the intended final system.
 ## Artifact Policy
 
 Committed examples live in `data/intermediate/sample_*`. Dry-run and future real execution outputs live in `generated/intermediate/`, which is ignored by git.
+
+Dry-run currently creates or reuses:
+
+- `generated/intermediate/book_plan.json`
+- `generated/intermediate/research_pack.json`
+- `generated/intermediate/manuscript.md`
+- `generated/intermediate/review_report.json`
+- `generated/intermediate/latex_spec.json`
 
 ## Quick Commands
 

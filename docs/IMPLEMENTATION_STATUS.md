@@ -11,7 +11,7 @@ This document tracks what is complete, what is in progress, and what remains.
 | 2. Config and Schemas | Complete | `src/bookgen/shared/config.py`, `src/bookgen/shared/logging.py`, `src/bookgen/document/schemas.py`, tests. |
 | 3. Deterministic Harness | Complete | `graph_generator.py`, `citations.py`, `validators.py`, sample data, generated graph, generated bibliography, tests. |
 | Documentation | Complete | `docs/PROJECT_BLUEPRINT.md`, `COURSE_ALIGNMENT.md`, `IMPLEMENTATION_STATUS.md`, `ARCHITECTURE_DIAGRAM.md`, `QUICK_START.md`, `CONTRIBUTING.md`. |
-| 4. CrewAI Definitions | Complete | `agents.py`, `tasks.py`, `crew.py`, CLI dry-run mode, orchestration tests. |
+| 4. CrewAI Definitions | Complete | `agents.py`, `tasks.py`, `build_crew()`, `run_crew()`, CLI dry-run mode, generated intermediate artifacts, orchestration tests. |
 
 ## In Progress
 
@@ -53,6 +53,8 @@ Known passing result from Milestone 4:
 | Dry-run review report | `generated/intermediate/review_report.json` |
 | Dry-run LaTeX spec | `generated/intermediate/latex_spec.json` |
 | Bibliography | `data/references/references.bib` |
+
+`data/references/` is ignored because the bibliography is generated from `data/input/source_registry.json`.
 
 ## Not Yet Implemented
 
