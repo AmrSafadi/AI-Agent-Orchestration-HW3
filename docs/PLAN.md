@@ -44,15 +44,19 @@ Config (config/*.json)
 | Config loader | `shared/config.py` | Load/validate versioned `config/*.json`. | Implemented |
 | Version | `shared/version.py` | Single source of the package version. | Implemented |
 | Schemas | `document/schemas.py` | Pydantic artifact contracts. | Implemented |
-| Validator | `document/validators.py` | Check required artifacts and PDF features. | Implemented |
+| Validator | `document/validators.py` | Check required artifacts, PDF features, and latex-spec file existence. | Implemented |
+| CitationReport | `harness/citation_report.py` | Reconcile citations → `citation_report.json`. | Implemented |
+| AssetGenerator | `harness/assets.py` | Asset specs + deterministic image; file-existence checks. | Implemented |
+| EvidenceReporter | `harness/evidence.py` | Aggregate run results → `final_report.md`. | Implemented |
 | CitationManager | `harness/citations.py` | Source registry → `references.bib`; validate keys. | Implemented |
 | GraphGenerator | `harness/graph_generator.py` | Matplotlib pipeline graph PNG. | Implemented |
 | Agents | `orchestration/agents.py` | Five agent factories (+ dry-run fallback). | Implemented |
 | Tasks | `orchestration/tasks.py` | Five context-linked task factories. | Implemented |
 | Crew | `orchestration/crew.py` | `build_crew()` / `run_crew()`; dry-run default. | Implemented |
 | CrewAI Skills | `orchestration/skills.py` + `skills/*/SKILL.md` | Knowledge packs injected into agents in real-crew mode (course Skill concept). | Implemented |
-| Renderer | `latex/renderer.py` | Render `.tex` from templates + artifacts. | Placeholder |
-| PDFCompiler | `latex/compiler.py` | Multi-pass LuaLaTeX/biber compile. | Placeholder |
+| Renderer | `latex/renderer.py` + `latex/escaping.py` + `templates/latex/*` | Render `main.tex` (cover, TOC, figures, table, formula, BiDi, bibliography) from artifacts. | Implemented |
+| PDFCompiler | `latex/compiler.py` | Multi-pass LuaLaTeX/biber compile; graceful without a toolchain. | Implemented (needs a TeX toolchain to emit a PDF) |
+| Build wiring | `latex/build.py` + `main.py --build-pdf` | Render `main.tex` then optionally compile; end-to-end from the CLI. | Implemented |
 | SDK facade | `sdk/sdk.py` | Single entry point all consumers call (guideline 4.1). | Planned |
 | API Gatekeeper | `shared/gatekeeper.py` | Central rate-limited, monitored LLM entry point (guideline 5). | Planned |
 

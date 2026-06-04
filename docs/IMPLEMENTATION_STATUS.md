@@ -9,11 +9,13 @@ This document tracks what is complete, what is in progress, and what remains.
 | 0. Planning | Complete | Root planning documents: `PROJECT_PLAN.md`, `ARCHITECTURE.md`, `AGENTS_DESIGN.md`, `TASK_FLOW.md`, `FOLDER_STRUCTURE.md`. |
 | 1. Skeleton | Complete | `README.md`, `pyproject.toml`, config files, package folders, placeholder modules. |
 | 2. Config and Schemas | Complete | `shared/config.py` (all configs carry a `version`), `shared/logging.py`, `document/schemas.py` + `document/report_schemas.py` — 10 artifact contracts with validators, documented examples, and round-trip tests. |
-| 3. Deterministic Harness | Complete | `graph_generator.py`, `citations.py`, `validators.py`, sample data, generated graph, generated bibliography, tests. |
+| 3. Deterministic Harness | Complete | `graph_generator.py`, `citations.py` + `citation_report.py`, `validators.py` (+ latex-spec file checks), `assets.py`, `evidence.py`; headless Agg backend (`_mpl.py`); sample data, tests. (Phase C complete except T072 committed-bib copy.) |
 | Documentation | Complete | `docs/PROJECT_BLUEPRINT.md`, `COURSE_ALIGNMENT.md`, `IMPLEMENTATION_STATUS.md`, `ARCHITECTURE_DIAGRAM.md`, `QUICK_START.md`, `CONTRIBUTING.md`. |
 | 4. CrewAI Definitions | Complete | `agents.py`, `tasks.py`, `build_crew()`, `run_crew()`, CLI dry-run mode, generated intermediate artifacts, orchestration tests. |
-| Guideline Compliance (docs + quality config) | Partial | `docs/PRD.md`, `PLAN.md`, `TODO.md`, `PROMPTS.md`, `PRD_latex_pipeline.md`, `PRD_citation_management.md`; `pyproject.toml` ruff + coverage config; `shared/version.py`; `.env-example`. `ruff check` passes (0 violations); 24 tests pass; coverage 90.55% with `--cov`; `ruff format` clean; pre-commit hook (`scripts/hooks/pre-commit`) + CI (`.github/workflows/ci.yml`) added; README expanded (install/usage/config/license); `uv.lock` committed; config files now carry `version` keys (Phase A complete). Remaining: audit gap-closure items (API gatekeeper, rate limits, LICENSE, validator hardening, runtime config-version validation) tracked in `docs/TODO.md` Phase M. |
+| Guideline Compliance (docs + quality config) | Partial | `docs/PRD.md`, `PLAN.md`, `TODO.md`, `PROMPTS.md`, `PRD_latex_pipeline.md`, `PRD_citation_management.md`; `pyproject.toml` ruff + coverage config; `shared/version.py`; `.env-example`. `ruff check` passes (0 violations); 63 tests pass; coverage 91.90% with `--cov`; `ruff format` clean; pre-commit hook (`scripts/hooks/pre-commit`) + CI (`.github/workflows/ci.yml`) added; README expanded (install/usage/config/license); `uv.lock` committed; config files now carry `version` keys (Phase A complete). Remaining: audit gap-closure items (API gatekeeper, rate limits, LICENSE, validator hardening, runtime config-version validation) tracked in `docs/TODO.md` Phase M. |
 | CrewAI Skills + build-skill | Complete | 3 `SKILL.md` knowledge packs under `skills/`, `orchestration/skills.py` discovery/assignment loader wired into agents (real-crew mode), unit tests; plus a Claude Code build skill at `.claude/skills/build-bookgen/`. |
+| LaTeX Renderer + Compiler (Phase E) | Mostly complete | `latex/escaping.py`, 5 Jinja templates, `latex/renderer.py` (`main.tex` with cover/TOC/figures/table/formula/BiDi/bibliography), `latex/compiler.py` (multi-pass, graceful), `latex/build.py` wired into `main.py` (`--build-pdf`, renders end-to-end from the CLI). Cover carries author/course/lecturer/date; subpackage `__init__.py` added. Pending: actual PDF compile (needs a TeX toolchain), per-chapter files, asset copy, xelatex fallback. |
+| Content (Phase G) | Mostly complete | Deterministically authored 6-chapter manuscript (~4,900 words) in `data/intermediate/sample_book_plan.json`; renders to a full `main.tex` (cover, TOC, 6 chapters, figures, table, formula, Hebrew BiDi); the build generates `references.bib` (3 sources, included via `\nocite{*}`). Pending: per-chapter inline citations, page-count / BiDi verification (need a compiled PDF). |
 
 ## In Progress
 
@@ -35,13 +37,13 @@ The next implementation milestone should be Milestone 5: sequential crew executi
 
 ```powershell
 $env:PYTHONPATH="src"
-uv run --no-project --with pydantic --with pytest --with matplotlib python -m pytest tests/unit
+uv run --no-project --with pydantic --with pytest --with matplotlib --with jinja2 python -m pytest tests
 ```
 
-Known passing result from Milestone 4:
+Known passing result (through Phase E):
 
 ```text
-14 passed
+63 passed
 ```
 
 ## Current Generated Outputs

@@ -4,6 +4,8 @@
     "topic": "AI Agent Orchestration: From Prompting to Production-Ready Crews",
     "author": "Amr Safadi",
     "course": "AI Agent Orchestration",
+    "lecturer": "Dr. Yoram Segal",
+    "date": "2026-06-04",
     "version": "0.1.0"
   },
   "workflow": {

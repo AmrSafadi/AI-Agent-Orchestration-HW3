@@ -6,6 +6,7 @@ import argparse
 
 from pydantic import ValidationError
 
+from bookgen.latex.build import build_document
 from bookgen.orchestration.crew import run_crew
 from bookgen.shared.config import load_config
 from bookgen.shared.logging import configure_logging
@@ -24,6 +25,11 @@ def build_parser() -> argparse.ArgumentParser:
         "--run-crew",
         action="store_true",
         help="Run real CrewAI execution. Requires OPENAI_API_KEY and may call the model provider.",
+    )
+    parser.add_argument(
+        "--build-pdf",
+        action="store_true",
+        help="After rendering main.tex, attempt LaTeX compilation (requires a TeX toolchain).",
     )
     return parser
 
@@ -60,7 +66,20 @@ def main(argv: list[str] | None = None) -> int:
         logger.error("%s", exc)
         return 1
 
-    print("PDF generation is not implemented yet.")
+    metadata = {
+        "author": project.author,
+        "course": project.course,
+        "lecturer": project.lecturer,
+        "date": project.date,
+    }
+    build = build_document(
+        app_config.root_dir,
+        metadata,
+        compile_after=args.build_pdf,
+        latex_config=app_config.latex.model_dump(),
+    )
+    print(f"Rendered LaTeX project: {build['main_tex']}")
+    print(build["message"])
     return 0
 
 

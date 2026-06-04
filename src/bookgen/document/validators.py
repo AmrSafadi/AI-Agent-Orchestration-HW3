@@ -136,6 +136,26 @@ def validate_project(
     return _report_from_checks(checks)
 
 
+def validate_latex_spec_files(
+    latex_spec_path: Path | str,
+    root_dir: Path | str = ".",
+) -> ValidationReport:
+    """Validate that files referenced by the LaTeX spec actually exist on disk."""
+    root = Path(root_dir)
+    latex_spec = LatexSpec.model_validate_json(Path(latex_spec_path).read_text(encoding="utf-8"))
+    references = [asset.target_path for asset in latex_spec.assets]
+    references.append(latex_spec.bibliography_file)
+    checks = [
+        ValidationCheck(
+            name=f"file:{reference}",
+            passed=(root / reference).exists(),
+            message=str(root / reference),
+        )
+        for reference in references
+    ]
+    return _report_from_checks(checks)
+
+
 def _report_from_checks(checks: list[ValidationCheck]) -> ValidationReport:
     errors = [f"{check.name}: {check.message}" for check in checks if not check.passed]
     return ValidationReport(passed=not errors, checks=checks, errors=errors)

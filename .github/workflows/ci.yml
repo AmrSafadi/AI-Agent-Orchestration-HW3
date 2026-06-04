@@ -28,5 +28,5 @@ jobs:
           PYTHONPATH: src
         run: >-
           uv run --no-project
-          --with pydantic --with pytest --with pytest-cov --with matplotlib
+          --with pydantic --with pytest --with pytest-cov --with matplotlib --with jinja2
           python -m pytest tests --cov --cov-report=term-missing --cov-fail-under=85

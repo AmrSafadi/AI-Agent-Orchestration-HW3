@@ -37,7 +37,7 @@ Do not add Citation Agent, Visuals Agent, QA Agent, or Manager Agent in v1.
 
 ```powershell
 $env:PYTHONPATH="src"
-uv run --no-project --with pydantic --with pytest --with matplotlib python -m pytest tests/unit
+uv run --no-project --with pydantic --with pytest --with matplotlib --with jinja2 python -m pytest tests/unit
 ```
 
 ## Documentation Rules

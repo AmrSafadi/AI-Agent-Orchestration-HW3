@@ -27,7 +27,7 @@ to the submission guidelines and the `docs/` always in sync.
 ```
 uv run --no-project --with ruff ruff format .
 uv run --no-project --with ruff ruff check .            # 0 violations
-PYTHONPATH=src uv run --no-project --with pydantic --with pytest --with pytest-cov --with matplotlib python -m pytest tests --cov --cov-fail-under=85
+PYTHONPATH=src uv run --no-project --with pydantic --with pytest --with pytest-cov --with matplotlib --with jinja2 python -m pytest tests --cov --cov-fail-under=85
 ```
 
 ## 4. After coding — ALWAYS

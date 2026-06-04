@@ -85,21 +85,21 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 ### D. Citation Manager
 
-- [ ] **T061** Load `data/input/source_registry.json` into typed entries
-- [ ] **T062** Generate valid BibTeX entries from the registry
-- [ ] **T063** Escape BibTeX special characters safely
-- [ ] **T064** Generate unique, collision-free citation keys
-- [ ] **T065** Extract citation markers from Markdown manuscripts
-- [ ] **T066** Extract citation markers from LaTeX manuscripts
-- [ ] **T067** Reconcile manuscript markers against known sources
-- [ ] **T068** Report unresolved citation keys
-- [ ] **T069** Report unused (uncited) sources
-- [ ] **T070** Write `references.bib` deterministically (idempotent)
-- [ ] **T071** Emit `citation_report.json`
+- [x] **T061** Load `data/input/source_registry.json` into typed entries
+- [x] **T062** Generate valid BibTeX entries from the registry
+- [x] **T063** Escape BibTeX special characters safely
+- [x] **T064** Generate unique, collision-free citation keys
+- [x] **T065** Extract citation markers from Markdown manuscripts
+- [x] **T066** Extract citation markers from LaTeX manuscripts
+- [x] **T067** Reconcile manuscript markers against known sources
+- [x] **T068** Report unresolved citation keys
+- [x] **T069** Report unused (uncited) sources
+- [x] **T070** Write `references.bib` deterministically (idempotent)
+- [x] **T071** Emit `citation_report.json`
 - [ ] **T072** Add committed-copy option for grader visibility
-- [ ] **T073** Unit-test BibTeX generation
-- [ ] **T074** Unit-test key extraction (Markdown + LaTeX)
-- [ ] **T075** Unit-test unresolved-key detection
+- [x] **T073** Unit-test BibTeX generation
+- [x] **T074** Unit-test key extraction (Markdown + LaTeX)
+- [x] **T075** Unit-test unresolved-key detection
 
 ### E. Graph Generator
 
@@ -114,40 +114,40 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 ### F. Document Validator
 
-- [ ] **T084** Check required intermediate artifacts exist
-- [ ] **T085** Validate cover-page metadata present
-- [ ] **T086** Validate table-of-contents flag
-- [ ] **T087** Validate chapters and sections present
-- [ ] **T088** Validate at least one image asset
-- [ ] **T089** Validate Python-generated graph asset
-- [ ] **T090** Validate at least one table
-- [ ] **T091** Validate at least one display formula
-- [ ] **T092** Validate Hebrew-English BiDi section via Unicode ranges
-- [ ] **T093** Validate `.bib` exists and keys resolve
-- [ ] **T094** Validate `latex_spec` references existing files
-- [ ] **T095** Aggregate results into `validation_report.json`
-- [ ] **T096** Make validation messages actionable
-- [ ] **T097** Unit-test each feature check
+- [x] **T084** Check required intermediate artifacts exist
+- [x] **T085** Validate cover-page metadata present
+- [x] **T086** Validate table-of-contents flag
+- [x] **T087** Validate chapters and sections present
+- [x] **T088** Validate at least one image asset
+- [x] **T089** Validate Python-generated graph asset
+- [x] **T090** Validate at least one table
+- [x] **T091** Validate at least one display formula
+- [x] **T092** Validate Hebrew-English BiDi section via Unicode ranges
+- [x] **T093** Validate `.bib` exists and keys resolve
+- [x] **T094** Validate `latex_spec` references existing files
+- [x] **T095** Aggregate results into `validation_report.json`
+- [x] **T096** Make validation messages actionable
+- [x] **T097** Unit-test each feature check
 
 ### G. Asset Generator (future)
 
-- [ ] **T098** Create `harness/assets.py` module
-- [ ] **T099** Generate/collect the required image asset
-- [ ] **T100** Prepare table data structures
-- [ ] **T101** Prepare formula metadata
-- [ ] **T102** Resolve asset file references for the renderer
-- [ ] **T103** Validate asset references against generated files
-- [ ] **T104** Unit-test asset preparation
+- [x] **T098** Create `harness/assets.py` module
+- [x] **T099** Generate/collect the required image asset
+- [x] **T100** Prepare table data structures
+- [x] **T101** Prepare formula metadata
+- [x] **T102** Resolve asset file references for the renderer
+- [x] **T103** Validate asset references against generated files
+- [x] **T104** Unit-test asset preparation
 
 ### H. Evidence Reporter (future)
 
-- [ ] **T105** Create `harness/evidence.py` module
-- [ ] **T106** Collect PDF path and build status
-- [ ] **T107** Collect requirement checklist results
-- [ ] **T108** Collect token/cost summary if available
-- [ ] **T109** Collect known limitations
-- [ ] **T110** Emit `final_report.md`
-- [ ] **T111** Unit-test evidence aggregation
+- [x] **T105** Create `harness/evidence.py` module
+- [x] **T106** Collect PDF path and build status
+- [x] **T107** Collect requirement checklist results
+- [x] **T108** Collect token/cost summary if available
+- [x] **T109** Collect known limitations
+- [x] **T110** Emit `final_report.md`
+- [x] **T111** Unit-test evidence aggregation
 
 ## Phase D — Orchestration
 
@@ -258,86 +258,86 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 ### M. Templates
 
-- [ ] **T203** Template — main.tex.j2: create the Jinja2 file.
-- [ ] **T204** Template — main.tex.j2: parametrize its fields.
-- [ ] **T205** Template — main.tex.j2: apply LaTeX escaping to inserted text.
-- [ ] **T206** Template — main.tex.j2: render-test with sample data.
+- [x] **T203** Template — main.tex.j2: create the Jinja2 file.
+- [x] **T204** Template — main.tex.j2: parametrize its fields.
+- [x] **T205** Template — main.tex.j2: apply LaTeX escaping to inserted text.
+- [x] **T206** Template — main.tex.j2: render-test with sample data.
 - [ ] **T207** Template — main.tex.j2: review for page-margin overflow.
-- [ ] **T208** Template — cover.tex.j2: create the Jinja2 file.
-- [ ] **T209** Template — cover.tex.j2: parametrize its fields.
-- [ ] **T210** Template — cover.tex.j2: apply LaTeX escaping to inserted text.
-- [ ] **T211** Template — cover.tex.j2: render-test with sample data.
+- [x] **T208** Template — cover.tex.j2: create the Jinja2 file.
+- [x] **T209** Template — cover.tex.j2: parametrize its fields.
+- [x] **T210** Template — cover.tex.j2: apply LaTeX escaping to inserted text.
+- [x] **T211** Template — cover.tex.j2: render-test with sample data.
 - [ ] **T212** Template — cover.tex.j2: review for page-margin overflow.
-- [ ] **T213** Template — chapter.tex.j2: create the Jinja2 file.
-- [ ] **T214** Template — chapter.tex.j2: parametrize its fields.
-- [ ] **T215** Template — chapter.tex.j2: apply LaTeX escaping to inserted text.
-- [ ] **T216** Template — chapter.tex.j2: render-test with sample data.
+- [x] **T213** Template — chapter.tex.j2: create the Jinja2 file.
+- [x] **T214** Template — chapter.tex.j2: parametrize its fields.
+- [x] **T215** Template — chapter.tex.j2: apply LaTeX escaping to inserted text.
+- [x] **T216** Template — chapter.tex.j2: render-test with sample data.
 - [ ] **T217** Template — chapter.tex.j2: review for page-margin overflow.
-- [ ] **T218** Template — table.tex.j2: create the Jinja2 file.
-- [ ] **T219** Template — table.tex.j2: parametrize its fields.
-- [ ] **T220** Template — table.tex.j2: apply LaTeX escaping to inserted text.
-- [ ] **T221** Template — table.tex.j2: render-test with sample data.
+- [x] **T218** Template — table.tex.j2: create the Jinja2 file.
+- [x] **T219** Template — table.tex.j2: parametrize its fields.
+- [x] **T220** Template — table.tex.j2: apply LaTeX escaping to inserted text.
+- [x] **T221** Template — table.tex.j2: render-test with sample data.
 - [ ] **T222** Template — table.tex.j2: review for page-margin overflow.
-- [ ] **T223** Template — formula.tex.j2: create the Jinja2 file.
-- [ ] **T224** Template — formula.tex.j2: parametrize its fields.
-- [ ] **T225** Template — formula.tex.j2: apply LaTeX escaping to inserted text.
-- [ ] **T226** Template — formula.tex.j2: render-test with sample data.
+- [x] **T223** Template — formula.tex.j2: create the Jinja2 file.
+- [x] **T224** Template — formula.tex.j2: parametrize its fields.
+- [x] **T225** Template — formula.tex.j2: apply LaTeX escaping to inserted text.
+- [x] **T226** Template — formula.tex.j2: render-test with sample data.
 - [ ] **T227** Template — formula.tex.j2: review for page-margin overflow.
 
 ### N. Renderer
 
-- [ ] **T228** Create `latex/renderer.py` (LatexRenderer)
-- [ ] **T229** Load `latex_spec.json` and the reviewed manuscript
-- [ ] **T230** Render `main.tex` from the main template
+- [x] **T228** Create `latex/renderer.py` (LatexRenderer)
+- [x] **T229** Load `latex_spec.json` and the reviewed manuscript
+- [x] **T230** Render `main.tex` from the main template
 - [ ] **T231** Render per-chapter `.tex` files
-- [ ] **T232** Insert `\tableofcontents`
-- [ ] **T233** Insert the cover page with metadata
-- [ ] **T234** Insert `\includegraphics` for the Python graph
-- [ ] **T235** Insert `\includegraphics` for the image
-- [ ] **T236** Render a real LaTeX table
-- [ ] **T237** Render a display-math formula
-- [ ] **T238** Render the Hebrew-English BiDi chapter
-- [ ] **T239** Insert `\printbibliography` / bibliography commands
+- [x] **T232** Insert `\tableofcontents`
+- [x] **T233** Insert the cover page with metadata
+- [x] **T234** Insert `\includegraphics` for the Python graph
+- [x] **T235** Insert `\includegraphics` for the image
+- [x] **T236** Render a real LaTeX table
+- [x] **T237** Render a display-math formula
+- [x] **T238** Render the Hebrew-English BiDi chapter
+- [x] **T239** Insert `\printbibliography` / bibliography commands
 - [ ] **T240** Copy assets into the build directory
-- [ ] **T241** Copy `references.bib` into the build directory
-- [ ] **T242** Keep renderer files within the 150-line limit
-- [ ] **T243** Add `tests/unit/test_latex_renderer.py`
+- [x] **T241** Copy `references.bib` into the build directory
+- [x] **T242** Keep renderer files within the 150-line limit
+- [x] **T243** Add `tests/unit/test_latex_renderer.py`
 
 ### O. Escaping
 
-- [ ] **T244** Escaping — &: implement the escape rule.
-- [ ] **T245** Escaping — &: unit-test the escape rule.
-- [ ] **T246** Escaping — %: implement the escape rule.
-- [ ] **T247** Escaping — %: unit-test the escape rule.
-- [ ] **T248** Escaping — $: implement the escape rule.
-- [ ] **T249** Escaping — $: unit-test the escape rule.
-- [ ] **T250** Escaping — #: implement the escape rule.
-- [ ] **T251** Escaping — #: unit-test the escape rule.
-- [ ] **T252** Escaping — _: implement the escape rule.
-- [ ] **T253** Escaping — _: unit-test the escape rule.
-- [ ] **T254** Escaping — {: implement the escape rule.
-- [ ] **T255** Escaping — {: unit-test the escape rule.
-- [ ] **T256** Escaping — }: implement the escape rule.
-- [ ] **T257** Escaping — }: unit-test the escape rule.
-- [ ] **T258** Escaping — ~: implement the escape rule.
-- [ ] **T259** Escaping — ~: unit-test the escape rule.
-- [ ] **T260** Escaping — ^: implement the escape rule.
-- [ ] **T261** Escaping — ^: unit-test the escape rule.
-- [ ] **T262** Escaping — \: implement the escape rule.
-- [ ] **T263** Escaping — \: unit-test the escape rule.
+- [x] **T244** Escaping — &: implement the escape rule.
+- [x] **T245** Escaping — &: unit-test the escape rule.
+- [x] **T246** Escaping — %: implement the escape rule.
+- [x] **T247** Escaping — %: unit-test the escape rule.
+- [x] **T248** Escaping — $: implement the escape rule.
+- [x] **T249** Escaping — $: unit-test the escape rule.
+- [x] **T250** Escaping — #: implement the escape rule.
+- [x] **T251** Escaping — #: unit-test the escape rule.
+- [x] **T252** Escaping — _: implement the escape rule.
+- [x] **T253** Escaping — _: unit-test the escape rule.
+- [x] **T254** Escaping — {: implement the escape rule.
+- [x] **T255** Escaping — {: unit-test the escape rule.
+- [x] **T256** Escaping — }: implement the escape rule.
+- [x] **T257** Escaping — }: unit-test the escape rule.
+- [x] **T258** Escaping — ~: implement the escape rule.
+- [x] **T259** Escaping — ~: unit-test the escape rule.
+- [x] **T260** Escaping — ^: implement the escape rule.
+- [x] **T261** Escaping — ^: unit-test the escape rule.
+- [x] **T262** Escaping — \: implement the escape rule.
+- [x] **T263** Escaping — \: unit-test the escape rule.
 
 ### P. PDF Compiler
 
-- [ ] **T264** Create `latex/compiler.py` (PDFCompiler)
-- [ ] **T265** Detect the LaTeX toolchain on PATH
-- [ ] **T266** Run pass 1: lualatex
-- [ ] **T267** Run biber for the bibliography
-- [ ] **T268** Run pass 2: lualatex
-- [ ] **T269** Run pass 3: lualatex
+- [x] **T264** Create `latex/compiler.py` (PDFCompiler)
+- [x] **T265** Detect the LaTeX toolchain on PATH
+- [x] **T266** Run pass 1: lualatex
+- [x] **T267** Run biber for the bibliography
+- [x] **T268** Run pass 2: lualatex
+- [x] **T269** Run pass 3: lualatex
 - [ ] **T270** Implement the XeLaTeX fallback path
-- [ ] **T271** Capture and persist `build.log`
+- [x] **T271** Capture and persist `build.log`
 - [ ] **T272** Detect unresolved references (`??`) in the log
-- [ ] **T273** Fail gracefully when no toolchain is present
+- [x] **T273** Fail gracefully when no toolchain is present
 - [ ] **T274** Emit `final.pdf` to `generated/pdf/`
 - [ ] **T275** Verify the PDF is non-empty
 - [ ] **T276** Add `tests/integration/test_pdf_build_smoke.py` (skip without toolchain)
@@ -411,45 +411,45 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 ### R. Chapter Authoring
 
-- [ ] **T337** Chapter — From Prompt to Crew: outline the chapter.
-- [ ] **T338** Chapter — From Prompt to Crew: draft the prose.
+- [x] **T337** Chapter — From Prompt to Crew: outline the chapter.
+- [x] **T338** Chapter — From Prompt to Crew: draft the prose.
 - [ ] **T339** Chapter — From Prompt to Crew: insert citation markers.
 - [ ] **T340** Chapter — From Prompt to Crew: reviewer pass for clarity.
-- [ ] **T341** Chapter — From Prompt to Crew: render the chapter to .tex.
-- [ ] **T342** Chapter — Agent Roles & Tasks: outline the chapter.
-- [ ] **T343** Chapter — Agent Roles & Tasks: draft the prose.
+- [x] **T341** Chapter — From Prompt to Crew: render the chapter to .tex.
+- [x] **T342** Chapter — Agent Roles & Tasks: outline the chapter.
+- [x] **T343** Chapter — Agent Roles & Tasks: draft the prose.
 - [ ] **T344** Chapter — Agent Roles & Tasks: insert citation markers.
 - [ ] **T345** Chapter — Agent Roles & Tasks: reviewer pass for clarity.
-- [ ] **T346** Chapter — Agent Roles & Tasks: render the chapter to .tex.
-- [ ] **T347** Chapter — Sequential Orchestration: outline the chapter.
-- [ ] **T348** Chapter — Sequential Orchestration: draft the prose.
+- [x] **T346** Chapter — Agent Roles & Tasks: render the chapter to .tex.
+- [x] **T347** Chapter — Sequential Orchestration: outline the chapter.
+- [x] **T348** Chapter — Sequential Orchestration: draft the prose.
 - [ ] **T349** Chapter — Sequential Orchestration: insert citation markers.
 - [ ] **T350** Chapter — Sequential Orchestration: reviewer pass for clarity.
-- [ ] **T351** Chapter — Sequential Orchestration: render the chapter to .tex.
-- [ ] **T352** Chapter — The Deterministic Harness: outline the chapter.
-- [ ] **T353** Chapter — The Deterministic Harness: draft the prose.
+- [x] **T351** Chapter — Sequential Orchestration: render the chapter to .tex.
+- [x] **T352** Chapter — The Deterministic Harness: outline the chapter.
+- [x] **T353** Chapter — The Deterministic Harness: draft the prose.
 - [ ] **T354** Chapter — The Deterministic Harness: insert citation markers.
 - [ ] **T355** Chapter — The Deterministic Harness: reviewer pass for clarity.
-- [ ] **T356** Chapter — The Deterministic Harness: render the chapter to .tex.
-- [ ] **T357** Chapter — LaTeX Production & BiDi: outline the chapter.
-- [ ] **T358** Chapter — LaTeX Production & BiDi: draft the prose.
+- [x] **T356** Chapter — The Deterministic Harness: render the chapter to .tex.
+- [x] **T357** Chapter — LaTeX Production & BiDi: outline the chapter.
+- [x] **T358** Chapter — LaTeX Production & BiDi: draft the prose.
 - [ ] **T359** Chapter — LaTeX Production & BiDi: insert citation markers.
 - [ ] **T360** Chapter — LaTeX Production & BiDi: reviewer pass for clarity.
-- [ ] **T361** Chapter — LaTeX Production & BiDi: render the chapter to .tex.
-- [ ] **T362** Chapter — Conclusion: outline the chapter.
-- [ ] **T363** Chapter — Conclusion: draft the prose.
+- [x] **T361** Chapter — LaTeX Production & BiDi: render the chapter to .tex.
+- [x] **T362** Chapter — Conclusion: outline the chapter.
+- [x] **T363** Chapter — Conclusion: draft the prose.
 - [ ] **T364** Chapter — Conclusion: insert citation markers.
 - [ ] **T365** Chapter — Conclusion: reviewer pass for clarity.
-- [ ] **T366** Chapter — Conclusion: render the chapter to .tex.
+- [x] **T366** Chapter — Conclusion: render the chapter to .tex.
 
 ### S. BiDi Hebrew-English
 
-- [ ] **T367** Choose a BiDi chapter topic
-- [ ] **T368** Draft the Hebrew passage
-- [ ] **T369** Interleave English technical terms
-- [ ] **T370** Verify correct LTR/RTL transitions in source
-- [ ] **T371** Select polyglossia/bidi packages
-- [ ] **T372** Render the BiDi chapter to .tex
+- [x] **T367** Choose a BiDi chapter topic
+- [x] **T368** Draft the Hebrew passage
+- [x] **T369** Interleave English technical terms
+- [x] **T370** Verify correct LTR/RTL transitions in source
+- [x] **T371** Select polyglossia/bidi packages
+- [x] **T372** Render the BiDi chapter to .tex
 - [ ] **T373** Verify BiDi correctness in the compiled PDF
 
 ## Phase H — Testing
@@ -751,7 +751,7 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 ### AQ. Packaging Hygiene (guideline 14.2)
 
-- [ ] **T586** Add `__init__.py` to `document/`, `harness/`, `latex/`, `orchestration/` (and tests dirs)
+- [x] **T586** Add `__init__.py` to `document/`, `harness/`, `latex/`, `orchestration/` (src subpackages; tests dirs optional)
 - [ ] **T587** Export public interfaces / `__all__` from sub-package inits
 
 ### AR. Documentation Hygiene & Drift
@@ -784,5 +784,5 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 ---
 
-**Total tasks: 603** (173 completed, 430 remaining).
+**Total tasks: 603** (302 completed, 301 remaining).
 

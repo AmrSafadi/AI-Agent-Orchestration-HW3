@@ -1,9 +1,25 @@
-% Main LaTeX template placeholder for Milestone 1.
-% Rendering and PDF compilation will be implemented in a later milestone.
-\documentclass{book}
+\documentclass[11pt]{report}
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setmainlanguage{english}
+\setotherlanguage{hebrew}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage[backend=biber]{biblatex}
+\addbibresource{\VAR{bib_resource}.bib}
+\usepackage{hyperref}
+
+\title{\VAR{title}}
+\author{\VAR{author}}
+\date{\VAR{date}}
 
 \begin{document}
-
-{{ content | default("Milestone 1 placeholder") }}
-
+\BLOCK{include 'cover.tex.j2'}
+\tableofcontents
+\BLOCK{for chapter in chapters}
+\BLOCK{include 'chapter.tex.j2'}
+\BLOCK{endfor}
+\nocite{*}
+\printbibliography
 \end{document}
