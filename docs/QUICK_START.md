@@ -11,7 +11,7 @@ This guide shows how to run the current repository state.
 ## 1. Open The Project
 
 ```powershell
-cd C:\Users\amrsa\OneDrive\Desktop\OrchAI\AI-Agent-Orchestration-HW3
+cd <path-to>\AI-Agent-Orchestration-HW3
 ```
 
 ## 2. Run The Local Startup Check

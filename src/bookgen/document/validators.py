@@ -116,9 +116,17 @@ def validate_project(
     root = Path(root_dir)
     artifact_report = validate_required_artifacts(root)
 
-    plan = Path(book_plan_path) if book_plan_path else root / "generated/intermediate/book_plan.json"
-    spec = Path(latex_spec_path) if latex_spec_path else root / "generated/intermediate/latex_spec.json"
-    manuscript = Path(manuscript_path) if manuscript_path else root / "generated/intermediate/manuscript.md"
+    plan = (
+        Path(book_plan_path) if book_plan_path else root / "generated/intermediate/book_plan.json"
+    )
+    spec = (
+        Path(latex_spec_path)
+        if latex_spec_path
+        else root / "generated/intermediate/latex_spec.json"
+    )
+    manuscript = (
+        Path(manuscript_path) if manuscript_path else root / "generated/intermediate/manuscript.md"
+    )
 
     if not (plan.exists() and spec.exists() and manuscript.exists()):
         return artifact_report

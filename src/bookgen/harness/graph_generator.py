@@ -28,7 +28,6 @@ def generate_agent_pipeline_graph(output_path: Path | str = DEFAULT_GRAPH_PATH) 
     fig, ax = plt.subplots(figsize=(13, 3.8))
     ax.axis("off")
 
-    x_positions = range(len(PIPELINE_NODES))
     y = 0
 
     for index, label in enumerate(PIPELINE_NODES):

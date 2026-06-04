@@ -218,7 +218,7 @@ Possible post-v1 improvements:
 Run the current local startup check:
 
 ```powershell
-cd C:\Users\amrsa\OneDrive\Desktop\OrchAI\AI-Agent-Orchestration-HW3
+cd <path-to>\AI-Agent-Orchestration-HW3
 $env:PYTHONPATH="src"
 uv run --no-project --with pydantic python -m bookgen.main
 ```

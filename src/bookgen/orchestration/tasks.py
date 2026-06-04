@@ -153,7 +153,10 @@ def _create_task(
         task_kwargs["context"] = context
 
     if not use_real_crewai:
-        return DryRunTask(context=context or [], **{key: task_kwargs[key] for key in task_kwargs if key != "context"})
+        return DryRunTask(
+            context=context or [],
+            **{key: task_kwargs[key] for key in task_kwargs if key != "context"},
+        )
     if CrewAITask is None:
         raise RuntimeError("CrewAI is not installed; real task construction is unavailable.")
     return CrewAITask(**task_kwargs)

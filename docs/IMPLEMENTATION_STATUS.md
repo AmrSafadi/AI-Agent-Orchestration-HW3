@@ -12,10 +12,11 @@ This document tracks what is complete, what is in progress, and what remains.
 | 3. Deterministic Harness | Complete | `graph_generator.py`, `citations.py`, `validators.py`, sample data, generated graph, generated bibliography, tests. |
 | Documentation | Complete | `docs/PROJECT_BLUEPRINT.md`, `COURSE_ALIGNMENT.md`, `IMPLEMENTATION_STATUS.md`, `ARCHITECTURE_DIAGRAM.md`, `QUICK_START.md`, `CONTRIBUTING.md`. |
 | 4. CrewAI Definitions | Complete | `agents.py`, `tasks.py`, `build_crew()`, `run_crew()`, CLI dry-run mode, generated intermediate artifacts, orchestration tests. |
+| Guideline Compliance (docs + quality config) | Partial | `docs/PRD.md`, `PLAN.md`, `TODO.md`, `PROMPTS.md`, `PRD_latex_pipeline.md`, `PRD_citation_management.md`; `pyproject.toml` ruff + coverage config; `shared/version.py`; `.env-example`. `ruff check` passes (0 violations); 24 tests pass; coverage 90.55% with `--cov`; `ruff format` clean; pre-commit hook (`scripts/hooks/pre-commit`) + CI (`.github/workflows/ci.yml`) added; README expanded (install/usage/config/license); `uv.lock` present on disk (needs committing). Remaining: commit untracked files; audit gap-closure items (API gatekeeper, rate limits, LICENSE, config version keys, validator hardening) tracked in `docs/TODO.md` Phase M. |
 
 ## In Progress
 
-No implementation milestone is currently in progress.
+Submission-guideline compliance is being hardened (mandatory docs + quality config) as a non-numbered track. See `docs/TODO.md` Phase B for the remaining compliance items, and Phase M for additional gaps found in a materials-vs-repo re-audit (API gatekeeper / rate-limits / queue, `LICENSE` + `license` metadata, `config/logging_config.json`, per-config version keys + runtime validation, validator false-green fix, sub-package `__init__.py`, agent-security / red-team).
 
 The next implementation milestone should be Milestone 5: sequential crew execution with controlled artifact persistence.
 

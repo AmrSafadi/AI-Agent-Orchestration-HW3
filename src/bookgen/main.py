@@ -44,7 +44,9 @@ def main(argv: list[str] | None = None) -> int:
     print(f"Project title: {project.name}")
     print(f"Topic: {project.topic}")
     print(f"Output directory: {app_config.output_dir}")
-    print(f"Artifact output directory: {app_config.root_dir / app_config.setup.paths.intermediate_dir}")
+    print(
+        f"Artifact output directory: {app_config.root_dir / app_config.setup.paths.intermediate_dir}"
+    )
 
     dry_run = not args.run_crew
     if dry_run:
