@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-import matplotlib.pyplot as plt
+from bookgen.harness._mpl import plt
 
 DEFAULT_GRAPH_PATH = Path("generated/assets/graphs/agent_pipeline_graph.png")
 

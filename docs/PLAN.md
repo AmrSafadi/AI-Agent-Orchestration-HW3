@@ -44,7 +44,10 @@ Config (config/*.json)
 | Config loader | `shared/config.py` | Load/validate versioned `config/*.json`. | Implemented |
 | Version | `shared/version.py` | Single source of the package version. | Implemented |
 | Schemas | `document/schemas.py` | Pydantic artifact contracts. | Implemented |
-| Validator | `document/validators.py` | Check required artifacts and PDF features. | Implemented |
+| Validator | `document/validators.py` | Check required artifacts, PDF features, and latex-spec file existence. | Implemented |
+| CitationReport | `harness/citation_report.py` | Reconcile citations → `citation_report.json`. | Implemented |
+| AssetGenerator | `harness/assets.py` | Asset specs + deterministic image; file-existence checks. | Implemented |
+| EvidenceReporter | `harness/evidence.py` | Aggregate run results → `final_report.md`. | Implemented |
 | CitationManager | `harness/citations.py` | Source registry → `references.bib`; validate keys. | Implemented |
 | GraphGenerator | `harness/graph_generator.py` | Matplotlib pipeline graph PNG. | Implemented |
 | Agents | `orchestration/agents.py` | Five agent factories (+ dry-run fallback). | Implemented |

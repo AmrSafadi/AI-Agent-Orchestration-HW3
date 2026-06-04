@@ -37,6 +37,11 @@ class CitationValidationResult:
         """Return whether every used citation key exists in the registry."""
         return not self.missing_keys
 
+    @property
+    def unused_keys(self) -> set[str]:
+        """Return registry keys that the manuscript never cites."""
+        return self.known_keys - self.used_keys
+
 
 def load_source_registry(
     registry_path: Path | str = DEFAULT_REGISTRY_PATH,

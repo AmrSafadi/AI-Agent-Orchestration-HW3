@@ -85,21 +85,21 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 ### D. Citation Manager
 
-- [ ] **T061** Load `data/input/source_registry.json` into typed entries
-- [ ] **T062** Generate valid BibTeX entries from the registry
-- [ ] **T063** Escape BibTeX special characters safely
-- [ ] **T064** Generate unique, collision-free citation keys
-- [ ] **T065** Extract citation markers from Markdown manuscripts
-- [ ] **T066** Extract citation markers from LaTeX manuscripts
-- [ ] **T067** Reconcile manuscript markers against known sources
-- [ ] **T068** Report unresolved citation keys
-- [ ] **T069** Report unused (uncited) sources
-- [ ] **T070** Write `references.bib` deterministically (idempotent)
-- [ ] **T071** Emit `citation_report.json`
+- [x] **T061** Load `data/input/source_registry.json` into typed entries
+- [x] **T062** Generate valid BibTeX entries from the registry
+- [x] **T063** Escape BibTeX special characters safely
+- [x] **T064** Generate unique, collision-free citation keys
+- [x] **T065** Extract citation markers from Markdown manuscripts
+- [x] **T066** Extract citation markers from LaTeX manuscripts
+- [x] **T067** Reconcile manuscript markers against known sources
+- [x] **T068** Report unresolved citation keys
+- [x] **T069** Report unused (uncited) sources
+- [x] **T070** Write `references.bib` deterministically (idempotent)
+- [x] **T071** Emit `citation_report.json`
 - [ ] **T072** Add committed-copy option for grader visibility
-- [ ] **T073** Unit-test BibTeX generation
-- [ ] **T074** Unit-test key extraction (Markdown + LaTeX)
-- [ ] **T075** Unit-test unresolved-key detection
+- [x] **T073** Unit-test BibTeX generation
+- [x] **T074** Unit-test key extraction (Markdown + LaTeX)
+- [x] **T075** Unit-test unresolved-key detection
 
 ### E. Graph Generator
 
@@ -114,40 +114,40 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 ### F. Document Validator
 
-- [ ] **T084** Check required intermediate artifacts exist
-- [ ] **T085** Validate cover-page metadata present
-- [ ] **T086** Validate table-of-contents flag
-- [ ] **T087** Validate chapters and sections present
-- [ ] **T088** Validate at least one image asset
-- [ ] **T089** Validate Python-generated graph asset
-- [ ] **T090** Validate at least one table
-- [ ] **T091** Validate at least one display formula
-- [ ] **T092** Validate Hebrew-English BiDi section via Unicode ranges
-- [ ] **T093** Validate `.bib` exists and keys resolve
-- [ ] **T094** Validate `latex_spec` references existing files
-- [ ] **T095** Aggregate results into `validation_report.json`
-- [ ] **T096** Make validation messages actionable
-- [ ] **T097** Unit-test each feature check
+- [x] **T084** Check required intermediate artifacts exist
+- [x] **T085** Validate cover-page metadata present
+- [x] **T086** Validate table-of-contents flag
+- [x] **T087** Validate chapters and sections present
+- [x] **T088** Validate at least one image asset
+- [x] **T089** Validate Python-generated graph asset
+- [x] **T090** Validate at least one table
+- [x] **T091** Validate at least one display formula
+- [x] **T092** Validate Hebrew-English BiDi section via Unicode ranges
+- [x] **T093** Validate `.bib` exists and keys resolve
+- [x] **T094** Validate `latex_spec` references existing files
+- [x] **T095** Aggregate results into `validation_report.json`
+- [x] **T096** Make validation messages actionable
+- [x] **T097** Unit-test each feature check
 
 ### G. Asset Generator (future)
 
-- [ ] **T098** Create `harness/assets.py` module
-- [ ] **T099** Generate/collect the required image asset
-- [ ] **T100** Prepare table data structures
-- [ ] **T101** Prepare formula metadata
-- [ ] **T102** Resolve asset file references for the renderer
-- [ ] **T103** Validate asset references against generated files
-- [ ] **T104** Unit-test asset preparation
+- [x] **T098** Create `harness/assets.py` module
+- [x] **T099** Generate/collect the required image asset
+- [x] **T100** Prepare table data structures
+- [x] **T101** Prepare formula metadata
+- [x] **T102** Resolve asset file references for the renderer
+- [x] **T103** Validate asset references against generated files
+- [x] **T104** Unit-test asset preparation
 
 ### H. Evidence Reporter (future)
 
-- [ ] **T105** Create `harness/evidence.py` module
-- [ ] **T106** Collect PDF path and build status
-- [ ] **T107** Collect requirement checklist results
-- [ ] **T108** Collect token/cost summary if available
-- [ ] **T109** Collect known limitations
-- [ ] **T110** Emit `final_report.md`
-- [ ] **T111** Unit-test evidence aggregation
+- [x] **T105** Create `harness/evidence.py` module
+- [x] **T106** Collect PDF path and build status
+- [x] **T107** Collect requirement checklist results
+- [x] **T108** Collect token/cost summary if available
+- [x] **T109** Collect known limitations
+- [x] **T110** Emit `final_report.md`
+- [x] **T111** Unit-test evidence aggregation
 
 ## Phase D — Orchestration
 
@@ -784,5 +784,5 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 ---
 
-**Total tasks: 603** (173 completed, 430 remaining).
+**Total tasks: 603** (215 completed, 388 remaining).
 
