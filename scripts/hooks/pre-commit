@@ -1,0 +1,17 @@
+#!/usr/bin/env sh
+# Shared pre-commit hook: fast lint + format check before every commit.
+# Tool-agnostic (runs for any committer: Claude, Codex, terminal, IDE).
+#
+# Install once per clone:
+#   git config core.hooksPath scripts/hooks
+#
+# Tests are intentionally NOT run here (kept fast); CI runs the full suite.
+set -e
+
+echo "[pre-commit] ruff check ..."
+uv run --no-project --with ruff ruff check .
+
+echo "[pre-commit] ruff format --check ..."
+uv run --no-project --with ruff ruff format --check .
+
+echo "[pre-commit] OK (tests run in CI)"

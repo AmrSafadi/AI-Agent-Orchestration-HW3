@@ -1,4 +1,5 @@
 {
+  "version": "1.00",
   "engine": "lualatex",
   "fallback_engine": "xelatex",
   "bibliography_backend": "biber",

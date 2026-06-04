@@ -153,7 +153,9 @@ def _create_dry_run_artifact(root: Path, artifact_name: str, target: Path) -> No
     elif artifact_name == "review_report":
         target.write_text(json.dumps(_sample_review_report(), indent=2), encoding="utf-8")
     elif artifact_name == "manuscript":
-        target.write_text("# Dry Run Manuscript\n\nNo real CrewAI execution has happened.\n", encoding="utf-8")
+        target.write_text(
+            "# Dry Run Manuscript\n\nNo real CrewAI execution has happened.\n", encoding="utf-8"
+        )
     else:
         target.write_text("{}", encoding="utf-8")
 
@@ -174,9 +176,7 @@ def _sample_research_pack() -> dict[str, Any]:
                 "notes": "Reference source for CrewAI concepts.",
             }
         ],
-        "chapter_notes": {
-            "From Prompt To Crew": "Explain why specialized agents improve clarity."
-        },
+        "chapter_notes": {"From Prompt To Crew": "Explain why specialized agents improve clarity."},
         "unsupported_claim_warnings": [],
     }
 

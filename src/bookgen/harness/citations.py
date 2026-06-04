@@ -38,7 +38,9 @@ class CitationValidationResult:
         return not self.missing_keys
 
 
-def load_source_registry(registry_path: Path | str = DEFAULT_REGISTRY_PATH) -> dict[str, SourceRecord]:
+def load_source_registry(
+    registry_path: Path | str = DEFAULT_REGISTRY_PATH,
+) -> dict[str, SourceRecord]:
     """Load curated source records keyed by citation key."""
     path = Path(registry_path)
     with path.open("r", encoding="utf-8") as handle:
