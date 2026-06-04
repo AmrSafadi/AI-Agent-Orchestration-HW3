@@ -17,7 +17,7 @@ Set `$env:PYTHONPATH="src"` first (PowerShell).
 |---|---|---|
 | Startup check (default) | `uv run --no-project --with pydantic --with matplotlib --with jinja2 python -m bookgen.main` | No |
 | Explicit dry-run | `… python -m bookgen.main --dry-run` | No |
-| Render + attempt PDF | `… python -m bookgen.main --build-pdf` (renders `main.tex`, then attempts PDF compile; needs a TeX toolchain) | No |
+| Render + build PDF | `… python -m bookgen.main --build-pdf` (renders `main.tex`, then compiles the PDF; needs a TeX toolchain) — verified to produce an 18-page `final.pdf` (lualatex + biber, culmus David CLM); a committed snapshot is at the repo root | No |
 | Real crew run | `… python -m bookgen.main --run-crew` (needs `OPENAI_API_KEY`) | Yes |
 | Run tests | `uv run --no-project --with pydantic --with pytest --with matplotlib --with jinja2 python -m pytest tests/unit` | No |
 
@@ -68,6 +68,8 @@ explicit Hebrew↔English BiDi block to demonstrate the RTL↔LTR transition.
 
 Screenshots of representative runs and a fuller Nielsen-heuristics review are
 tracked in TODO. The LaTeX pipeline has landed: `main.tex` is rendered on every
-run. The only remaining blocker is producing the final compiled PDF, which
-requires a free TeX toolchain (lualatex + biber) and the Hebrew font
-David CLM; once present, the PDF becomes the primary visual deliverable.
+run, and `--build-pdf` compiles the final PDF end-to-end. The compiled,
+18-page `final.pdf` is committed (a snapshot at the repo root, plus
+`generated/pdf/final.pdf`) and serves as the primary visual deliverable.
+Reproducing it from scratch requires a free TeX toolchain (lualatex + biber)
+and the Hebrew font David CLM (culmus).

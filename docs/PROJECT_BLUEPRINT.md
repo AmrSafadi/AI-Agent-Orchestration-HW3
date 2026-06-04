@@ -117,7 +117,7 @@ Creates a LaTeX assembly specification. It does not compile the PDF. It prepares
 | CrewAI Task Factories | Defines five context-linked tasks. | Implemented |
 | Crew Assembly | `build_crew()` assembles a sequential crew with dry-run safety. | Implemented |
 | LaTeX Renderer | Renders `.tex` from Jinja templates (`render_main_tex`, `\VAR{}`/`\BLOCK{}`, `escape_latex`). | Implemented |
-| PDFCompiler | Runs LaTeX compilation (`lualatex`->`biber`->`lualatex`->`lualatex`, graceful `toolchain_available`, `CompileResult`); only the final `final.pdf` still needs a TeX toolchain + Hebrew font. | Implemented |
+| PDFCompiler | Runs LaTeX compilation (`lualatex`->`biber`->`lualatex`->`lualatex`, graceful `toolchain_available`, `CompileResult`); the 18-page Hebrew-primary `final.pdf` compiles end-to-end and is committed. Reproducing it from scratch needs a TeX toolchain (`lualatex`+`biber`) with culmus (`David CLM`). | Implemented |
 | SDK Facade | `sdk/sdk.py` `BookGenSDK` is the single programmatic entry point; `main.py` holds no business logic. | Implemented |
 | API Gatekeeper | `shared/gatekeeper.py` `ApiGatekeeper` enforces a 60s sliding-window rate limit, retries, `BackpressureError`, and `get_queue_status`. | Implemented |
 
@@ -174,7 +174,7 @@ AI-Agent-Orchestration-HW3/
 | 4 | CrewAI definitions with dry-run safety | Complete |
 | 5 | Sequential crew execution and artifact persistence (dry-run path) | Complete |
 | 6 | LaTeX rendering from structured artifacts | Complete |
-| 7 | PDF compilation and final validation | Remaining (only `final.pdf` is blocked on a free TeX toolchain + Hebrew font) |
+| 7 | PDF compilation and final validation | Complete (18-page `final.pdf` compiles end-to-end and is committed; reproducing it needs a TeX toolchain with culmus `David CLM`) |
 | 8 | Polish, tests, README evidence, submission cleanup | Complete |
 
 ## 10. Current Implementation Status
@@ -209,8 +209,9 @@ Implemented:
 
 Not implemented:
 
-- OpenAI or other provider calls (under the project's no-paid-API constraint the real crew run stays dry-run-only),
-- the final compiled `final.pdf` (blocked only on installing a free TeX toolchain `lualatex`+`biber` and a Hebrew font `David CLM`, not on missing code).
+- OpenAI or other provider calls (under the project's no-paid-API constraint the real crew run stays dry-run-only).
+
+The 18-page Hebrew-primary `final.pdf` compiles end-to-end and is committed (a snapshot copy sits at the repository root so a grader sees it on clone). Reproducing it from scratch requires a free TeX toolchain (`lualatex`+`biber`) with culmus (`David CLM`).
 
 ## 11. Future Work
 

@@ -16,7 +16,7 @@ This document maps course concepts to concrete project components.
 | LaTeX production | Turning content into professional PDF output. | `templates/latex/main.tex.j2`, implemented `src/bookgen/latex/renderer.py`, `compiler.py`, `escaping.py`, `build.py`, generated `.bib` and assets. |
 | Language | The primary language and script direction of the document. | The document is primarily Hebrew (RTL) via `\setmainlanguage{hebrew}` / `\setmainfont{David CLM}`, ~3,260 Hebrew words across 6 chapters, with English kept inline only for technical terms; the `hebrew_english_section` is an explicit `\begin{english}` BiDi demo block, not the document's primary language. |
 
-Quality and entry point: 77 tests pass, coverage 93.41% (gate 85%), ruff 0 violations. The CLI is `python -m bookgen.main --dry-run [--build-pdf] [--run-crew]`.
+Quality and entry point: 77 tests pass, coverage 93.06% (gate 85%), ruff 0 violations. The CLI is `python -m bookgen.main --dry-run [--build-pdf] [--run-crew]`. Running `--build-pdf` produces an 18-page Hebrew-primary `final.pdf`, and a snapshot copy is committed at the repository root so a grader sees it on clone.
 
 ## Specific Demonstrations
 
@@ -106,4 +106,4 @@ The project is designed so a grader can inspect:
 
 ### LaTeX Production
 
-The system uses LaTeX templates and a deterministic compiler wrapper. The LaTeX Agent only produces assembly intent; Python renders the `.tex` (`renderer.py`) and compiles it (`compiler.py`, running `lualatex` -> `biber` -> `lualatex` -> `lualatex`). Rendering and PDF compilation are implemented and exercised by tests; only the final compiled `final.pdf` is blocked, and solely on installing a free TeX toolchain (`lualatex` + `biber`) plus the Hebrew `David CLM` font that are not present locally — not on missing code.
+The system uses LaTeX templates and a deterministic compiler wrapper. The LaTeX Agent only produces assembly intent; Python renders the `.tex` (`renderer.py`) and compiles it (`compiler.py`, running `lualatex` -> `biber` -> `lualatex` -> `lualatex`). Rendering and PDF compilation are implemented, exercised by tests, and verified end-to-end: the compiled 18-page Hebrew-primary `final.pdf` is produced and committed at the repository root, with the cover, table of contents, embedded image, Python-generated graph, table, mathematical formula, Hebrew-English BiDi block, and the bibliography (3 citations resolved) all rendering correctly and 0 overfull boxes (no margin overflow). Reproducing the PDF from scratch requires a free TeX toolchain (`lualatex` + `biber`) plus the Hebrew `David CLM` font (culmus package); the default `--dry-run` path does not compile.
