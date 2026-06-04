@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 
 class PlannedSection(BaseModel):
@@ -107,6 +107,13 @@ class LatexSpec(BaseModel):
     assets: list[LatexAsset] = Field(default_factory=list)
     bibliography_file: str = Field(min_length=1)
     bidi_required: bool = True
+
+    @field_validator("engine")
+    @classmethod
+    def engine_must_be_supported(cls, value: str) -> str:
+        if value not in {"lualatex", "xelatex", "pdflatex"}:
+            raise ValueError(f"unsupported LaTeX engine: {value}")
+        return value
 
 
 class ValidationCheck(BaseModel):

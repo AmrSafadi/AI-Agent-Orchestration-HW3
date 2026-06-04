@@ -142,7 +142,7 @@ The project is successful if:
 | Phase | Purpose | Deliverables |
 |---|---|---|
 | 0. Planning | Align architecture with course material before coding. | These five planning documents. |
-| 1. Skeleton | Prepare directories, config, dependencies, and templates. | Empty package structure, config files, `.env.example`, LaTeX templates. |
+| 1. Skeleton | Prepare directories, config, dependencies, and templates. | Empty package structure, config files, `.env-example`, LaTeX templates. |
 | 2. Schemas | Define structured intermediate artifacts. | Document plan schema, research pack schema, manuscript schema, LaTeX spec schema. |
 | 3. CrewAI definitions | Define agents, tasks, and sequential crew. | Agent/task/crew modules. |
 | 4. Deterministic components | Add citation manager, graph generator, validators, renderer, compiler. | Python services with unit tests. |
