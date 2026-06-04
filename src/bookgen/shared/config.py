@@ -13,9 +13,12 @@ REQUIRED_CONFIG_FILES = {
     "models": "models.json",
     "latex": "latex.json",
     "budgets": "budgets.json",
+    "rate_limits": "rate_limits.json",
 }
 
 REQUIRED_AGENTS = ("planner", "research", "writer", "reviewer", "latex")
+
+EXPECTED_CONFIG_VERSION = "1.00"
 
 
 class ProjectMetadata(BaseModel):
@@ -110,6 +113,18 @@ class BudgetsConfig(BaseModel):
     notes: str = ""
 
 
+class RateLimitsConfig(BaseModel):
+    """API rate-limit configuration for the gatekeeper (guideline 5.2)."""
+
+    version: str = Field(min_length=1)
+    requests_per_minute: int = Field(gt=0)
+    requests_per_hour: int = Field(gt=0)
+    concurrent_max: int = Field(gt=0)
+    retry_after_seconds: float = Field(ge=0)
+    max_retries: int = Field(ge=0)
+    max_queue_depth: int = Field(gt=0)
+
+
 class AppConfig(BaseModel):
     """Validated application configuration loaded from config files."""
 
@@ -119,6 +134,7 @@ class AppConfig(BaseModel):
     models: ModelsConfig
     latex: LatexConfig
     budgets: BudgetsConfig
+    rate_limits: RateLimitsConfig
     root_dir: Path
     config_dir: Path
 
@@ -155,11 +171,29 @@ def load_config(config_dir: Path | None = None) -> AppConfig:
         key: load_json_file(resolved_config_dir / filename)
         for key, filename in REQUIRED_CONFIG_FILES.items()
     }
-    return AppConfig(
+    config = AppConfig(
         setup=SetupConfig.model_validate(raw["setup"]),
         models=ModelsConfig.model_validate(raw["models"]),
         latex=LatexConfig.model_validate(raw["latex"]),
         budgets=BudgetsConfig.model_validate(raw["budgets"]),
+        rate_limits=RateLimitsConfig.model_validate(raw["rate_limits"]),
         root_dir=root,
         config_dir=resolved_config_dir,
     )
+    _validate_config_versions(config)
+    return config
+
+
+def _validate_config_versions(config: AppConfig) -> None:
+    """Fail if any versioned config file does not match the expected version."""
+    actual = {
+        "models": config.models.version,
+        "latex": config.latex.version,
+        "budgets": config.budgets.version,
+        "rate_limits": config.rate_limits.version,
+    }
+    mismatched = {name: value for name, value in actual.items() if value != EXPECTED_CONFIG_VERSION}
+    if mismatched:
+        raise ValueError(
+            f"config version mismatch (expected {EXPECTED_CONFIG_VERSION}): {mismatched}"
+        )

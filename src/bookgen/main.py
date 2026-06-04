@@ -1,4 +1,7 @@
-"""Command-line entry point for the book generation project."""
+"""Command-line entry point for the book generation project.
+
+The CLI holds no business logic; it parses arguments and delegates to the SDK.
+"""
 
 from __future__ import annotations
 
@@ -6,9 +9,7 @@ import argparse
 
 from pydantic import ValidationError
 
-from bookgen.latex.build import build_document
-from bookgen.orchestration.crew import run_crew
-from bookgen.shared.config import load_config
+from bookgen.sdk import BookGenSDK
 from bookgen.shared.logging import configure_logging
 
 
@@ -35,51 +36,33 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Load configuration and run the selected execution mode."""
+    """Parse arguments and drive the BookGen SDK."""
     args = build_parser().parse_args(argv)
     logger = configure_logging()
 
     try:
-        app_config = load_config()
+        sdk = BookGenSDK()
     except (FileNotFoundError, ValueError, ValidationError) as exc:
         logger.error("Configuration failed: %s", exc)
         return 1
 
-    project = app_config.setup.project
+    project = sdk.config.setup.project
     print("BookGen configuration loaded successfully.")
     print(f"Project title: {project.name}")
     print(f"Topic: {project.topic}")
-    print(f"Output directory: {app_config.output_dir}")
-    print(
-        f"Artifact output directory: {app_config.root_dir / app_config.setup.paths.intermediate_dir}"
-    )
+    print(f"Output directory: {sdk.config.output_dir}")
 
     dry_run = not args.run_crew
-    if dry_run:
-        print("Execution mode: DRY-RUN (default). CrewAI kickoff will not be called.")
-    else:
-        print("Execution mode: REAL CREWAI RUN. OPENAI_API_KEY is required.")
+    print("Execution mode: " + ("DRY-RUN (default)." if dry_run else "REAL CREWAI RUN."))
 
     try:
-        run_crew(dry_run=dry_run, root_dir=app_config.root_dir)
+        result = sdk.generate_book(dry_run=dry_run, build_pdf=args.build_pdf)
     except RuntimeError as exc:
         logger.error("%s", exc)
         return 1
 
-    metadata = {
-        "author": project.author,
-        "course": project.course,
-        "lecturer": project.lecturer,
-        "date": project.date,
-    }
-    build = build_document(
-        app_config.root_dir,
-        metadata,
-        compile_after=args.build_pdf,
-        latex_config=app_config.latex.model_dump(),
-    )
-    print(f"Rendered LaTeX project: {build['main_tex']}")
-    print(build["message"])
+    print(f"Rendered LaTeX project: {result['main_tex']}")
+    print(result["message"])
     return 0
 
 

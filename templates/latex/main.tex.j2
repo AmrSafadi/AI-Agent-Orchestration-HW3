@@ -1,8 +1,13 @@
 \documentclass[11pt]{report}
 \usepackage{fontspec}
 \usepackage{polyglossia}
-\setmainlanguage{english}
-\setotherlanguage{hebrew}
+\setmainlanguage{hebrew}
+\setotherlanguage{english}
+% A Hebrew-capable main font is required under LuaLaTeX. Adjust to a font that is
+% installed on the build machine (e.g. "David CLM" / "Frank Ruehl CLM" from the
+% culmus package). English runs use a Latin font via \englishfont.
+\setmainfont{David CLM}
+\newfontfamily\englishfont{Latin Modern Roman}
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{booktabs}

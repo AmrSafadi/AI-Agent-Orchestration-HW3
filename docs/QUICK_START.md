@@ -20,7 +20,7 @@ This loads config, assembles the dry-run crew, and creates or reuses dry-run art
 
 ```powershell
 $env:PYTHONPATH="src"
-uv run --no-project --with pydantic python -m bookgen.main
+uv run --no-project --with pydantic --with matplotlib --with jinja2 python -m bookgen.main
 ```
 
 Expected output:
