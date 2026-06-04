@@ -56,6 +56,7 @@ Config (config/*.json)
 | CrewAI Skills | `orchestration/skills.py` + `skills/*/SKILL.md` | Knowledge packs injected into agents in real-crew mode (course Skill concept). | Implemented |
 | Renderer | `latex/renderer.py` + `latex/escaping.py` + `templates/latex/*` | Render `main.tex` (cover, TOC, figures, table, formula, BiDi, bibliography) from artifacts. | Implemented |
 | PDFCompiler | `latex/compiler.py` | Multi-pass LuaLaTeX/biber compile; graceful without a toolchain. | Implemented (needs a TeX toolchain to emit a PDF) |
+| Build wiring | `latex/build.py` + `main.py --build-pdf` | Render `main.tex` then optionally compile; end-to-end from the CLI. | Implemented |
 | SDK facade | `sdk/sdk.py` | Single entry point all consumers call (guideline 4.1). | Planned |
 | API Gatekeeper | `shared/gatekeeper.py` | Central rate-limited, monitored LLM entry point (guideline 5). | Planned |
 

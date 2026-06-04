@@ -25,6 +25,8 @@ class ProjectMetadata(BaseModel):
     topic: str = Field(min_length=1)
     author: str = Field(min_length=1)
     course: str = Field(min_length=1)
+    lecturer: str = Field(min_length=1)
+    date: str = Field(min_length=1)
     version: str = Field(min_length=1)
 
 

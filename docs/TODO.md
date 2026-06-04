@@ -751,7 +751,7 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 ### AQ. Packaging Hygiene (guideline 14.2)
 
-- [ ] **T586** Add `__init__.py` to `document/`, `harness/`, `latex/`, `orchestration/` (and tests dirs)
+- [x] **T586** Add `__init__.py` to `document/`, `harness/`, `latex/`, `orchestration/` (src subpackages; tests dirs optional)
 - [ ] **T587** Export public interfaces / `__all__` from sub-package inits
 
 ### AR. Documentation Hygiene & Drift
@@ -784,5 +784,5 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 ---
 
-**Total tasks: 603** (277 completed, 326 remaining).
+**Total tasks: 603** (278 completed, 325 remaining).
 
