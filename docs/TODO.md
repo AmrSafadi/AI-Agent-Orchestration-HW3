@@ -250,7 +250,7 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 - [x] **T197** Keep `sample_*` files as committed examples
 - [ ] **T198** Capture token usage from the result
 - [x] **T199** Handle provider/API errors gracefully
-- [ ] **T200** Add an opt-in, key-guarded integration test (skipped without key)
+- [x] **T200** Add an opt-in, key-guarded integration test (skipped without key)
 - [x] **T201** Document the real-run command and prerequisites
 - [ ] **T202** Update IMPLEMENTATION_STATUS after the run
 
@@ -614,9 +614,9 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 - [x] **T496** Final PDF compiles end-to-end
 - [x] **T497** Build log captured
 - [x] **T498** Validation report green
-- [ ] **T499** README evidence and screenshots added
+- [x] **T499** README evidence and screenshots added
 - [ ] **T500** Repository cleaned for submission
-- [ ] **T501** Tag the submission version
+- [x] **T501** Tag the submission version
 - [x] **T502** Final grader walkthrough prepared
 
 ## Phase L — Research & Analysis

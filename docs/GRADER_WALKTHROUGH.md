@@ -122,6 +122,18 @@ for technical terms and in the explicit BiDi demo block.
 | 12 | Bibliography and citations | Bibliography page; 8 inline `\cite` markers across 3 sources | `harness/citations.py` -> `references.bib`, `\nocite{*}` |
 | 13 | Final PDF output | `final.pdf` at the repo root | `generated/pdf/final.pdf` |
 
+## 7. Visual Evidence
+
+Rendered pages from the committed `final.pdf` (PNGs under `docs/screenshots/`):
+
+| Page | Screenshot | Shows |
+|---|---|---|
+| Cover | `docs/screenshots/cover.png` | Hebrew title + author/course/lecturer/date (BiDi) |
+| Chapter 1 | `docs/screenshots/chapter1.png` | Hebrew prose with inline English technical terms |
+| Features | `docs/screenshots/features.png` | Embedded image, Python graph, and the `\begin{english}` BiDi block |
+| Table | `docs/screenshots/table.png` | Booktabs table (RTL) of agent roles |
+| Bibliography | `docs/screenshots/bibliography.png` | Resolved numbered citations |
+
 Notes for the grader:
 
 - The canonical authored manuscript is `data/intermediate/sample_book_plan.json`
