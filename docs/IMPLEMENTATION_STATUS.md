@@ -12,7 +12,7 @@ This document tracks what is complete, what is in progress, and what remains.
 | 3. Deterministic Harness | Complete | `graph_generator.py`, `citations.py` + `citation_report.py`, `validators.py` (+ latex-spec file checks), `assets.py`, `evidence.py`; headless Agg backend (`_mpl.py`); sample data, tests. (Phase C complete except T072 committed-bib copy.) |
 | Documentation | Complete | `docs/PROJECT_BLUEPRINT.md`, `COURSE_ALIGNMENT.md`, `IMPLEMENTATION_STATUS.md`, `ARCHITECTURE_DIAGRAM.md`, `QUICK_START.md`, `CONTRIBUTING.md`. |
 | 4. CrewAI Definitions | Complete | `agents.py`, `tasks.py`, `build_crew()`, `run_crew()`, CLI dry-run mode, generated intermediate artifacts, orchestration tests. |
-| Guideline Compliance (docs + quality config) | Partial | `docs/PRD.md`, `PLAN.md`, `TODO.md`, `PROMPTS.md`, `PRD_latex_pipeline.md`, `PRD_citation_management.md`; `pyproject.toml` ruff + coverage config; `shared/version.py`; `.env-example`. `ruff check` passes (0 violations); 61 tests pass; coverage 91.64% with `--cov`; `ruff format` clean; pre-commit hook (`scripts/hooks/pre-commit`) + CI (`.github/workflows/ci.yml`) added; README expanded (install/usage/config/license); `uv.lock` committed; config files now carry `version` keys (Phase A complete). Remaining: audit gap-closure items (API gatekeeper, rate limits, LICENSE, validator hardening, runtime config-version validation) tracked in `docs/TODO.md` Phase M. |
+| Guideline Compliance (docs + quality config) | Partial | `docs/PRD.md`, `PLAN.md`, `TODO.md`, `PROMPTS.md`, `PRD_latex_pipeline.md`, `PRD_citation_management.md`; `pyproject.toml` ruff + coverage config; `shared/version.py`; `.env-example`. `ruff check` passes (0 violations); 63 tests pass; coverage 91.90% with `--cov`; `ruff format` clean; pre-commit hook (`scripts/hooks/pre-commit`) + CI (`.github/workflows/ci.yml`) added; README expanded (install/usage/config/license); `uv.lock` committed; config files now carry `version` keys (Phase A complete). Remaining: audit gap-closure items (API gatekeeper, rate limits, LICENSE, validator hardening, runtime config-version validation) tracked in `docs/TODO.md` Phase M. |
 | CrewAI Skills + build-skill | Complete | 3 `SKILL.md` knowledge packs under `skills/`, `orchestration/skills.py` discovery/assignment loader wired into agents (real-crew mode), unit tests; plus a Claude Code build skill at `.claude/skills/build-bookgen/`. |
 | LaTeX Renderer + Compiler (Phase E) | Mostly complete | `latex/escaping.py`, 5 Jinja templates, `latex/renderer.py` (`main.tex` with cover/TOC/figures/table/formula/BiDi/bibliography), `latex/compiler.py` (multi-pass, graceful), `latex/build.py` wired into `main.py` (`--build-pdf`, renders end-to-end from the CLI). Cover carries author/course/lecturer/date; subpackage `__init__.py` added. Pending: actual PDF compile (needs a TeX toolchain), per-chapter files, asset copy, xelatex fallback. |
 
@@ -42,7 +42,7 @@ uv run --no-project --with pydantic --with pytest --with matplotlib --with jinja
 Known passing result (through Phase E):
 
 ```text
-61 passed
+63 passed
 ```
 
 ## Current Generated Outputs
