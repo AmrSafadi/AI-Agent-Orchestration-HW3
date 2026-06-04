@@ -104,7 +104,7 @@ Python components perform fragile or verifiable work:
 Purpose:
 
 - Define topic, title, author, course name, lecturer name, output paths, model provider, token budget, and PDF engine.
-- Keep secrets outside source control through `.env` and `.env.example`.
+- Keep secrets outside source control through `.env` and `.env-example`.
 
 Course reason:
 

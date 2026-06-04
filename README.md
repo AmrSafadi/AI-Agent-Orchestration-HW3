@@ -24,32 +24,45 @@ real (paid) crew execution. Live status:
 
 ## Report
 
-Progress to date (verified working):
+A running summary of what we have built. **We are actively building this project —
+including CrewAI Skills — and will keep this section updated until the homework is
+complete.**
 
-**Delivered**
-- **Documentation:** `PRD`, `PLAN` (architecture + ADRs + extensibility), `TODO`
-  (598 granular tasks), `PROMPTS` (prompt log), per-mechanism PRDs
+**Delivered so far (verified working)**
+- **Documentation:** `PRD`, `PLAN` (architecture, ADRs, extensibility, components),
+  `TODO` (603 granular tasks), `PROMPTS` (prompt log), per-mechanism PRDs
   (`PRD_latex_pipeline`, `PRD_citation_management`), `COSTS`, `USAGE`, plus the
-  blueprint/status/quick-start. README expanded for newcomers.
-- **Code foundation:** versioned config + Pydantic schemas; deterministic harness
-  (citation/BibTeX manager, matplotlib pipeline graph, document validators);
-  CrewAI orchestration — five agents, five context-linked tasks, a sequential
+  blueprint/status/quick-start.
+- **Foundation (Phase A):** versioned config — every `config/*.json` carries a
+  `version` — with Pydantic loaders, logging, and a single-source `shared/version.py`.
+- **Schemas (Phase B):** 10 artifact contracts (`schemas.py` + `report_schemas.py`)
+  with validators, documented examples, and round-trip tests.
+- **Deterministic harness:** citation/BibTeX manager, matplotlib pipeline graph,
+  document validators.
+- **CrewAI orchestration:** five agents, five context-linked tasks, a sequential
   crew with a safe **dry-run default** (no API, no cost).
-- **Quality tooling:** Ruff lint (0 violations) + `ruff format`; shared pre-commit
-  hook (`scripts/hooks/pre-commit`); GitHub Actions CI enforcing an 85% coverage
-  gate.
-- **Tests:** 24 passing, **90.55%** coverage (validators and logging at 100%).
+- **CrewAI Skills:** three knowledge packs under `skills/` (latex-style,
+  citation-discipline, course-alignment) with a discovery/assignment loader wired
+  into the agents in real-crew mode — the course Skill concept.
+- **Quality tooling:** Ruff lint (0 violations) + `ruff format`; a shared pre-commit
+  hook; GitHub Actions CI enforcing an 85% coverage gate.
+- **Build skill:** a Claude Code `/build-bookgen` skill that encodes our build workflow.
+- **Tests:** 44 passing, **91.60%** coverage.
 
 **Verified**
-- `ruff check` → 0 violations; `ruff format` → clean.
-- `pytest tests` → 24 passed; coverage 90.55% (gate 85%).
+- `ruff check` → 0 violations; `ruff format` → clean; every code file ≤ 150 lines.
+- `pytest tests` → 44 passed; coverage 91.60% (gate 85%).
 - The dry-run pipeline produces all five intermediate artifacts with no API call.
+
+**In progress / next**
+- Continuing to build out **CrewAI Skills** and the remaining phases (Phase C
+  harness hardening, then the LaTeX renderer and PDF compiler).
+- Remaining work is tracked in [docs/TODO.md](docs/TODO.md); this Report will be
+  updated as we go.
 
 **Not yet implemented**
 - LaTeX rendering & PDF compilation (renderer/compiler are stubs) — no final PDF yet.
 - Real (paid) CrewAI execution.
-- Remaining audit/guideline gaps are tracked in [docs/TODO.md](docs/TODO.md)
-  Phase M (API gatekeeper / rate-limits, etc.).
 
 ## Installation
 

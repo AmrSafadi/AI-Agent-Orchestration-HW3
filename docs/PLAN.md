@@ -50,6 +50,7 @@ Config (config/*.json)
 | Agents | `orchestration/agents.py` | Five agent factories (+ dry-run fallback). | Implemented |
 | Tasks | `orchestration/tasks.py` | Five context-linked task factories. | Implemented |
 | Crew | `orchestration/crew.py` | `build_crew()` / `run_crew()`; dry-run default. | Implemented |
+| CrewAI Skills | `orchestration/skills.py` + `skills/*/SKILL.md` | Knowledge packs injected into agents in real-crew mode (course Skill concept). | Implemented |
 | Renderer | `latex/renderer.py` | Render `.tex` from templates + artifacts. | Placeholder |
 | PDFCompiler | `latex/compiler.py` | Multi-pass LuaLaTeX/biber compile. | Placeholder |
 | SDK facade | `sdk/sdk.py` | Single entry point all consumers call (guideline 4.1). | Planned |

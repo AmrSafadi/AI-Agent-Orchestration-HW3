@@ -16,7 +16,7 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 - [x] **T002** Create `pyproject.toml` as the single dependency source (no requirements.txt)
 - [x] **T003** Adopt `uv` as the only package manager and task runner
 - [x] **T004** Add `.gitignore` for `.env`, `generated/`, `data/references/`, caches
-- [x] **T005** Add `.env.example` and `.env-example` with dummy values
+- [x] **T005** Add `.env-example` with dummy values (single guideline-named file)
 - [x] **T006** Create `src/bookgen/` package layout with subpackages
 - [x] **T007** Add `README.md` with install/run/test commands
 - [x] **T008** Add planning docs: PROJECT_PLAN, ARCHITECTURE, AGENTS_DESIGN, TASK_FLOW, FOLDER_STRUCTURE
@@ -40,46 +40,46 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 ### C. Pydantic Artifact Contracts
 
-- [ ] **T021** Schema — BookPlan: define fields and types.
-- [ ] **T022** Schema — BookPlan: add field validators.
-- [ ] **T023** Schema — BookPlan: document an example payload.
-- [ ] **T024** Schema — BookPlan: add a round-trip serialization test.
-- [ ] **T025** Schema — ResearchPack: define fields and types.
-- [ ] **T026** Schema — ResearchPack: add field validators.
-- [ ] **T027** Schema — ResearchPack: document an example payload.
-- [ ] **T028** Schema — ResearchPack: add a round-trip serialization test.
-- [ ] **T029** Schema — Manuscript: define fields and types.
-- [ ] **T030** Schema — Manuscript: add field validators.
-- [ ] **T031** Schema — Manuscript: document an example payload.
-- [ ] **T032** Schema — Manuscript: add a round-trip serialization test.
-- [ ] **T033** Schema — ReviewReport: define fields and types.
-- [ ] **T034** Schema — ReviewReport: add field validators.
-- [ ] **T035** Schema — ReviewReport: document an example payload.
-- [ ] **T036** Schema — ReviewReport: add a round-trip serialization test.
-- [ ] **T037** Schema — LatexSpec: define fields and types.
-- [ ] **T038** Schema — LatexSpec: add field validators.
-- [ ] **T039** Schema — LatexSpec: document an example payload.
-- [ ] **T040** Schema — LatexSpec: add a round-trip serialization test.
-- [ ] **T041** Schema — ValidationReport: define fields and types.
-- [ ] **T042** Schema — ValidationReport: add field validators.
-- [ ] **T043** Schema — ValidationReport: document an example payload.
-- [ ] **T044** Schema — ValidationReport: add a round-trip serialization test.
-- [ ] **T045** Schema — CitationReport: define fields and types.
-- [ ] **T046** Schema — CitationReport: add field validators.
-- [ ] **T047** Schema — CitationReport: document an example payload.
-- [ ] **T048** Schema — CitationReport: add a round-trip serialization test.
-- [ ] **T049** Schema — SourceRegistryEntry: define fields and types.
-- [ ] **T050** Schema — SourceRegistryEntry: add field validators.
-- [ ] **T051** Schema — SourceRegistryEntry: document an example payload.
-- [ ] **T052** Schema — SourceRegistryEntry: add a round-trip serialization test.
-- [ ] **T053** Schema — AssetSpec: define fields and types.
-- [ ] **T054** Schema — AssetSpec: add field validators.
-- [ ] **T055** Schema — AssetSpec: document an example payload.
-- [ ] **T056** Schema — AssetSpec: add a round-trip serialization test.
-- [ ] **T057** Schema — EvidenceReport: define fields and types.
-- [ ] **T058** Schema — EvidenceReport: add field validators.
-- [ ] **T059** Schema — EvidenceReport: document an example payload.
-- [ ] **T060** Schema — EvidenceReport: add a round-trip serialization test.
+- [x] **T021** Schema — BookPlan: define fields and types.
+- [x] **T022** Schema — BookPlan: add field validators.
+- [x] **T023** Schema — BookPlan: document an example payload.
+- [x] **T024** Schema — BookPlan: add a round-trip serialization test.
+- [x] **T025** Schema — ResearchPack: define fields and types.
+- [x] **T026** Schema — ResearchPack: add field validators.
+- [x] **T027** Schema — ResearchPack: document an example payload.
+- [x] **T028** Schema — ResearchPack: add a round-trip serialization test.
+- [x] **T029** Schema — Manuscript: define fields and types.
+- [x] **T030** Schema — Manuscript: add field validators.
+- [x] **T031** Schema — Manuscript: document an example payload.
+- [x] **T032** Schema — Manuscript: add a round-trip serialization test.
+- [x] **T033** Schema — ReviewReport: define fields and types.
+- [x] **T034** Schema — ReviewReport: add field validators.
+- [x] **T035** Schema — ReviewReport: document an example payload.
+- [x] **T036** Schema — ReviewReport: add a round-trip serialization test.
+- [x] **T037** Schema — LatexSpec: define fields and types.
+- [x] **T038** Schema — LatexSpec: add field validators.
+- [x] **T039** Schema — LatexSpec: document an example payload.
+- [x] **T040** Schema — LatexSpec: add a round-trip serialization test.
+- [x] **T041** Schema — ValidationReport: define fields and types.
+- [x] **T042** Schema — ValidationReport: add field validators.
+- [x] **T043** Schema — ValidationReport: document an example payload.
+- [x] **T044** Schema — ValidationReport: add a round-trip serialization test.
+- [x] **T045** Schema — CitationReport: define fields and types.
+- [x] **T046** Schema — CitationReport: add field validators.
+- [x] **T047** Schema — CitationReport: document an example payload.
+- [x] **T048** Schema — CitationReport: add a round-trip serialization test.
+- [x] **T049** Schema — SourceRegistryEntry: define fields and types.
+- [x] **T050** Schema — SourceRegistryEntry: add field validators.
+- [x] **T051** Schema — SourceRegistryEntry: document an example payload.
+- [x] **T052** Schema — SourceRegistryEntry: add a round-trip serialization test.
+- [x] **T053** Schema — AssetSpec: define fields and types.
+- [x] **T054** Schema — AssetSpec: add field validators.
+- [x] **T055** Schema — AssetSpec: document an example payload.
+- [x] **T056** Schema — AssetSpec: add a round-trip serialization test.
+- [x] **T057** Schema — EvidenceReport: define fields and types.
+- [x] **T058** Schema — EvidenceReport: add field validators.
+- [x] **T059** Schema — EvidenceReport: document an example payload.
+- [x] **T060** Schema — EvidenceReport: add a round-trip serialization test.
 
 ## Phase C — Harness
 
@@ -544,7 +544,7 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 - [ ] **T446** Confirm no API keys/secrets in source
 - [ ] **T447** Confirm `.env` is git-ignored
-- [ ] **T448** Confirm `.env-example`/`.env.example` hold only dummy values
+- [ ] **T448** Confirm `.env-example` holds only dummy values
 - [ ] **T449** Confirm `.gitignore` covers `*.key`, `*.pem`, `credentials.json`
 - [ ] **T450** Access secrets only via environment variables
 - [ ] **T451** Document least-privilege/key-rotation guidance
@@ -756,7 +756,7 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 ### AR. Documentation Hygiene & Drift
 
-- [ ] **T588** Resolve dual env-example: commit `.env-example`, remove stale `.env.example`, update `FOLDER_STRUCTURE.md`/`.gitignore` references
+- [x] **T588** Resolve dual env-example: kept `.env-example` (guideline name), removed `.env.example`, updated doc references
 - [ ] **T589** Add README guideline-2.1 sections: Installation, Configuration Guide (per `config/*.json` param), License & Credits
 - [ ] **T590** Reconcile/prune FOLDER_STRUCTURE drift: `process.py`, `document/artifacts.py`, `scripts/`, `data/input/project_config.json`, `docs/ADRS.md`
 - [ ] **T591** Consolidate legacy root docs (AGENTS_DESIGN/ARCHITECTURE/PROJECT_PLAN/TASK_FLOW/FOLDER_STRUCTURE) into `docs/` or mark superseded
@@ -774,7 +774,15 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 - [x] **T597** Add a pre-commit hook (lint + format check) shared via `core.hooksPath` (`scripts/hooks/pre-commit`)
 - [x] **T598** Add a CI workflow (`.github/workflows/ci.yml`) running ruff + format check + `pytest --cov` on each PR
 
+### AU. Skills (CrewAI course feature + build tooling)
+
+- [x] **T599** Create CrewAI Skill packs under `skills/` (latex-style, citation-discipline, course-alignment)
+- [x] **T600** Add `orchestration/skills.py` for skill discovery and per-agent assignment
+- [x] **T601** Wire skills into agents via `skills=` (real-crew mode only; dry-run unaffected)
+- [x] **T602** Unit-test skill discovery and assignment
+- [x] **T603** Add a Claude Code build skill (`.claude/skills/build-bookgen/SKILL.md`)
+
 ---
 
-**Total tasks: 598** (127 completed, 471 remaining).
+**Total tasks: 603** (173 completed, 430 remaining).
 

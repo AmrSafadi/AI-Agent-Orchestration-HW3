@@ -31,7 +31,7 @@ AI-Agent-Orchestration-HW3/
 |-- FOLDER_STRUCTURE.md
 |-- pyproject.toml
 |-- uv.lock
-|-- .env.example
+|-- .env-example
 |-- .gitignore
 |
 |-- docs/
@@ -337,4 +337,4 @@ Reason:
 | Generated files accidentally committed. | Use `.gitignore` for `generated/` except final evidence if required. |
 | Existing repository files conflict with new package names. | Use a distinct package name such as `bookgen`. |
 | Planning docs drift from implementation. | Update `docs/TODO.md` and ADRs during implementation. |
-| Secrets leak through config. | Use `.env.example`, `.gitignore`, and no hardcoded API keys. |
+| Secrets leak through config. | Use `.env-example`, `.gitignore`, and no hardcoded API keys. |

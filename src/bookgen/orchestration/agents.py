@@ -15,6 +15,8 @@ try:  # pragma: no cover - exercised only when CrewAI is installed locally.
 except ImportError:  # pragma: no cover - the fallback is covered via factories.
     CrewAIAgent = None
 
+from bookgen.orchestration.skills import assigned_skill_paths
+
 
 @dataclass
 class DryRunAgent:
@@ -40,6 +42,7 @@ def create_planner_agent(use_real_crewai: bool = False) -> Any:
             "into a clear, course-aligned document plan before any writing begins."
         ),
         use_real_crewai=use_real_crewai,
+        skill_paths=assigned_skill_paths("planner"),
     )
 
 
@@ -57,6 +60,7 @@ def create_research_agent(use_real_crewai: bool = False) -> Any:
             "observability, and LaTeX production."
         ),
         use_real_crewai=use_real_crewai,
+        skill_paths=assigned_skill_paths("research"),
     )
 
 
@@ -73,6 +77,7 @@ def create_writer_agent(use_real_crewai: bool = False) -> Any:
             "of inventing new sources, and you preserve the planned document structure."
         ),
         use_real_crewai=use_real_crewai,
+        skill_paths=assigned_skill_paths("writer"),
     )
 
 
@@ -89,6 +94,7 @@ def create_reviewer_agent(use_real_crewai: bool = False) -> Any:
             "before deterministic validators inspect the technical artifacts."
         ),
         use_real_crewai=use_real_crewai,
+        skill_paths=assigned_skill_paths("reviewer"),
     )
 
 
@@ -105,6 +111,7 @@ def create_latex_agent(use_real_crewai: bool = False) -> Any:
             "assembly intent while deterministic Python components render and compile later."
         ),
         use_real_crewai=use_real_crewai,
+        skill_paths=assigned_skill_paths("latex"),
     )
 
 
@@ -124,7 +131,13 @@ def crewai_available() -> bool:
     return CrewAIAgent is not None
 
 
-def _create_agent(role: str, goal: str, backstory: str, use_real_crewai: bool = False) -> Any:
+def _create_agent(
+    role: str,
+    goal: str,
+    backstory: str,
+    use_real_crewai: bool = False,
+    skill_paths: list[str] | None = None,
+) -> Any:
     agent_kwargs = {
         "role": role,
         "goal": goal,
@@ -136,4 +149,6 @@ def _create_agent(role: str, goal: str, backstory: str, use_real_crewai: bool = 
         return DryRunAgent(**agent_kwargs)
     if CrewAIAgent is None:
         raise RuntimeError("CrewAI is not installed; real agent construction is unavailable.")
+    if skill_paths:
+        agent_kwargs["skills"] = skill_paths
     return CrewAIAgent(**agent_kwargs)
