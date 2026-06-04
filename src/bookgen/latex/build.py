@@ -9,6 +9,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from bookgen.document.schemas import BookPlan, LatexSpec
+from bookgen.harness.citations import generate_references_bib
 from bookgen.latex.compiler import compile_pdf
 from bookgen.latex.renderer import DEFAULT_TEMPLATES_DIR, render_main_tex
 
@@ -31,6 +32,9 @@ def build_document(
     )
 
     references_bib = root / "data/references/references.bib"
+    registry = root / "data/input/source_registry.json"
+    if registry.exists() and not references_bib.exists():
+        generate_references_bib(registry_path=registry, output_path=references_bib)
     main_tex = render_main_tex(
         latex_spec,
         book_plan,

@@ -411,45 +411,45 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 ### R. Chapter Authoring
 
-- [ ] **T337** Chapter — From Prompt to Crew: outline the chapter.
-- [ ] **T338** Chapter — From Prompt to Crew: draft the prose.
+- [x] **T337** Chapter — From Prompt to Crew: outline the chapter.
+- [x] **T338** Chapter — From Prompt to Crew: draft the prose.
 - [ ] **T339** Chapter — From Prompt to Crew: insert citation markers.
 - [ ] **T340** Chapter — From Prompt to Crew: reviewer pass for clarity.
-- [ ] **T341** Chapter — From Prompt to Crew: render the chapter to .tex.
-- [ ] **T342** Chapter — Agent Roles & Tasks: outline the chapter.
-- [ ] **T343** Chapter — Agent Roles & Tasks: draft the prose.
+- [x] **T341** Chapter — From Prompt to Crew: render the chapter to .tex.
+- [x] **T342** Chapter — Agent Roles & Tasks: outline the chapter.
+- [x] **T343** Chapter — Agent Roles & Tasks: draft the prose.
 - [ ] **T344** Chapter — Agent Roles & Tasks: insert citation markers.
 - [ ] **T345** Chapter — Agent Roles & Tasks: reviewer pass for clarity.
-- [ ] **T346** Chapter — Agent Roles & Tasks: render the chapter to .tex.
-- [ ] **T347** Chapter — Sequential Orchestration: outline the chapter.
-- [ ] **T348** Chapter — Sequential Orchestration: draft the prose.
+- [x] **T346** Chapter — Agent Roles & Tasks: render the chapter to .tex.
+- [x] **T347** Chapter — Sequential Orchestration: outline the chapter.
+- [x] **T348** Chapter — Sequential Orchestration: draft the prose.
 - [ ] **T349** Chapter — Sequential Orchestration: insert citation markers.
 - [ ] **T350** Chapter — Sequential Orchestration: reviewer pass for clarity.
-- [ ] **T351** Chapter — Sequential Orchestration: render the chapter to .tex.
-- [ ] **T352** Chapter — The Deterministic Harness: outline the chapter.
-- [ ] **T353** Chapter — The Deterministic Harness: draft the prose.
+- [x] **T351** Chapter — Sequential Orchestration: render the chapter to .tex.
+- [x] **T352** Chapter — The Deterministic Harness: outline the chapter.
+- [x] **T353** Chapter — The Deterministic Harness: draft the prose.
 - [ ] **T354** Chapter — The Deterministic Harness: insert citation markers.
 - [ ] **T355** Chapter — The Deterministic Harness: reviewer pass for clarity.
-- [ ] **T356** Chapter — The Deterministic Harness: render the chapter to .tex.
-- [ ] **T357** Chapter — LaTeX Production & BiDi: outline the chapter.
-- [ ] **T358** Chapter — LaTeX Production & BiDi: draft the prose.
+- [x] **T356** Chapter — The Deterministic Harness: render the chapter to .tex.
+- [x] **T357** Chapter — LaTeX Production & BiDi: outline the chapter.
+- [x] **T358** Chapter — LaTeX Production & BiDi: draft the prose.
 - [ ] **T359** Chapter — LaTeX Production & BiDi: insert citation markers.
 - [ ] **T360** Chapter — LaTeX Production & BiDi: reviewer pass for clarity.
-- [ ] **T361** Chapter — LaTeX Production & BiDi: render the chapter to .tex.
-- [ ] **T362** Chapter — Conclusion: outline the chapter.
-- [ ] **T363** Chapter — Conclusion: draft the prose.
+- [x] **T361** Chapter — LaTeX Production & BiDi: render the chapter to .tex.
+- [x] **T362** Chapter — Conclusion: outline the chapter.
+- [x] **T363** Chapter — Conclusion: draft the prose.
 - [ ] **T364** Chapter — Conclusion: insert citation markers.
 - [ ] **T365** Chapter — Conclusion: reviewer pass for clarity.
-- [ ] **T366** Chapter — Conclusion: render the chapter to .tex.
+- [x] **T366** Chapter — Conclusion: render the chapter to .tex.
 
 ### S. BiDi Hebrew-English
 
-- [ ] **T367** Choose a BiDi chapter topic
-- [ ] **T368** Draft the Hebrew passage
-- [ ] **T369** Interleave English technical terms
-- [ ] **T370** Verify correct LTR/RTL transitions in source
-- [ ] **T371** Select polyglossia/bidi packages
-- [ ] **T372** Render the BiDi chapter to .tex
+- [x] **T367** Choose a BiDi chapter topic
+- [x] **T368** Draft the Hebrew passage
+- [x] **T369** Interleave English technical terms
+- [x] **T370** Verify correct LTR/RTL transitions in source
+- [x] **T371** Select polyglossia/bidi packages
+- [x] **T372** Render the BiDi chapter to .tex
 - [ ] **T373** Verify BiDi correctness in the compiled PDF
 
 ## Phase H — Testing
@@ -784,5 +784,5 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 ---
 
-**Total tasks: 603** (278 completed, 325 remaining).
+**Total tasks: 603** (302 completed, 301 remaining).
 
