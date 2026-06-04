@@ -31,7 +31,7 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 - [x] **T014** Create `config/budgets.json` with cost placeholders
 - [x] **T015** Implement `shared/config.py` Pydantic loaders
 - [x] **T016** Validate the approved five-agent set in config
-- [ ] **T017** Add a version key to each versioned config file (partial — only `setup.json` has one; see T577)
+- [x] **T017** Add a version key to each versioned config file (`setup`/`models`/`latex`/`budgets` all carry one, validated by Pydantic)
 - [x] **T018** Add config-loading unit tests
 - [x] **T019** Audit configs for hardcoded values that belong in config
 - [x] **T020** Implement `shared/logging.py` logging setup
@@ -733,7 +733,7 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 ### AN. Configuration Completeness (guideline 7.3, 8.1)
 
 - [ ] **T576** Add `config/logging_config.json` and wire `shared/logging.py` to read it
-- [ ] **T577** Add a `version` key to `budgets.json`, `models.json`, and `latex.json` (only `setup.json` has one)
+- [x] **T577** Add a `version` key to `budgets.json`, `models.json`, and `latex.json` (done; required field validated by Pydantic)
 - [ ] **T578** Implement runtime configuration-version validation (fail on mismatch)
 - [ ] **T579** Extract immutable constants into `shared/constants.py` (REQUIRED_AGENTS, EXPECTED_ARTIFACTS, ...)
 
@@ -776,5 +776,5 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 ---
 
-**Total tasks: 598** (125 completed, 473 remaining).
+**Total tasks: 598** (127 completed, 471 remaining).
 

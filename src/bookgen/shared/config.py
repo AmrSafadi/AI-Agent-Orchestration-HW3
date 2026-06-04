@@ -62,6 +62,7 @@ class SetupConfig(BaseModel):
 class ModelsConfig(BaseModel):
     """Model defaults for future CrewAI agents."""
 
+    version: str = Field(min_length=1)
     default_provider: str = Field(min_length=1)
     default_model: str = Field(min_length=1)
     temperature: float = Field(ge=0, le=2)
@@ -87,6 +88,7 @@ class LanguageSupportConfig(BaseModel):
 class LatexConfig(BaseModel):
     """LaTeX build settings."""
 
+    version: str = Field(min_length=1)
     engine: str = Field(min_length=1)
     fallback_engine: str = Field(min_length=1)
     bibliography_backend: str = Field(min_length=1)
@@ -99,6 +101,7 @@ class LatexConfig(BaseModel):
 class BudgetsConfig(BaseModel):
     """Cost and token budget placeholders for future API usage."""
 
+    version: str = Field(min_length=1)
     max_total_usd: float = Field(ge=0)
     max_total_tokens: int = Field(ge=0)
     warn_at_percent: int = Field(ge=1, le=100)

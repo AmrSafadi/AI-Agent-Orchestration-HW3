@@ -1,4 +1,5 @@
 {
+  "version": "1.00",
   "max_total_usd": 2.0,
   "max_total_tokens": 100000,
   "warn_at_percent": 80,
