@@ -34,3 +34,9 @@ def test_create_all_tasks_preserves_sequential_order() -> None:
     assert len(tasks) == 5
     assert "book_plan.json" in tasks[0].expected_output
     assert "latex_spec.json" in tasks[-1].expected_output
+
+
+def test_topic_is_injected_into_the_planning_task_description() -> None:
+    tasks = create_all_tasks(create_all_agents(), topic="AI Agent Orchestration in Production")
+
+    assert "AI Agent Orchestration in Production" in tasks[0].description

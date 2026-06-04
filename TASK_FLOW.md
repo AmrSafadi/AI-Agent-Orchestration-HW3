@@ -1,5 +1,7 @@
 # TASK_FLOW.md
 
+> **Status: historical.** This early planning document is superseded by the docs in `docs/` (see `docs/PROJECT_BLUEPRINT.md`, `docs/IMPLEMENTATION_STATUS.md`, `docs/ARCHITECTURE_DIAGRAM.md`). Kept for provenance.
+
 ## Why This Document Is Needed
 
 This document shows how work moves through the system. It connects agents to tasks, tasks to context, and AI outputs to deterministic Python components.

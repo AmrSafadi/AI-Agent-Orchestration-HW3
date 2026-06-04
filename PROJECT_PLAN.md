@@ -1,5 +1,7 @@
 # PROJECT_PLAN.md
 
+> **Status: historical.** This early planning document is superseded by the docs in `docs/` (see `docs/PROJECT_BLUEPRINT.md`, `docs/IMPLEMENTATION_STATUS.md`, `docs/ARCHITECTURE_DIAGRAM.md`). Kept for provenance.
+
 ## Why This Document Is Needed
 
 This document defines the homework goal, scope, course alignment, deliverables, acceptance criteria, and implementation phases before any code is written.

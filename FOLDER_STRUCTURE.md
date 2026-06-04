@@ -1,5 +1,9 @@
 # FOLDER_STRUCTURE.md
 
+> **Status: historical.** This early planning document is superseded by the docs in `docs/` (see `docs/PROJECT_BLUEPRINT.md`, `docs/IMPLEMENTATION_STATUS.md`, `docs/ARCHITECTURE_DIAGRAM.md`). Kept for provenance.
+>
+> **Note:** The structure below is a pre-implementation draft and has drifted from the code. It lists modules that no longer exist (e.g. `orchestration/process.py`, `document/artifacts.py`, `data/input/project_config.json`) and omits current ones (e.g. `sdk/`, `research/`, `shared/constants.py`). The authoritative current layout is in `docs/PROJECT_BLUEPRINT.md` section 8.
+
 ## Why This Document Is Needed
 
 This document defines where source code, documentation, configuration, generated artifacts, tests, templates, and final outputs should live.

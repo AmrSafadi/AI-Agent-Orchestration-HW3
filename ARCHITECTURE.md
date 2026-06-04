@@ -1,5 +1,7 @@
 # ARCHITECTURE.md
 
+> **Status: historical.** This early planning document is superseded by the docs in `docs/` (see `docs/PROJECT_BLUEPRINT.md`, `docs/IMPLEMENTATION_STATUS.md`, `docs/ARCHITECTURE_DIAGRAM.md`). Kept for provenance.
+
 ## Why This Document Is Needed
 
 This document explains how the system is structured before implementation. It maps the lecturer's CrewAI concepts - Agent, Task, Crew, and Process - to concrete project components.

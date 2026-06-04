@@ -22,6 +22,12 @@ the document is compiled.
   url, type).
 - Manuscript / reviewed manuscript: citation markers using source ids.
 
+> Canonical manuscript format (T477): the canonical authored manuscript is
+> `data/intermediate/sample_book_plan.json` (the BookPlan / `book_plan.json`
+> contract), which the renderer renders from; `sample_manuscript.md` is only an
+> auxiliary sample (and the source of Markdown citation-marker extraction tests),
+> not the rendered document.
+
 **Outputs**
 - `data/references/references.bib`: generated BibTeX (git-ignored; regenerated
   from the registry).

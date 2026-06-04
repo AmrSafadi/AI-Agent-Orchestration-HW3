@@ -21,11 +21,13 @@ class DryRunTask:
     context: list[Any] = field(default_factory=list)
 
 
-def create_planning_task(agent: Any, use_real_crewai: bool = False) -> Any:
+def create_planning_task(
+    agent: Any, use_real_crewai: bool = False, topic: str = "the configured topic"
+) -> Any:
     """Create the task that produces ``book_plan.json``."""
     return _create_task(
         description=(
-            "Create the document plan for the configured topic. Include title, subtitle, audience, "
+            f"Create the document plan for the topic: {topic}. Include title, subtitle, audience, "
             "chapter outline, section outline, required feature placement, estimated page count, "
             "and acceptance checklist."
         ),
@@ -105,9 +107,13 @@ def create_latex_spec_task(agent: Any, review_task: Any, use_real_crewai: bool =
     )
 
 
-def create_all_tasks(agents: dict[str, Any], use_real_crewai: bool = False) -> list[Any]:
+def create_all_tasks(
+    agents: dict[str, Any], use_real_crewai: bool = False, topic: str = "the configured topic"
+) -> list[Any]:
     """Create all five sequential tasks with explicit context links."""
-    planning_task = create_planning_task(agents["planner"], use_real_crewai=use_real_crewai)
+    planning_task = create_planning_task(
+        agents["planner"], use_real_crewai=use_real_crewai, topic=topic
+    )
     research_task = create_research_task(
         agents["research"],
         planning_task,
