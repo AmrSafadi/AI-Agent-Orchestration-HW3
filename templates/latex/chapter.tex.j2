@@ -5,8 +5,8 @@
 
 \BLOCK{endfor}
 \BLOCK{if chapter.show_features}
-\section{Figures, Table, and Formula}
-This chapter draws on the framework documentation \cite{\VAR{cite_key}}.
+\section{איורים, טבלה ונוסחה}
+פרק זה מסתמך על תיעוד ה-framework \cite{\VAR{cite_key}}.
 
 \begin{figure}[h]
 \centering
@@ -24,9 +24,10 @@ This chapter draws on the framework documentation \cite{\VAR{cite_key}}.
 
 \BLOCK{include 'formula.tex.j2'}
 
-\section{Hebrew-English Section}
-\begin{hebrew}
-מערכת הסוכנים משלבת תכנון, מחקר, כתיבה וביקורת.
-\end{hebrew}
-The system combines planning, research, writing, and review.
+\section{מעבר דו-כיווני בין עברית לאנגלית}
+הטקסט הראשי כתוב בעברית (RTL), ומונחים טכניים נשמרים באנגלית (LTR). לדוגמה, משפט שלם באנגלית:
+\begin{english}
+The system combines planning, research, writing, and review under a deterministic harness.
+\end{english}
+כאן מודגם המעבר התקין בין כיוון הכתיבה מימין-לשמאל לכיוון משמאל-לימין.
 \BLOCK{endif}
