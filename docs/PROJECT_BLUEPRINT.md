@@ -220,13 +220,13 @@ Run the current local startup check:
 ```powershell
 cd <path-to>\AI-Agent-Orchestration-HW3
 $env:PYTHONPATH="src"
-uv run --no-project --with pydantic python -m bookgen.main
+uv run --no-project --with pydantic --with matplotlib --with jinja2 python -m bookgen.main
 ```
 
 Explicit dry-run:
 
 ```powershell
-uv run --no-project --with pydantic python -m bookgen.main --dry-run
+uv run --no-project --with pydantic --with matplotlib --with jinja2 python -m bookgen.main --dry-run
 ```
 
 Run unit tests:

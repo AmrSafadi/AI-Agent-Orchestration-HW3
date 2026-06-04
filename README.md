@@ -93,10 +93,10 @@ Set `$env:PYTHONPATH="src"` first. Full interface details: [docs/USAGE.md](docs/
 
 ```powershell
 # Safe startup check (default, no API):
-uv run --no-project --with pydantic python -m bookgen.main
+uv run --no-project --with pydantic --with matplotlib --with jinja2 python -m bookgen.main
 
 # Explicit dry-run:
-uv run --no-project --with pydantic python -m bookgen.main --dry-run
+uv run --no-project --with pydantic --with matplotlib --with jinja2 python -m bookgen.main --dry-run
 
 # Real crew run (needs OPENAI_API_KEY, costs money):
 uv run python -m bookgen.main --run-crew

@@ -531,8 +531,8 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 - [ ] **T436** Enforce the 150-line-per-file limit across `src/`
 - [ ] **T437** Split `crew.py` into focused modules
-- [ ] **T438** Introduce an SDK single entry point (`sdk/`)
-- [ ] **T439** Route all business logic through the SDK
+- [x] **T438** Introduce an SDK single entry point (`sdk/sdk.py` — `BookGenSDK`)
+- [x] **T439** Route all business logic through the SDK (`main.py` delegates entirely)
 - [ ] **T440** Remove any code duplication (DRY)
 - [ ] **T441** Add docstrings to every public function/module
 - [ ] **T442** Ensure comments explain 'why', not 'what'
@@ -760,7 +760,7 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 - [ ] **T589** Add README guideline-2.1 sections: Installation, Configuration Guide (per `config/*.json` param), License & Credits
 - [ ] **T590** Reconcile/prune FOLDER_STRUCTURE drift: `process.py`, `document/artifacts.py`, `scripts/`, `data/input/project_config.json`, `docs/ADRS.md`
 - [ ] **T591** Consolidate legacy root docs (AGENTS_DESIGN/ARCHITECTURE/PROJECT_PLAN/TASK_FLOW/FOLDER_STRUCTURE) into `docs/` or mark superseded
-- [ ] **T592** Mark the SDK single-entry-point as planned where PRD/PLAN reference it
+- [x] **T592** SDK reconciled in PRD/PLAN — now implemented (`sdk/sdk.py`); PLAN marks it Implemented
 
 ### AS. Agent Security (lesson Section 8)
 
@@ -784,5 +784,5 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 ---
 
-**Total tasks: 603** (302 completed, 301 remaining).
+**Total tasks: 603** (305 completed, 298 remaining).
 
