@@ -346,63 +346,63 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 ### Q. Assignment Requirements
 
-- [ ] **T277** Requirement — Cover page: specify in book_plan.
-- [ ] **T278** Requirement — Cover page: place in latex_spec.
-- [ ] **T279** Requirement — Cover page: implement renderer support.
-- [ ] **T280** Requirement — Cover page: produce/author the artifact.
-- [ ] **T281** Requirement — Cover page: validate via DocumentValidator.
+- [x] **T277** Requirement — Cover page: specify in book_plan.
+- [x] **T278** Requirement — Cover page: place in latex_spec.
+- [x] **T279** Requirement — Cover page: implement renderer support.
+- [x] **T280** Requirement — Cover page: produce/author the artifact.
+- [x] **T281** Requirement — Cover page: validate via DocumentValidator.
 - [ ] **T282** Requirement — Cover page: verify in the compiled PDF.
-- [ ] **T283** Requirement — Table of contents: specify in book_plan.
-- [ ] **T284** Requirement — Table of contents: place in latex_spec.
-- [ ] **T285** Requirement — Table of contents: implement renderer support.
-- [ ] **T286** Requirement — Table of contents: produce/author the artifact.
-- [ ] **T287** Requirement — Table of contents: validate via DocumentValidator.
+- [x] **T283** Requirement — Table of contents: specify in book_plan.
+- [x] **T284** Requirement — Table of contents: place in latex_spec.
+- [x] **T285** Requirement — Table of contents: implement renderer support.
+- [x] **T286** Requirement — Table of contents: produce/author the artifact.
+- [x] **T287** Requirement — Table of contents: validate via DocumentValidator.
 - [ ] **T288** Requirement — Table of contents: verify in the compiled PDF.
-- [ ] **T289** Requirement — Chapters & sections (>=15 pages): specify in book_plan.
-- [ ] **T290** Requirement — Chapters & sections (>=15 pages): place in latex_spec.
-- [ ] **T291** Requirement — Chapters & sections (>=15 pages): implement renderer support.
-- [ ] **T292** Requirement — Chapters & sections (>=15 pages): produce/author the artifact.
-- [ ] **T293** Requirement — Chapters & sections (>=15 pages): validate via DocumentValidator.
+- [x] **T289** Requirement — Chapters & sections (>=15 pages): specify in book_plan.
+- [x] **T290** Requirement — Chapters & sections (>=15 pages): place in latex_spec.
+- [x] **T291** Requirement — Chapters & sections (>=15 pages): implement renderer support.
+- [x] **T292** Requirement — Chapters & sections (>=15 pages): produce/author the artifact.
+- [x] **T293** Requirement — Chapters & sections (>=15 pages): validate via DocumentValidator.
 - [ ] **T294** Requirement — Chapters & sections (>=15 pages): verify in the compiled PDF.
-- [ ] **T295** Requirement — Image: specify in book_plan.
-- [ ] **T296** Requirement — Image: place in latex_spec.
-- [ ] **T297** Requirement — Image: implement renderer support.
-- [ ] **T298** Requirement — Image: produce/author the artifact.
-- [ ] **T299** Requirement — Image: validate via DocumentValidator.
+- [x] **T295** Requirement — Image: specify in book_plan.
+- [x] **T296** Requirement — Image: place in latex_spec.
+- [x] **T297** Requirement — Image: implement renderer support.
+- [x] **T298** Requirement — Image: produce/author the artifact.
+- [x] **T299** Requirement — Image: validate via DocumentValidator.
 - [ ] **T300** Requirement — Image: verify in the compiled PDF.
-- [ ] **T301** Requirement — Python-generated graph: specify in book_plan.
-- [ ] **T302** Requirement — Python-generated graph: place in latex_spec.
-- [ ] **T303** Requirement — Python-generated graph: implement renderer support.
-- [ ] **T304** Requirement — Python-generated graph: produce/author the artifact.
-- [ ] **T305** Requirement — Python-generated graph: validate via DocumentValidator.
+- [x] **T301** Requirement — Python-generated graph: specify in book_plan.
+- [x] **T302** Requirement — Python-generated graph: place in latex_spec.
+- [x] **T303** Requirement — Python-generated graph: implement renderer support.
+- [x] **T304** Requirement — Python-generated graph: produce/author the artifact.
+- [x] **T305** Requirement — Python-generated graph: validate via DocumentValidator.
 - [ ] **T306** Requirement — Python-generated graph: verify in the compiled PDF.
-- [ ] **T307** Requirement — Table: specify in book_plan.
-- [ ] **T308** Requirement — Table: place in latex_spec.
-- [ ] **T309** Requirement — Table: implement renderer support.
-- [ ] **T310** Requirement — Table: produce/author the artifact.
-- [ ] **T311** Requirement — Table: validate via DocumentValidator.
+- [x] **T307** Requirement — Table: specify in book_plan.
+- [x] **T308** Requirement — Table: place in latex_spec.
+- [x] **T309** Requirement — Table: implement renderer support.
+- [x] **T310** Requirement — Table: produce/author the artifact.
+- [x] **T311** Requirement — Table: validate via DocumentValidator.
 - [ ] **T312** Requirement — Table: verify in the compiled PDF.
-- [ ] **T313** Requirement — Mathematical formula: specify in book_plan.
-- [ ] **T314** Requirement — Mathematical formula: place in latex_spec.
-- [ ] **T315** Requirement — Mathematical formula: implement renderer support.
-- [ ] **T316** Requirement — Mathematical formula: produce/author the artifact.
-- [ ] **T317** Requirement — Mathematical formula: validate via DocumentValidator.
+- [x] **T313** Requirement — Mathematical formula: specify in book_plan.
+- [x] **T314** Requirement — Mathematical formula: place in latex_spec.
+- [x] **T315** Requirement — Mathematical formula: implement renderer support.
+- [x] **T316** Requirement — Mathematical formula: produce/author the artifact.
+- [x] **T317** Requirement — Mathematical formula: validate via DocumentValidator.
 - [ ] **T318** Requirement — Mathematical formula: verify in the compiled PDF.
-- [ ] **T319** Requirement — Hebrew-English BiDi chapter: specify in book_plan.
-- [ ] **T320** Requirement — Hebrew-English BiDi chapter: place in latex_spec.
-- [ ] **T321** Requirement — Hebrew-English BiDi chapter: implement renderer support.
-- [ ] **T322** Requirement — Hebrew-English BiDi chapter: produce/author the artifact.
-- [ ] **T323** Requirement — Hebrew-English BiDi chapter: validate via DocumentValidator.
+- [x] **T319** Requirement — Hebrew-English BiDi chapter: specify in book_plan.
+- [x] **T320** Requirement — Hebrew-English BiDi chapter: place in latex_spec.
+- [x] **T321** Requirement — Hebrew-English BiDi chapter: implement renderer support.
+- [x] **T322** Requirement — Hebrew-English BiDi chapter: produce/author the artifact.
+- [x] **T323** Requirement — Hebrew-English BiDi chapter: validate via DocumentValidator.
 - [ ] **T324** Requirement — Hebrew-English BiDi chapter: verify in the compiled PDF.
-- [ ] **T325** Requirement — Bibliography & citations: specify in book_plan.
-- [ ] **T326** Requirement — Bibliography & citations: place in latex_spec.
-- [ ] **T327** Requirement — Bibliography & citations: implement renderer support.
-- [ ] **T328** Requirement — Bibliography & citations: produce/author the artifact.
-- [ ] **T329** Requirement — Bibliography & citations: validate via DocumentValidator.
+- [x] **T325** Requirement — Bibliography & citations: specify in book_plan.
+- [x] **T326** Requirement — Bibliography & citations: place in latex_spec.
+- [x] **T327** Requirement — Bibliography & citations: implement renderer support.
+- [x] **T328** Requirement — Bibliography & citations: produce/author the artifact.
+- [x] **T329** Requirement — Bibliography & citations: validate via DocumentValidator.
 - [ ] **T330** Requirement — Bibliography & citations: verify in the compiled PDF.
-- [ ] **T331** Requirement — Final PDF: specify in book_plan.
-- [ ] **T332** Requirement — Final PDF: place in latex_spec.
-- [ ] **T333** Requirement — Final PDF: implement renderer support.
+- [x] **T331** Requirement — Final PDF: specify in book_plan.
+- [x] **T332** Requirement — Final PDF: place in latex_spec.
+- [x] **T333** Requirement — Final PDF: implement renderer support.
 - [ ] **T334** Requirement — Final PDF: produce/author the artifact.
 - [ ] **T335** Requirement — Final PDF: validate via DocumentValidator.
 - [ ] **T336** Requirement — Final PDF: verify in the compiled PDF.
@@ -784,5 +784,5 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 ---
 
-**Total tasks: 603** (305 completed, 298 remaining).
+**Total tasks: 603** (353 completed, 250 remaining).
 
