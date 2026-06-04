@@ -41,7 +41,7 @@ PDF generation is not implemented yet.
 
 ```powershell
 $env:PYTHONPATH="src"
-uv run --no-project --with pydantic --with pytest --with matplotlib python -m pytest tests/unit
+uv run --no-project --with pydantic --with pytest --with matplotlib --with jinja2 python -m pytest tests/unit
 ```
 
 Expected result:

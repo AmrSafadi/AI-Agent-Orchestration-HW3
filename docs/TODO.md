@@ -258,86 +258,86 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 ### M. Templates
 
-- [ ] **T203** Template — main.tex.j2: create the Jinja2 file.
-- [ ] **T204** Template — main.tex.j2: parametrize its fields.
-- [ ] **T205** Template — main.tex.j2: apply LaTeX escaping to inserted text.
-- [ ] **T206** Template — main.tex.j2: render-test with sample data.
+- [x] **T203** Template — main.tex.j2: create the Jinja2 file.
+- [x] **T204** Template — main.tex.j2: parametrize its fields.
+- [x] **T205** Template — main.tex.j2: apply LaTeX escaping to inserted text.
+- [x] **T206** Template — main.tex.j2: render-test with sample data.
 - [ ] **T207** Template — main.tex.j2: review for page-margin overflow.
-- [ ] **T208** Template — cover.tex.j2: create the Jinja2 file.
-- [ ] **T209** Template — cover.tex.j2: parametrize its fields.
-- [ ] **T210** Template — cover.tex.j2: apply LaTeX escaping to inserted text.
-- [ ] **T211** Template — cover.tex.j2: render-test with sample data.
+- [x] **T208** Template — cover.tex.j2: create the Jinja2 file.
+- [x] **T209** Template — cover.tex.j2: parametrize its fields.
+- [x] **T210** Template — cover.tex.j2: apply LaTeX escaping to inserted text.
+- [x] **T211** Template — cover.tex.j2: render-test with sample data.
 - [ ] **T212** Template — cover.tex.j2: review for page-margin overflow.
-- [ ] **T213** Template — chapter.tex.j2: create the Jinja2 file.
-- [ ] **T214** Template — chapter.tex.j2: parametrize its fields.
-- [ ] **T215** Template — chapter.tex.j2: apply LaTeX escaping to inserted text.
-- [ ] **T216** Template — chapter.tex.j2: render-test with sample data.
+- [x] **T213** Template — chapter.tex.j2: create the Jinja2 file.
+- [x] **T214** Template — chapter.tex.j2: parametrize its fields.
+- [x] **T215** Template — chapter.tex.j2: apply LaTeX escaping to inserted text.
+- [x] **T216** Template — chapter.tex.j2: render-test with sample data.
 - [ ] **T217** Template — chapter.tex.j2: review for page-margin overflow.
-- [ ] **T218** Template — table.tex.j2: create the Jinja2 file.
-- [ ] **T219** Template — table.tex.j2: parametrize its fields.
-- [ ] **T220** Template — table.tex.j2: apply LaTeX escaping to inserted text.
-- [ ] **T221** Template — table.tex.j2: render-test with sample data.
+- [x] **T218** Template — table.tex.j2: create the Jinja2 file.
+- [x] **T219** Template — table.tex.j2: parametrize its fields.
+- [x] **T220** Template — table.tex.j2: apply LaTeX escaping to inserted text.
+- [x] **T221** Template — table.tex.j2: render-test with sample data.
 - [ ] **T222** Template — table.tex.j2: review for page-margin overflow.
-- [ ] **T223** Template — formula.tex.j2: create the Jinja2 file.
-- [ ] **T224** Template — formula.tex.j2: parametrize its fields.
-- [ ] **T225** Template — formula.tex.j2: apply LaTeX escaping to inserted text.
-- [ ] **T226** Template — formula.tex.j2: render-test with sample data.
+- [x] **T223** Template — formula.tex.j2: create the Jinja2 file.
+- [x] **T224** Template — formula.tex.j2: parametrize its fields.
+- [x] **T225** Template — formula.tex.j2: apply LaTeX escaping to inserted text.
+- [x] **T226** Template — formula.tex.j2: render-test with sample data.
 - [ ] **T227** Template — formula.tex.j2: review for page-margin overflow.
 
 ### N. Renderer
 
-- [ ] **T228** Create `latex/renderer.py` (LatexRenderer)
-- [ ] **T229** Load `latex_spec.json` and the reviewed manuscript
-- [ ] **T230** Render `main.tex` from the main template
+- [x] **T228** Create `latex/renderer.py` (LatexRenderer)
+- [x] **T229** Load `latex_spec.json` and the reviewed manuscript
+- [x] **T230** Render `main.tex` from the main template
 - [ ] **T231** Render per-chapter `.tex` files
-- [ ] **T232** Insert `\tableofcontents`
-- [ ] **T233** Insert the cover page with metadata
-- [ ] **T234** Insert `\includegraphics` for the Python graph
-- [ ] **T235** Insert `\includegraphics` for the image
-- [ ] **T236** Render a real LaTeX table
-- [ ] **T237** Render a display-math formula
-- [ ] **T238** Render the Hebrew-English BiDi chapter
-- [ ] **T239** Insert `\printbibliography` / bibliography commands
+- [x] **T232** Insert `\tableofcontents`
+- [x] **T233** Insert the cover page with metadata
+- [x] **T234** Insert `\includegraphics` for the Python graph
+- [x] **T235** Insert `\includegraphics` for the image
+- [x] **T236** Render a real LaTeX table
+- [x] **T237** Render a display-math formula
+- [x] **T238** Render the Hebrew-English BiDi chapter
+- [x] **T239** Insert `\printbibliography` / bibliography commands
 - [ ] **T240** Copy assets into the build directory
-- [ ] **T241** Copy `references.bib` into the build directory
-- [ ] **T242** Keep renderer files within the 150-line limit
-- [ ] **T243** Add `tests/unit/test_latex_renderer.py`
+- [x] **T241** Copy `references.bib` into the build directory
+- [x] **T242** Keep renderer files within the 150-line limit
+- [x] **T243** Add `tests/unit/test_latex_renderer.py`
 
 ### O. Escaping
 
-- [ ] **T244** Escaping — &: implement the escape rule.
-- [ ] **T245** Escaping — &: unit-test the escape rule.
-- [ ] **T246** Escaping — %: implement the escape rule.
-- [ ] **T247** Escaping — %: unit-test the escape rule.
-- [ ] **T248** Escaping — $: implement the escape rule.
-- [ ] **T249** Escaping — $: unit-test the escape rule.
-- [ ] **T250** Escaping — #: implement the escape rule.
-- [ ] **T251** Escaping — #: unit-test the escape rule.
-- [ ] **T252** Escaping — _: implement the escape rule.
-- [ ] **T253** Escaping — _: unit-test the escape rule.
-- [ ] **T254** Escaping — {: implement the escape rule.
-- [ ] **T255** Escaping — {: unit-test the escape rule.
-- [ ] **T256** Escaping — }: implement the escape rule.
-- [ ] **T257** Escaping — }: unit-test the escape rule.
-- [ ] **T258** Escaping — ~: implement the escape rule.
-- [ ] **T259** Escaping — ~: unit-test the escape rule.
-- [ ] **T260** Escaping — ^: implement the escape rule.
-- [ ] **T261** Escaping — ^: unit-test the escape rule.
-- [ ] **T262** Escaping — \: implement the escape rule.
-- [ ] **T263** Escaping — \: unit-test the escape rule.
+- [x] **T244** Escaping — &: implement the escape rule.
+- [x] **T245** Escaping — &: unit-test the escape rule.
+- [x] **T246** Escaping — %: implement the escape rule.
+- [x] **T247** Escaping — %: unit-test the escape rule.
+- [x] **T248** Escaping — $: implement the escape rule.
+- [x] **T249** Escaping — $: unit-test the escape rule.
+- [x] **T250** Escaping — #: implement the escape rule.
+- [x] **T251** Escaping — #: unit-test the escape rule.
+- [x] **T252** Escaping — _: implement the escape rule.
+- [x] **T253** Escaping — _: unit-test the escape rule.
+- [x] **T254** Escaping — {: implement the escape rule.
+- [x] **T255** Escaping — {: unit-test the escape rule.
+- [x] **T256** Escaping — }: implement the escape rule.
+- [x] **T257** Escaping — }: unit-test the escape rule.
+- [x] **T258** Escaping — ~: implement the escape rule.
+- [x] **T259** Escaping — ~: unit-test the escape rule.
+- [x] **T260** Escaping — ^: implement the escape rule.
+- [x] **T261** Escaping — ^: unit-test the escape rule.
+- [x] **T262** Escaping — \: implement the escape rule.
+- [x] **T263** Escaping — \: unit-test the escape rule.
 
 ### P. PDF Compiler
 
-- [ ] **T264** Create `latex/compiler.py` (PDFCompiler)
-- [ ] **T265** Detect the LaTeX toolchain on PATH
-- [ ] **T266** Run pass 1: lualatex
-- [ ] **T267** Run biber for the bibliography
-- [ ] **T268** Run pass 2: lualatex
-- [ ] **T269** Run pass 3: lualatex
+- [x] **T264** Create `latex/compiler.py` (PDFCompiler)
+- [x] **T265** Detect the LaTeX toolchain on PATH
+- [x] **T266** Run pass 1: lualatex
+- [x] **T267** Run biber for the bibliography
+- [x] **T268** Run pass 2: lualatex
+- [x] **T269** Run pass 3: lualatex
 - [ ] **T270** Implement the XeLaTeX fallback path
-- [ ] **T271** Capture and persist `build.log`
+- [x] **T271** Capture and persist `build.log`
 - [ ] **T272** Detect unresolved references (`??`) in the log
-- [ ] **T273** Fail gracefully when no toolchain is present
+- [x] **T273** Fail gracefully when no toolchain is present
 - [ ] **T274** Emit `final.pdf` to `generated/pdf/`
 - [ ] **T275** Verify the PDF is non-empty
 - [ ] **T276** Add `tests/integration/test_pdf_build_smoke.py` (skip without toolchain)
@@ -784,5 +784,5 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 ---
 
-**Total tasks: 603** (215 completed, 388 remaining).
+**Total tasks: 603** (277 completed, 326 remaining).
 

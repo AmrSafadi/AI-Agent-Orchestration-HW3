@@ -18,7 +18,7 @@ Set `$env:PYTHONPATH="src"` first (PowerShell).
 | Startup check (default) | `uv run --no-project --with pydantic python -m bookgen.main` | No |
 | Explicit dry-run | `… python -m bookgen.main --dry-run` | No |
 | Real crew run | `… python -m bookgen.main --run-crew` (needs `OPENAI_API_KEY`) | Yes |
-| Run tests | `uv run --no-project --with pydantic --with pytest --with matplotlib python -m pytest tests/unit` | No |
+| Run tests | `uv run --no-project --with pydantic --with pytest --with matplotlib --with jinja2 python -m pytest tests/unit` | No |
 
 `--dry-run` and `--run-crew` are mutually exclusive; dry-run is the default.
 

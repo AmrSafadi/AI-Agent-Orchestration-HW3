@@ -54,8 +54,8 @@ Config (config/*.json)
 | Tasks | `orchestration/tasks.py` | Five context-linked task factories. | Implemented |
 | Crew | `orchestration/crew.py` | `build_crew()` / `run_crew()`; dry-run default. | Implemented |
 | CrewAI Skills | `orchestration/skills.py` + `skills/*/SKILL.md` | Knowledge packs injected into agents in real-crew mode (course Skill concept). | Implemented |
-| Renderer | `latex/renderer.py` | Render `.tex` from templates + artifacts. | Placeholder |
-| PDFCompiler | `latex/compiler.py` | Multi-pass LuaLaTeX/biber compile. | Placeholder |
+| Renderer | `latex/renderer.py` + `latex/escaping.py` + `templates/latex/*` | Render `main.tex` (cover, TOC, figures, table, formula, BiDi, bibliography) from artifacts. | Implemented |
+| PDFCompiler | `latex/compiler.py` | Multi-pass LuaLaTeX/biber compile; graceful without a toolchain. | Implemented (needs a TeX toolchain to emit a PDF) |
 | SDK facade | `sdk/sdk.py` | Single entry point all consumers call (guideline 4.1). | Planned |
 | API Gatekeeper | `shared/gatekeeper.py` | Central rate-limited, monitored LLM entry point (guideline 5). | Planned |
 

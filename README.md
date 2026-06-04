@@ -130,7 +130,7 @@ variables. Cost details: [docs/COSTS.md](docs/COSTS.md).
 |---|---|
 | Lint | `uv run --no-project --with ruff ruff check .` |
 | Format | `uv run --no-project --with ruff ruff format .` |
-| Tests | `$env:PYTHONPATH="src"; uv run --no-project --with pydantic --with pytest --with matplotlib python -m pytest tests/unit` |
+| Tests | `$env:PYTHONPATH="src"; uv run --no-project --with pydantic --with pytest --with matplotlib --with jinja2 python -m pytest tests/unit` |
 | Coverage | append `--with pytest-cov` and run `python -m pytest tests --cov` |
 
 Install the shared pre-commit hook once (runs lint + format check before each commit):
