@@ -18,6 +18,8 @@ REQUIRED_CONFIG_FILES = {
 
 REQUIRED_AGENTS = ("planner", "research", "writer", "reviewer", "latex")
 
+EXPECTED_CONFIG_VERSION = "1.00"
+
 
 class ProjectMetadata(BaseModel):
     """Project identity shown in the CLI and generated document."""
@@ -169,7 +171,7 @@ def load_config(config_dir: Path | None = None) -> AppConfig:
         key: load_json_file(resolved_config_dir / filename)
         for key, filename in REQUIRED_CONFIG_FILES.items()
     }
-    return AppConfig(
+    config = AppConfig(
         setup=SetupConfig.model_validate(raw["setup"]),
         models=ModelsConfig.model_validate(raw["models"]),
         latex=LatexConfig.model_validate(raw["latex"]),
@@ -178,3 +180,20 @@ def load_config(config_dir: Path | None = None) -> AppConfig:
         root_dir=root,
         config_dir=resolved_config_dir,
     )
+    _validate_config_versions(config)
+    return config
+
+
+def _validate_config_versions(config: AppConfig) -> None:
+    """Fail if any versioned config file does not match the expected version."""
+    actual = {
+        "models": config.models.version,
+        "latex": config.latex.version,
+        "budgets": config.budgets.version,
+        "rate_limits": config.rate_limits.version,
+    }
+    mismatched = {name: value for name, value in actual.items() if value != EXPECTED_CONFIG_VERSION}
+    if mismatched:
+        raise ValueError(
+            f"config version mismatch (expected {EXPECTED_CONFIG_VERSION}): {mismatched}"
+        )

@@ -18,6 +18,7 @@ This document tracks what is complete, what is in progress, and what remains.
 | SDK facade (Phase I) | Complete | `sdk/sdk.py` (`BookGenSDK`) is the single entry point for all business logic; `main.py` holds none and delegates to it. One CLI command now generates the graph, image, `references.bib`, and `main.tex`. |
 | API Gatekeeper (Phase M / guideline 5) | Complete | `shared/gatekeeper.py` (rate limiting, retries, backpressure, monitoring) + versioned `config/rate_limits.json`; the real crew `kickoff` routes through it. `crew.py` split into `dry_run.py` to stay within the 150-line rule. |
 | Research & Analysis (Phase L) | Complete | `research/sensitivity.py` (OAT page-count sensitivity) + `notebooks/sensitivity_analysis.ipynb` (LaTeX model + references); generates line/bar/scatter/box/heatmap figures (guideline 9.1-9.3). |
+| Compliance hardening (guideline 7.3, 8.1, 13) | Complete | Runtime config-version validation (`load_config` fails on mismatch); `config/logging_config.json` wired via `logging.config.dictConfig`; `docs/ISO_25010.md` maps all 8 ISO/IEC 25010 quality characteristics. |
 | Content (Phase G) | Mostly complete | Deterministically authored 6-chapter manuscript (~4,900 words) in `data/intermediate/sample_book_plan.json`; renders to a full `main.tex` (cover, TOC, 6 chapters, figures, table, formula, Hebrew BiDi); the build generates `references.bib` (3 sources, included via `\nocite{*}`). Pending: per-chapter inline citations, page-count / BiDi verification (need a compiled PDF). |
 
 ## In Progress

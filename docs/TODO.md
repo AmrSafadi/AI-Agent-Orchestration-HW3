@@ -538,7 +538,7 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 - [ ] **T442** Ensure comments explain 'why', not 'what'
 - [ ] **T443** Generate and commit `uv.lock`
 - [ ] **T444** Verify no `pip`/`python -m` calls anywhere
-- [ ] **T445** Verify ISO/IEC 25010 quality characteristics are addressed
+- [x] **T445** Verify ISO/IEC 25010 quality characteristics are addressed
 
 ### X. Security & Secrets
 
@@ -699,14 +699,14 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 ### AK. ISO/IEC 25010 Quality (guideline 13)
 
-- [ ] **T558** Address functional suitability
-- [ ] **T559** Address performance efficiency
-- [ ] **T560** Address compatibility
-- [ ] **T561** Address usability
-- [ ] **T562** Address reliability
-- [ ] **T563** Address security
-- [ ] **T564** Address maintainability
-- [ ] **T565** Address portability
+- [x] **T558** Address functional suitability
+- [x] **T559** Address performance efficiency
+- [x] **T560** Address compatibility
+- [x] **T561** Address usability
+- [x] **T562** Address reliability
+- [x] **T563** Address security
+- [x] **T564** Address maintainability
+- [x] **T565** Address portability
 
 ## Phase M — Audit Gap Closure (untracked items found in re-audit)
 
@@ -732,9 +732,9 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 ### AN. Configuration Completeness (guideline 7.3, 8.1)
 
-- [ ] **T576** Add `config/logging_config.json` and wire `shared/logging.py` to read it
+- [x] **T576** Add `config/logging_config.json` and wire `shared/logging.py` to read it
 - [x] **T577** Add a `version` key to `budgets.json`, `models.json`, and `latex.json` (done; required field validated by Pydantic)
-- [ ] **T578** Implement runtime configuration-version validation (fail on mismatch)
+- [x] **T578** Implement runtime configuration-version validation (fail on mismatch)
 - [ ] **T579** Extract immutable constants into `shared/constants.py` (REQUIRED_AGENTS, EXPECTED_ARTIFACTS, ...)
 
 ### AO. Validation Integrity (fix false-green)
@@ -784,5 +784,5 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 ---
 
-**Total tasks: 603** (375 completed, 228 remaining).
+**Total tasks: 603** (386 completed, 217 remaining).
 
