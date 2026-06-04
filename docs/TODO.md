@@ -623,20 +623,20 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 ### AD. Parameter Research (guideline 9)
 
-- [ ] **T503** Identify parameters to study (chunk size, overlap, temperature, model)
-- [ ] **T504** Design One-At-a-Time (OAT) sensitivity experiments
-- [ ] **T505** Run controlled experiments and record results
-- [ ] **T506** Build a results-analysis Jupyter notebook
-- [ ] **T507** Compare models/configurations quantitatively
-- [ ] **T508** Write equations in LaTeX inside the notebook
-- [ ] **T509** Add academic references to the analysis
-- [ ] **T510** Export a bar chart for comparisons
-- [ ] **T511** Export a line chart for trends
-- [ ] **T512** Export a scatter plot for correlations
-- [ ] **T513** Export a heatmap for parameter sensitivity
-- [ ] **T514** Export a box plot for distributions
-- [ ] **T515** Ensure high-resolution figures with clear captions
-- [ ] **T516** Summarize findings and recommendations
+- [x] **T503** Identify parameters to study (chunk size, overlap, temperature, model)
+- [x] **T504** Design One-At-a-Time (OAT) sensitivity experiments
+- [x] **T505** Run controlled experiments and record results
+- [x] **T506** Build a results-analysis Jupyter notebook
+- [x] **T507** Compare models/configurations quantitatively
+- [x] **T508** Write equations in LaTeX inside the notebook
+- [x] **T509** Add academic references to the analysis
+- [x] **T510** Export a bar chart for comparisons
+- [x] **T511** Export a line chart for trends
+- [x] **T512** Export a scatter plot for correlations
+- [x] **T513** Export a heatmap for parameter sensitivity
+- [x] **T514** Export a box plot for distributions
+- [x] **T515** Ensure high-resolution figures with clear captions
+- [x] **T516** Summarize findings and recommendations
 
 ### AE. Edge Cases & Error Handling (guideline 6.3)
 
@@ -784,5 +784,5 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 ---
 
-**Total tasks: 603** (361 completed, 242 remaining).
+**Total tasks: 603** (375 completed, 228 remaining).
 

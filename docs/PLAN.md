@@ -59,6 +59,7 @@ Config (config/*.json)
 | Build wiring | `latex/build.py` + `main.py --build-pdf` | Render `main.tex` then optionally compile; end-to-end from the CLI. | Implemented |
 | SDK facade | `sdk/sdk.py` | Single entry point all consumers call (guideline 4.1); CLI delegates to it. | Implemented |
 | API Gatekeeper | `shared/gatekeeper.py` | Central rate-limited, retrying, monitored LLM entry point (guideline 5); real kickoff routes through it. | Implemented |
+| Sensitivity analysis | `research/sensitivity.py` + `notebooks/sensitivity_analysis.ipynb` | OAT parameter study with line/bar/scatter/box/heatmap figures (guideline 9). | Implemented |
 
 ## 4. Data Flow and Contracts
 
