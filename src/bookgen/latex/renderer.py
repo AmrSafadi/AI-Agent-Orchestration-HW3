@@ -71,7 +71,8 @@ def build_context(
     """Build the Jinja render context from the artifacts and run metadata."""
     image_path, image_caption = _asset(latex_spec, "image")
     graph_path, graph_caption = _asset(latex_spec, "graph")
-    _, table_caption = _asset(latex_spec, "table")
+    table_path, table_caption = _asset(latex_spec, "table")
+    formula_path, _ = _asset(latex_spec, "formula")
     return {
         "title": escape_latex(latex_spec.title or book_plan.title),
         "subtitle": escape_latex(book_plan.subtitle or ""),
@@ -86,6 +87,8 @@ def build_context(
         "graph_path": graph_path,
         "graph_caption": graph_caption,
         "table_caption": table_caption,
+        "table_file": Path(table_path).name,
+        "formula_file": Path(formula_path).name,
         "chapters": _chapters(book_plan),
     }
 
@@ -103,10 +106,21 @@ def render_main_tex(
     out_dir = Path(output_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    template = _environment(Path(templates_dir)).get_template("main.tex.j2")
+    environment = _environment(Path(templates_dir))
     context = build_context(latex_spec, book_plan, metadata, cite_key)
+
+    # Materialize the table and formula assets as standalone files so the LaTeX
+    # spec's declared asset paths exist on disk and are ``\input`` by the document.
+    for template_name, filename in (
+        ("table.tex.j2", context["table_file"]),
+        ("formula.tex.j2", context["formula_file"]),
+    ):
+        if filename:
+            snippet = environment.get_template(template_name).render(**context)
+            (out_dir / filename).write_text(snippet, encoding="utf-8")
+
     main_tex = out_dir / "main.tex"
-    main_tex.write_text(template.render(**context), encoding="utf-8")
+    main_tex.write_text(environment.get_template("main.tex.j2").render(**context), encoding="utf-8")
 
     if references_bib and Path(references_bib).exists():
         shutil.copyfile(references_bib, out_dir / Path(latex_spec.bibliography_file).name)

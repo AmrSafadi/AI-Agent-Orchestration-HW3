@@ -22,9 +22,9 @@
 \caption{\VAR{graph_caption}}
 \end{figure}
 
-\BLOCK{include 'table.tex.j2'}
+\BLOCK{if table_file}\input{\VAR{table_file}}\BLOCK{endif}
 
-\BLOCK{include 'formula.tex.j2'}
+\BLOCK{if formula_file}\input{\VAR{formula_file}}\BLOCK{endif}
 
 \section{מעבר דו-כיווני בין עברית לאנגלית}
 הטקסט הראשי כתוב בעברית (RTL), ומונחים טכניים נשמרים באנגלית (LTR). לדוגמה, משפט שלם באנגלית:
