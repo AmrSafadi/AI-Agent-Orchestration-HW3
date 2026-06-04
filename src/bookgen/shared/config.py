@@ -13,6 +13,7 @@ REQUIRED_CONFIG_FILES = {
     "models": "models.json",
     "latex": "latex.json",
     "budgets": "budgets.json",
+    "rate_limits": "rate_limits.json",
 }
 
 REQUIRED_AGENTS = ("planner", "research", "writer", "reviewer", "latex")
@@ -110,6 +111,18 @@ class BudgetsConfig(BaseModel):
     notes: str = ""
 
 
+class RateLimitsConfig(BaseModel):
+    """API rate-limit configuration for the gatekeeper (guideline 5.2)."""
+
+    version: str = Field(min_length=1)
+    requests_per_minute: int = Field(gt=0)
+    requests_per_hour: int = Field(gt=0)
+    concurrent_max: int = Field(gt=0)
+    retry_after_seconds: float = Field(ge=0)
+    max_retries: int = Field(ge=0)
+    max_queue_depth: int = Field(gt=0)
+
+
 class AppConfig(BaseModel):
     """Validated application configuration loaded from config files."""
 
@@ -119,6 +132,7 @@ class AppConfig(BaseModel):
     models: ModelsConfig
     latex: LatexConfig
     budgets: BudgetsConfig
+    rate_limits: RateLimitsConfig
     root_dir: Path
     config_dir: Path
 
@@ -160,6 +174,7 @@ def load_config(config_dir: Path | None = None) -> AppConfig:
         models=ModelsConfig.model_validate(raw["models"]),
         latex=LatexConfig.model_validate(raw["latex"]),
         budgets=BudgetsConfig.model_validate(raw["budgets"]),
+        rate_limits=RateLimitsConfig.model_validate(raw["rate_limits"]),
         root_dir=root,
         config_dir=resolved_config_dir,
     )

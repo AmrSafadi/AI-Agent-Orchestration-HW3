@@ -530,7 +530,7 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 ### W. Engineering Standards
 
 - [ ] **T436** Enforce the 150-line-per-file limit across `src/`
-- [ ] **T437** Split `crew.py` into focused modules
+- [x] **T437** Split `crew.py` into focused modules (extracted `orchestration/dry_run.py`; crew.py now 85 lines)
 - [x] **T438** Introduce an SDK single entry point (`sdk/sdk.py` — `BookGenSDK`)
 - [x] **T439** Route all business logic through the SDK (`main.py` delegates entirely)
 - [ ] **T440** Remove any code duplication (DRY)
@@ -716,13 +716,13 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 ### AL. API Gatekeeper & Rate Limiting (guideline 5)
 
-- [ ] **T566** Create `src/bookgen/shared/gatekeeper.py` as the single monitored entry to the LLM provider
-- [ ] **T567** Route all CrewAI/provider calls through the gatekeeper (no direct calls)
-- [ ] **T568** Add retry, logging, and monitoring inside the gatekeeper
-- [ ] **T569** Create versioned `config/rate_limits.json` (requests_per_minute, requests_per_hour, concurrent_max, max_retries, retry_after_seconds)
-- [ ] **T570** Enforce rate limits before each provider call
-- [ ] **T571** Add a FIFO overflow queue with max depth, backpressure alert, and drain
-- [ ] **T572** Unit-test the gatekeeper (rate limit, queue, retry)
+- [x] **T566** Create `src/bookgen/shared/gatekeeper.py` as the single monitored entry to the LLM provider
+- [x] **T567** Route all CrewAI/provider calls through the gatekeeper (no direct calls)
+- [x] **T568** Add retry, logging, and monitoring inside the gatekeeper
+- [x] **T569** Create versioned `config/rate_limits.json` (requests_per_minute, requests_per_hour, concurrent_max, max_retries, retry_after_seconds)
+- [x] **T570** Enforce rate limits before each provider call
+- [x] **T571** Add max-depth backpressure + windowed drain (synchronous blocking design)
+- [x] **T572** Unit-test the gatekeeper (rate limit, queue, retry)
 
 ### AM. Licensing & Packaging Metadata (guideline 14.1)
 
@@ -784,5 +784,5 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 ---
 
-**Total tasks: 603** (353 completed, 250 remaining).
+**Total tasks: 603** (361 completed, 242 remaining).
 

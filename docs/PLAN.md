@@ -58,7 +58,7 @@ Config (config/*.json)
 | PDFCompiler | `latex/compiler.py` | Multi-pass LuaLaTeX/biber compile; graceful without a toolchain. | Implemented (needs a TeX toolchain to emit a PDF) |
 | Build wiring | `latex/build.py` + `main.py --build-pdf` | Render `main.tex` then optionally compile; end-to-end from the CLI. | Implemented |
 | SDK facade | `sdk/sdk.py` | Single entry point all consumers call (guideline 4.1); CLI delegates to it. | Implemented |
-| API Gatekeeper | `shared/gatekeeper.py` | Central rate-limited, monitored LLM entry point (guideline 5). | Planned |
+| API Gatekeeper | `shared/gatekeeper.py` | Central rate-limited, retrying, monitored LLM entry point (guideline 5); real kickoff routes through it. | Implemented |
 
 ## 4. Data Flow and Contracts
 
