@@ -10,6 +10,10 @@
 \newfontfamily\englishfont{Latin Modern Roman}
 \usepackage{amsmath}
 \usepackage{graphicx}
+% Compilation runs inside generated/latex/, so graphics referenced by their
+% project-root-relative paths (generated/assets/...) are searched from two
+% levels up.
+\graphicspath{{../../}}
 \usepackage{booktabs}
 \usepackage[backend=biber]{biblatex}
 \addbibresource{\VAR{bib_resource}.bib}

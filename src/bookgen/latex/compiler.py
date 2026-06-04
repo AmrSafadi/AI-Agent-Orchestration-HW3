@@ -58,7 +58,12 @@ def compile_pdf(
     log_chunks: list[str] = []
     for command in commands:
         completed = subprocess.run(
-            command, cwd=work_dir, capture_output=True, text=True, check=False
+            command,
+            cwd=work_dir,
+            capture_output=True,
+            encoding="utf-8",
+            errors="replace",
+            check=False,
         )
         log_chunks.append(f"$ {' '.join(command)}\n{completed.stdout}\n{completed.stderr}")
 

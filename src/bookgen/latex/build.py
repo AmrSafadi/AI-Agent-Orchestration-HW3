@@ -6,6 +6,7 @@ Compilation degrades gracefully when no TeX toolchain is installed.
 
 from __future__ import annotations
 
+import shutil
 from pathlib import Path
 
 from bookgen.document.schemas import BookPlan, LatexSpec
@@ -60,4 +61,9 @@ def build_document(
         summary["compiled"] = result.success
         summary["message"] = result.message
         summary["pdf"] = str(result.pdf_path) if result.pdf_path else None
+        if result.success and result.pdf_path:
+            final_pdf = root / config.get("output_pdf", "generated/pdf/final.pdf")
+            final_pdf.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(result.pdf_path, final_pdf)
+            summary["final_pdf"] = str(final_pdf)
     return summary

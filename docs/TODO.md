@@ -262,27 +262,27 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 - [x] **T204** Template — main.tex.j2: parametrize its fields.
 - [x] **T205** Template — main.tex.j2: apply LaTeX escaping to inserted text.
 - [x] **T206** Template — main.tex.j2: render-test with sample data.
-- [ ] **T207** Template — main.tex.j2: review for page-margin overflow.
+- [x] **T207** Template — main.tex.j2: review for page-margin overflow.
 - [x] **T208** Template — cover.tex.j2: create the Jinja2 file.
 - [x] **T209** Template — cover.tex.j2: parametrize its fields.
 - [x] **T210** Template — cover.tex.j2: apply LaTeX escaping to inserted text.
 - [x] **T211** Template — cover.tex.j2: render-test with sample data.
-- [ ] **T212** Template — cover.tex.j2: review for page-margin overflow.
+- [x] **T212** Template — cover.tex.j2: review for page-margin overflow.
 - [x] **T213** Template — chapter.tex.j2: create the Jinja2 file.
 - [x] **T214** Template — chapter.tex.j2: parametrize its fields.
 - [x] **T215** Template — chapter.tex.j2: apply LaTeX escaping to inserted text.
 - [x] **T216** Template — chapter.tex.j2: render-test with sample data.
-- [ ] **T217** Template — chapter.tex.j2: review for page-margin overflow.
+- [x] **T217** Template — chapter.tex.j2: review for page-margin overflow.
 - [x] **T218** Template — table.tex.j2: create the Jinja2 file.
 - [x] **T219** Template — table.tex.j2: parametrize its fields.
 - [x] **T220** Template — table.tex.j2: apply LaTeX escaping to inserted text.
 - [x] **T221** Template — table.tex.j2: render-test with sample data.
-- [ ] **T222** Template — table.tex.j2: review for page-margin overflow.
+- [x] **T222** Template — table.tex.j2: review for page-margin overflow.
 - [x] **T223** Template — formula.tex.j2: create the Jinja2 file.
 - [x] **T224** Template — formula.tex.j2: parametrize its fields.
 - [x] **T225** Template — formula.tex.j2: apply LaTeX escaping to inserted text.
 - [x] **T226** Template — formula.tex.j2: render-test with sample data.
-- [ ] **T227** Template — formula.tex.j2: review for page-margin overflow.
+- [x] **T227** Template — formula.tex.j2: review for page-margin overflow.
 
 ### N. Renderer
 
@@ -338,8 +338,8 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 - [x] **T271** Capture and persist `build.log`
 - [ ] **T272** Detect unresolved references (`??`) in the log
 - [x] **T273** Fail gracefully when no toolchain is present
-- [ ] **T274** Emit `final.pdf` to `generated/pdf/`
-- [ ] **T275** Verify the PDF is non-empty
+- [x] **T274** Emit `final.pdf` to `generated/pdf/`
+- [x] **T275** Verify the PDF is non-empty
 - [ ] **T276** Add `tests/integration/test_pdf_build_smoke.py` (skip without toolchain)
 
 ## Phase F — Deliverables
@@ -351,61 +351,61 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 - [x] **T279** Requirement — Cover page: implement renderer support.
 - [x] **T280** Requirement — Cover page: produce/author the artifact.
 - [x] **T281** Requirement — Cover page: validate via DocumentValidator.
-- [ ] **T282** Requirement — Cover page: verify in the compiled PDF.
+- [x] **T282** Requirement — Cover page: verify in the compiled PDF.
 - [x] **T283** Requirement — Table of contents: specify in book_plan.
 - [x] **T284** Requirement — Table of contents: place in latex_spec.
 - [x] **T285** Requirement — Table of contents: implement renderer support.
 - [x] **T286** Requirement — Table of contents: produce/author the artifact.
 - [x] **T287** Requirement — Table of contents: validate via DocumentValidator.
-- [ ] **T288** Requirement — Table of contents: verify in the compiled PDF.
+- [x] **T288** Requirement — Table of contents: verify in the compiled PDF.
 - [x] **T289** Requirement — Chapters & sections (>=15 pages): specify in book_plan.
 - [x] **T290** Requirement — Chapters & sections (>=15 pages): place in latex_spec.
 - [x] **T291** Requirement — Chapters & sections (>=15 pages): implement renderer support.
 - [x] **T292** Requirement — Chapters & sections (>=15 pages): produce/author the artifact.
 - [x] **T293** Requirement — Chapters & sections (>=15 pages): validate via DocumentValidator.
-- [ ] **T294** Requirement — Chapters & sections (>=15 pages): verify in the compiled PDF.
+- [x] **T294** Requirement — Chapters & sections (>=15 pages): verify in the compiled PDF.
 - [x] **T295** Requirement — Image: specify in book_plan.
 - [x] **T296** Requirement — Image: place in latex_spec.
 - [x] **T297** Requirement — Image: implement renderer support.
 - [x] **T298** Requirement — Image: produce/author the artifact.
 - [x] **T299** Requirement — Image: validate via DocumentValidator.
-- [ ] **T300** Requirement — Image: verify in the compiled PDF.
+- [x] **T300** Requirement — Image: verify in the compiled PDF.
 - [x] **T301** Requirement — Python-generated graph: specify in book_plan.
 - [x] **T302** Requirement — Python-generated graph: place in latex_spec.
 - [x] **T303** Requirement — Python-generated graph: implement renderer support.
 - [x] **T304** Requirement — Python-generated graph: produce/author the artifact.
 - [x] **T305** Requirement — Python-generated graph: validate via DocumentValidator.
-- [ ] **T306** Requirement — Python-generated graph: verify in the compiled PDF.
+- [x] **T306** Requirement — Python-generated graph: verify in the compiled PDF.
 - [x] **T307** Requirement — Table: specify in book_plan.
 - [x] **T308** Requirement — Table: place in latex_spec.
 - [x] **T309** Requirement — Table: implement renderer support.
 - [x] **T310** Requirement — Table: produce/author the artifact.
 - [x] **T311** Requirement — Table: validate via DocumentValidator.
-- [ ] **T312** Requirement — Table: verify in the compiled PDF.
+- [x] **T312** Requirement — Table: verify in the compiled PDF.
 - [x] **T313** Requirement — Mathematical formula: specify in book_plan.
 - [x] **T314** Requirement — Mathematical formula: place in latex_spec.
 - [x] **T315** Requirement — Mathematical formula: implement renderer support.
 - [x] **T316** Requirement — Mathematical formula: produce/author the artifact.
 - [x] **T317** Requirement — Mathematical formula: validate via DocumentValidator.
-- [ ] **T318** Requirement — Mathematical formula: verify in the compiled PDF.
+- [x] **T318** Requirement — Mathematical formula: verify in the compiled PDF.
 - [x] **T319** Requirement — Hebrew-English BiDi chapter: specify in book_plan.
 - [x] **T320** Requirement — Hebrew-English BiDi chapter: place in latex_spec.
 - [x] **T321** Requirement — Hebrew-English BiDi chapter: implement renderer support.
 - [x] **T322** Requirement — Hebrew-English BiDi chapter: produce/author the artifact.
 - [x] **T323** Requirement — Hebrew-English BiDi chapter: validate via DocumentValidator.
-- [ ] **T324** Requirement — Hebrew-English BiDi chapter: verify in the compiled PDF.
+- [x] **T324** Requirement — Hebrew-English BiDi chapter: verify in the compiled PDF.
 - [x] **T325** Requirement — Bibliography & citations: specify in book_plan.
 - [x] **T326** Requirement — Bibliography & citations: place in latex_spec.
 - [x] **T327** Requirement — Bibliography & citations: implement renderer support.
 - [x] **T328** Requirement — Bibliography & citations: produce/author the artifact.
 - [x] **T329** Requirement — Bibliography & citations: validate via DocumentValidator.
-- [ ] **T330** Requirement — Bibliography & citations: verify in the compiled PDF.
+- [x] **T330** Requirement — Bibliography & citations: verify in the compiled PDF.
 - [x] **T331** Requirement — Final PDF: specify in book_plan.
 - [x] **T332** Requirement — Final PDF: place in latex_spec.
 - [x] **T333** Requirement — Final PDF: implement renderer support.
-- [ ] **T334** Requirement — Final PDF: produce/author the artifact.
-- [ ] **T335** Requirement — Final PDF: validate via DocumentValidator.
-- [ ] **T336** Requirement — Final PDF: verify in the compiled PDF.
+- [x] **T334** Requirement — Final PDF: produce/author the artifact.
+- [x] **T335** Requirement — Final PDF: validate via DocumentValidator.
+- [x] **T336** Requirement — Final PDF: verify in the compiled PDF.
 
 ## Phase G — Content
 
@@ -450,7 +450,7 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 - [x] **T370** Verify correct LTR/RTL transitions in source
 - [x] **T371** Select polyglossia/bidi packages
 - [x] **T372** Render the BiDi chapter to .tex
-- [ ] **T373** Verify BiDi correctness in the compiled PDF
+- [x] **T373** Verify BiDi correctness in the compiled PDF
 
 ## Phase H — Testing
 
@@ -602,18 +602,18 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 - [ ] **T484** All files <= 150 lines
 - [ ] **T485** `uv.lock` committed
 - [ ] **T486** `.env-example` present, no secrets
-- [ ] **T487** Cover page shows correct author/course/lecturer/date
-- [ ] **T488** Table of contents renders
-- [ ] **T489** Document is >= 15 pages
-- [ ] **T490** Image present and rendered
-- [ ] **T491** Python graph embedded
-- [ ] **T492** Table rendered
-- [ ] **T493** Formula typeset (not plain text)
-- [ ] **T494** BiDi chapter renders correctly
-- [ ] **T495** Bibliography resolves with working citations
-- [ ] **T496** Final PDF compiles end-to-end
-- [ ] **T497** Build log captured
-- [ ] **T498** Validation report green
+- [x] **T487** Cover page shows correct author/course/lecturer/date
+- [x] **T488** Table of contents renders
+- [x] **T489** Document is >= 15 pages
+- [x] **T490** Image present and rendered
+- [x] **T491** Python graph embedded
+- [x] **T492** Table rendered
+- [x] **T493** Formula typeset (not plain text)
+- [x] **T494** BiDi chapter renders correctly
+- [x] **T495** Bibliography resolves with working citations
+- [x] **T496** Final PDF compiles end-to-end
+- [x] **T497** Build log captured
+- [x] **T498** Validation report green
 - [ ] **T499** README evidence and screenshots added
 - [ ] **T500** Repository cleaned for submission
 - [ ] **T501** Tag the submission version
