@@ -96,7 +96,7 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 - [x] **T069** Report unused (uncited) sources
 - [x] **T070** Write `references.bib` deterministically (idempotent)
 - [x] **T071** Emit `citation_report.json`
-- [ ] **T072** Add committed-copy option for grader visibility
+- [x] **T072** Add committed-copy option for grader visibility
 - [x] **T073** Unit-test BibTeX generation
 - [x] **T074** Unit-test key extraction (Markdown + LaTeX)
 - [x] **T075** Unit-test unresolved-key detection
@@ -413,32 +413,32 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 - [x] **T337** Chapter — From Prompt to Crew: outline the chapter.
 - [x] **T338** Chapter — From Prompt to Crew: draft the prose.
-- [ ] **T339** Chapter — From Prompt to Crew: insert citation markers.
+- [x] **T339** Chapter — From Prompt to Crew: insert citation markers.
 - [ ] **T340** Chapter — From Prompt to Crew: reviewer pass for clarity.
 - [x] **T341** Chapter — From Prompt to Crew: render the chapter to .tex.
 - [x] **T342** Chapter — Agent Roles & Tasks: outline the chapter.
 - [x] **T343** Chapter — Agent Roles & Tasks: draft the prose.
-- [ ] **T344** Chapter — Agent Roles & Tasks: insert citation markers.
+- [x] **T344** Chapter — Agent Roles & Tasks: insert citation markers.
 - [ ] **T345** Chapter — Agent Roles & Tasks: reviewer pass for clarity.
 - [x] **T346** Chapter — Agent Roles & Tasks: render the chapter to .tex.
 - [x] **T347** Chapter — Sequential Orchestration: outline the chapter.
 - [x] **T348** Chapter — Sequential Orchestration: draft the prose.
-- [ ] **T349** Chapter — Sequential Orchestration: insert citation markers.
+- [x] **T349** Chapter — Sequential Orchestration: insert citation markers.
 - [ ] **T350** Chapter — Sequential Orchestration: reviewer pass for clarity.
 - [x] **T351** Chapter — Sequential Orchestration: render the chapter to .tex.
 - [x] **T352** Chapter — The Deterministic Harness: outline the chapter.
 - [x] **T353** Chapter — The Deterministic Harness: draft the prose.
-- [ ] **T354** Chapter — The Deterministic Harness: insert citation markers.
+- [x] **T354** Chapter — The Deterministic Harness: insert citation markers.
 - [ ] **T355** Chapter — The Deterministic Harness: reviewer pass for clarity.
 - [x] **T356** Chapter — The Deterministic Harness: render the chapter to .tex.
 - [x] **T357** Chapter — LaTeX Production & BiDi: outline the chapter.
 - [x] **T358** Chapter — LaTeX Production & BiDi: draft the prose.
-- [ ] **T359** Chapter — LaTeX Production & BiDi: insert citation markers.
+- [x] **T359** Chapter — LaTeX Production & BiDi: insert citation markers.
 - [ ] **T360** Chapter — LaTeX Production & BiDi: reviewer pass for clarity.
 - [x] **T361** Chapter — LaTeX Production & BiDi: render the chapter to .tex.
 - [x] **T362** Chapter — Conclusion: outline the chapter.
 - [x] **T363** Chapter — Conclusion: draft the prose.
-- [ ] **T364** Chapter — Conclusion: insert citation markers.
+- [x] **T364** Chapter — Conclusion: insert citation markers.
 - [ ] **T365** Chapter — Conclusion: reviewer pass for clarity.
 - [x] **T366** Chapter — Conclusion: render the chapter to .tex.
 
@@ -679,8 +679,8 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 ### AI. Parallelism & Performance (guideline 15)
 
-- [ ] **T544** Identify I/O-bound vs CPU-bound steps
-- [ ] **T545** Choose threads vs processes appropriately
+- [x] **T544** Identify I/O-bound vs CPU-bound steps
+- [x] **T545** Choose threads vs processes appropriately
 - [ ] **T546** Use `queue.Queue` for safe data transfer
 - [ ] **T547** Protect shared state with locks
 - [ ] **T548** Avoid deadlocks and race conditions
@@ -689,13 +689,13 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 ### AJ. Modular Building Blocks (guideline 16)
 
-- [ ] **T551** Define inputs/outputs/setup for each block
-- [ ] **T552** Enforce single responsibility per block
-- [ ] **T553** Use dependency injection for testability
-- [ ] **T554** Review block reusability and independence
+- [x] **T551** Define inputs/outputs/setup for each block
+- [x] **T552** Enforce single responsibility per block
+- [x] **T553** Use dependency injection for testability
+- [x] **T554** Review block reusability and independence
 - [ ] **T555** Apply the Template Method for varied-but-similar logic
 - [ ] **T556** Enforce mixin rules (single concern, independently testable)
-- [ ] **T557** Document each block's contract
+- [x] **T557** Document each block's contract
 
 ### AK. ISO/IEC 25010 Quality (guideline 13)
 
@@ -726,20 +726,20 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 ### AM. Licensing & Packaging Metadata (guideline 14.1)
 
-- [ ] **T573** Add a `LICENSE` file (choose an appropriate license)
-- [ ] **T574** Add the `license` field to `pyproject.toml` `[project]`
-- [ ] **T575** Add third-party attribution/credits
+- [x] **T573** Add a `LICENSE` file (choose an appropriate license)
+- [x] **T574** Add the `license` field to `pyproject.toml` `[project]`
+- [x] **T575** Add third-party attribution/credits
 
 ### AN. Configuration Completeness (guideline 7.3, 8.1)
 
 - [x] **T576** Add `config/logging_config.json` and wire `shared/logging.py` to read it
 - [x] **T577** Add a `version` key to `budgets.json`, `models.json`, and `latex.json` (done; required field validated by Pydantic)
 - [x] **T578** Implement runtime configuration-version validation (fail on mismatch)
-- [ ] **T579** Extract immutable constants into `shared/constants.py` (REQUIRED_AGENTS, EXPECTED_ARTIFACTS, ...)
+- [x] **T579** Extract immutable constants into `shared/constants.py` (REQUIRED_AGENTS, EXPECTED_ARTIFACTS, ...)
 
 ### AO. Validation Integrity (fix false-green)
 
-- [ ] **T580** Strengthen `validators.py` to assert real artifact files exist on disk (not just spec keys/strings)
+- [x] **T580** Strengthen `validators.py` to assert real artifact files exist on disk (not just spec keys/strings)
 - [ ] **T581** Add post-compile checks that features are actually embedded in the PDF
 - [ ] **T582** Add `latex/escaping.py` and route all agent-sourced text through it before rendering
 
@@ -752,7 +752,7 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 ### AQ. Packaging Hygiene (guideline 14.2)
 
 - [x] **T586** Add `__init__.py` to `document/`, `harness/`, `latex/`, `orchestration/` (src subpackages; tests dirs optional)
-- [ ] **T587** Export public interfaces / `__all__` from sub-package inits
+- [x] **T587** Export public interfaces / `__all__` from sub-package inits
 
 ### AR. Documentation Hygiene & Drift
 
@@ -764,9 +764,9 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 ### AS. Agent Security (lesson Section 8)
 
-- [ ] **T593** Review prompt-injection, tool-misuse, identity-abuse, and memory-poisoning risks
-- [ ] **T594** Run a red-team pass against the agents before any real execution
-- [ ] **T595** Document agent-security mitigations and the human-in-the-loop control point
+- [x] **T593** Review prompt-injection, tool-misuse, identity-abuse, and memory-poisoning risks
+- [x] **T594** Run a red-team pass against the agents before any real execution
+- [x] **T595** Document agent-security mitigations and the human-in-the-loop control point
 
 ### AT. Automated Quality Tooling (lecturer feedback)
 

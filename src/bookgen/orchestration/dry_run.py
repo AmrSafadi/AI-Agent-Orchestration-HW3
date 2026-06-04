@@ -13,22 +13,8 @@ from pathlib import Path
 from typing import Any
 
 from bookgen.shared.config import project_root
-
-EXPECTED_ARTIFACTS = {
-    "book_plan": Path("generated/intermediate/book_plan.json"),
-    "research_pack": Path("generated/intermediate/research_pack.json"),
-    "manuscript": Path("generated/intermediate/manuscript.md"),
-    "review_report": Path("generated/intermediate/review_report.json"),
-    "latex_spec": Path("generated/intermediate/latex_spec.json"),
-}
-
-SAMPLE_ARTIFACTS = {
-    "book_plan": Path("data/intermediate/sample_book_plan.json"),
-    "research_pack": Path("data/intermediate/sample_research_pack.json"),
-    "manuscript": Path("data/intermediate/sample_manuscript.md"),
-    "review_report": Path("data/intermediate/sample_review_report.json"),
-    "latex_spec": Path("data/intermediate/sample_latex_spec.json"),
-}
+from bookgen.shared.constants import GENERATED_ARTIFACTS as EXPECTED_ARTIFACTS
+from bookgen.shared.constants import SAMPLE_ARTIFACTS
 
 
 def create_or_reuse_dry_run_artifacts(root_dir: Path | str) -> list[Path]:

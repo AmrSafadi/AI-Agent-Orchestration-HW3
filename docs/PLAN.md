@@ -15,6 +15,14 @@ The system has two layers:
 2. **Deterministic Python harness** — exact, testable code for citations, graph
    generation, validation, LaTeX rendering, and PDF compilation.
 
+The generated document is **primarily Hebrew (RTL)**; English appears inline only
+for technical terms (Agent, Task, Crew, Harness, validation, …). The LaTeX
+template (`templates/latex/main.tex.j2`) sets `\setmainlanguage{hebrew}`,
+`\setotherlanguage{english}`, and `\setmainfont{David CLM}`, and
+`templates/latex/chapter.tex.j2` includes an explicit `\begin{english}` LTR block
+demonstrating the RTL↔LTR BiDi transition. The manuscript spans ~3,260 Hebrew
+words across 6 chapters.
+
 ```text
 Config (config/*.json)
   -> Sequential CrewAI Crew
@@ -32,7 +40,7 @@ Config (config/*.json)
 - **Containers:** the `bookgen` Python package (CLI entry point `bookgen.main`),
   the CrewAI runtime, a Jinja2/LaTeX template set, and a TeX toolchain.
 - **Components:** `orchestration/` (agents, tasks, crew), `document/` (schemas,
-  validators), `harness/` (citations, graph, future assets/evidence), `latex/`
+  validators), `harness/` (citations, graph, `assets.py`, `evidence.py`), `latex/`
   (renderer, compiler, escaping), `shared/` (config, logging, version).
 - **Code:** Pydantic models define artifact contracts; factory functions build
   agents/tasks; deterministic functions own fragile output.
@@ -44,6 +52,7 @@ Config (config/*.json)
 | Config loader | `shared/config.py` | Load/validate versioned `config/*.json`. | Implemented |
 | Version | `shared/version.py` | Single source of the package version. | Implemented |
 | Schemas | `document/schemas.py` | Pydantic artifact contracts. | Implemented |
+| Report schemas | `document/report_schemas.py` | Pydantic contracts for citation/validation/evidence reports. | Implemented |
 | Validator | `document/validators.py` | Check required artifacts, PDF features, and latex-spec file existence. | Implemented |
 | CitationReport | `harness/citation_report.py` | Reconcile citations → `citation_report.json`. | Implemented |
 | AssetGenerator | `harness/assets.py` | Asset specs + deterministic image; file-existence checks. | Implemented |
@@ -53,6 +62,7 @@ Config (config/*.json)
 | Agents | `orchestration/agents.py` | Five agent factories (+ dry-run fallback). | Implemented |
 | Tasks | `orchestration/tasks.py` | Five context-linked task factories. | Implemented |
 | Crew | `orchestration/crew.py` | `build_crew()` / `run_crew()`; dry-run default. | Implemented |
+| Dry-run | `orchestration/dry_run.py` | Deterministic artifact synthesis with no API calls (default mode). | Implemented |
 | CrewAI Skills | `orchestration/skills.py` + `skills/*/SKILL.md` | Knowledge packs injected into agents in real-crew mode (course Skill concept). | Implemented |
 | Renderer | `latex/renderer.py` + `latex/escaping.py` + `templates/latex/*` | Render `main.tex` (cover, TOC, figures, table, formula, BiDi, bibliography) from artifacts. | Implemented |
 | PDFCompiler | `latex/compiler.py` | Multi-pass LuaLaTeX/biber compile; graceful without a toolchain. | Implemented (needs a TeX toolchain to emit a PDF) |
@@ -89,6 +99,10 @@ go to the git-ignored `generated/` tree.
 - CrewAI (orchestration), Pydantic (schemas/config), Jinja2 (templates),
   Matplotlib (graph).
 - LaTeX: LuaLaTeX (+ XeLaTeX fallback), biber; TikZ for diagrams.
+- Document language: primarily Hebrew (RTL) via `\setmainlanguage{hebrew}` /
+  `\setotherlanguage{english}` / `\setmainfont{David CLM}`, with an explicit
+  `\begin{english}` BiDi block; English inline only for technical terms
+  (~3,260 Hebrew words across 6 chapters).
 - Quality: Ruff (lint), pytest + pytest-cov (tests/coverage).
 
 ## 7. Risks and Mitigations
@@ -110,24 +124,28 @@ without disturbing the others. Mapping to the standard concern categories:
 |---|---|---|
 | Data / inputs | `data/`, `config/`, `document/schemas.py` | Add a source to `source_registry.json` or a new Pydantic schema |
 | Model / logic (agents) | `orchestration/agents.py`, `tasks.py` | Add/adjust an agent factory or task (within the approved five) |
-| Execution / orchestration | `orchestration/crew.py`, `main.py`, planned `sdk/` | Swap `Process`, add a run mode behind a flag |
-| Evaluation / validation | `document/validators.py`, planned `harness/evidence.py` | Add a feature check or report field |
+| Execution / orchestration | `orchestration/crew.py`, `main.py`, `sdk/sdk.py` | Swap `Process`, add a run mode behind a flag |
+| Evaluation / validation | `document/validators.py`, `harness/evidence.py` | Add a feature check or report field |
 | Rendering / output | `latex/renderer.py`, `templates/latex/*` | Add a template or renderer step |
-| Configuration | `config/*.json`, `shared/config.py`, planned `shared/constants.py` | Add a versioned config key (no code constants) |
+| Configuration | `config/*.json`, `shared/config.py`, `shared/constants.py` | Add a versioned config key (no code constants) |
 
-Planned extension points (TODO Phase M): an `sdk/` facade as the single entry
-point so CLI/services/tests call one API, and `shared/gatekeeper.py` wrapping
-provider calls so rate-limit/retry/monitoring change in one place.
+Implemented extension points: an `sdk/` facade (`sdk/sdk.py`, class
+`BookGenSDK`) is the single entry point so CLI/services/tests call one API
+(`main.py` holds no business logic), and `shared/gatekeeper.py`
+(`ApiGatekeeper`) wraps provider calls so rate-limit/retry/monitoring change in
+one place (60s sliding-window rate limit, retries, `BackpressureError`,
+`get_queue_status`).
 
 ## 9. Quality Tooling
 
 | Tool | Purpose | Status |
 |---|---|---|
-| Ruff | Lint (guideline rule set), 0 violations | Configured & passing |
-| pytest + pytest-cov | Tests + 85% coverage gate | Configured (run with `--cov`) |
-| Formatter (`ruff format` / black) | Consistent style | Planned (TODO T596) |
-| pre-commit hooks | Lint/format/tests before commit | Planned (TODO T597) |
-| CI (GitHub Actions) | Ruff + tests on each PR | Planned (TODO T598) |
+| Ruff | Lint (guideline rule set), ruff 0 violations | Configured & passing |
+| pytest + pytest-cov | Tests + 85% coverage gate; 77 tests, 93.41% coverage (gate 85%) | Configured & passing |
+| Formatter (`ruff format` / black) | Consistent style | Configured |
+| pre-commit hooks | Lint/format/tests before commit | Configured (`scripts/hooks/pre-commit`) |
+| CI (GitHub Actions) | Ruff + tests on each PR | Configured (`.github/workflows/ci.yml`) |
 
-Automated gates replace manual review; the formatter, pre-commit, and CI items
-are tracked so quality is enforced rather than assumed.
+Automated gates replace manual review: 77 tests pass at 93.41% coverage
+(gate 85%) with ruff 0 violations, and pre-commit plus CI enforce quality rather
+than assume it.

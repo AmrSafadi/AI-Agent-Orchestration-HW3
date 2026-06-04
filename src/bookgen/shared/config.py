@@ -8,6 +8,8 @@ from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
+from bookgen.shared.constants import REQUIRED_AGENTS
+
 REQUIRED_CONFIG_FILES = {
     "setup": "setup.json",
     "models": "models.json",
@@ -15,8 +17,6 @@ REQUIRED_CONFIG_FILES = {
     "budgets": "budgets.json",
     "rate_limits": "rate_limits.json",
 }
-
-REQUIRED_AGENTS = ("planner", "research", "writer", "reviewer", "latex")
 
 EXPECTED_CONFIG_VERSION = "1.00"
 

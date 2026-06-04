@@ -8,12 +8,15 @@ This document maps course concepts to concrete project components.
 | Task | A measurable work unit with description and expected output. | `src/bookgen/orchestration/tasks.py` defines plan, research, writing, review, and LaTeX-spec task factories. |
 | Crew | The team that combines agents and tasks. | `src/bookgen/orchestration/crew.py` assembles the five-agent crew with dry-run safety. |
 | Process | The execution strategy for the crew. | Version 1 uses `Process.sequential`, configured through `config/setup.json`. |
-| Context | Output from one task passed to later tasks. | Structured artifacts: `book_plan.json`, `research_pack.json`, `manuscript.md`, `review_report.json`, `latex_spec.json`. |
-| Harness | The software system around the model. | `src/bookgen/shared`, `src/bookgen/document`, `src/bookgen/harness`, `src/bookgen/latex`. |
-| Tools/Skills | Reliable capabilities that support agents. | Deterministic CitationManager, GraphGenerator, Validator, future LaTeX Renderer and PDFCompiler. |
+| Context | Output from one task passed to later tasks. | The dry-run pipeline already passes and persists structured artifacts under `generated/intermediate/` (`book_plan.json`, `research_pack.json`, `manuscript.md`, `review_report.json`, `latex_spec.json`) via `src/bookgen/orchestration/dry_run.py` and `crew.py`. |
+| Harness | The software system around the model. | `src/bookgen/shared`, `src/bookgen/document`, `src/bookgen/harness`, `src/bookgen/latex`, `src/bookgen/sdk` (BookGenSDK facade), and `src/bookgen/research` (`sensitivity.py`). |
+| Tools/Skills | Reliable capabilities that support agents. | Deterministic CitationManager (`src/bookgen/harness/citations.py`), GraphGenerator (`src/bookgen/harness/graph_generator.py`), Validator (`src/bookgen/document/validators.py`), and the implemented LaTeX Renderer and PDFCompiler (`src/bookgen/latex/renderer.py`, `compiler.py`, `escaping.py`, `build.py`). |
 | Validation | Guardrails that check correctness before later steps. | `src/bookgen/document/validators.py` and `ValidationReport` schema. |
 | Observability | Visibility into what happened and why. | Intermediate artifacts, generated graph, validation reports, bibliography, test outputs, future logs. |
-| LaTeX production | Turning content into professional PDF output. | `templates/latex/main.tex.j2`, future `renderer.py`, future `compiler.py`, generated `.bib` and assets. |
+| LaTeX production | Turning content into professional PDF output. | `templates/latex/main.tex.j2`, implemented `src/bookgen/latex/renderer.py`, `compiler.py`, `escaping.py`, `build.py`, generated `.bib` and assets. |
+| Language | The primary language and script direction of the document. | The document is primarily Hebrew (RTL) via `\setmainlanguage{hebrew}` / `\setmainfont{David CLM}`, ~3,260 Hebrew words across 6 chapters, with English kept inline only for technical terms; the `hebrew_english_section` is an explicit `\begin{english}` BiDi demo block, not the document's primary language. |
+
+Quality and entry point: 77 tests pass, coverage 93.41% (gate 85%), ruff 0 violations. The CLI is `python -m bookgen.main --dry-run [--build-pdf] [--run-crew]`.
 
 ## Specific Demonstrations
 
@@ -55,7 +58,7 @@ Context is represented by structured files. For example:
 book_plan.json -> research_pack.json -> manuscript.md -> review_report.json -> latex_spec.json
 ```
 
-The real implementation will pass these task outputs through CrewAI context and persist them for grading.
+The dry-run pipeline passes these task outputs through CrewAI-style context and persists them under `generated/intermediate/` for grading (`src/bookgen/orchestration/dry_run.py` and `crew.py`).
 
 ### Harness
 
@@ -72,7 +75,7 @@ The harness protects the project from fragile model output. It owns:
 
 ### Tools/Skills
 
-The course distinguishes model reasoning from reliable executable capabilities. This project follows that idea by keeping graph creation, citation handling, and validation in Python.
+The course distinguishes model reasoning from reliable executable capabilities. This project follows that idea by keeping graph creation, citation handling, validation, LaTeX rendering, and PDF compilation in deterministic Python (`src/bookgen/latex/renderer.py`, `compiler.py`, `escaping.py`, `build.py`).
 
 ### Validation
 
@@ -103,4 +106,4 @@ The project is designed so a grader can inspect:
 
 ### LaTeX Production
 
-The final system will use LaTeX templates and a deterministic compiler wrapper. The LaTeX Agent only produces assembly intent; Python will render and compile.
+The system uses LaTeX templates and a deterministic compiler wrapper. The LaTeX Agent only produces assembly intent; Python renders the `.tex` (`renderer.py`) and compiles it (`compiler.py`, running `lualatex` -> `biber` -> `lualatex` -> `lualatex`). Rendering and PDF compilation are implemented and exercised by tests; only the final compiled `final.pdf` is blocked, and solely on installing a free TeX toolchain (`lualatex` + `biber`) plus the Hebrew `David CLM` font that are not present locally — not on missing code.

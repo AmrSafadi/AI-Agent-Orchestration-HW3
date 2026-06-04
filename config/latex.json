@@ -7,8 +7,8 @@
   "output_pdf": "generated/pdf/final.pdf",
   "passes": 4,
   "language_support": {
-    "primary": "english",
-    "secondary": "hebrew",
+    "primary": "hebrew",
+    "secondary": "english",
     "bidi_required": true
   }
 }

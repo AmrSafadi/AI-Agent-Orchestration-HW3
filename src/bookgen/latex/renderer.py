@@ -17,6 +17,10 @@ from bookgen.latex.escaping import escape_latex
 DEFAULT_TEMPLATES_DIR = Path("templates/latex")
 DEFAULT_OUTPUT_DIR = Path("generated/latex")
 
+# Cited per chapter (cycled) so every chapter carries an inline citation marker,
+# not just the feature chapter. Keys must exist in the generated references.bib.
+CHAPTER_CITE_KEYS = ("crewai_docs", "langchain_docs", "latex_project")
+
 
 def _environment(templates_dir: Path) -> jinja2.Environment:
     """Return a Jinja2 environment using LaTeX-safe delimiters."""
@@ -52,6 +56,7 @@ def _chapters(book_plan: BookPlan) -> list[dict]:
                     for section in chapter.sections
                 ],
                 "show_features": index == 0,
+                "cite_key": CHAPTER_CITE_KEYS[index % len(CHAPTER_CITE_KEYS)],
             }
         )
     return rendered

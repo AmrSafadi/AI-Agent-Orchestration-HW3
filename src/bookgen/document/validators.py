@@ -6,26 +6,20 @@ from pathlib import Path
 
 from bookgen.document.schemas import BookPlan, LatexSpec, ValidationCheck, ValidationReport
 from bookgen.harness.citations import extract_citation_keys
+from bookgen.shared.constants import GENERATED_ARTIFACTS, REQUIRED_FEATURES
 
-REQUIRED_ARTIFACTS = (
-    "generated/intermediate/book_plan.json",
-    "generated/intermediate/research_pack.json",
-    "generated/intermediate/manuscript.md",
-    "generated/intermediate/review_report.json",
-    "generated/intermediate/latex_spec.json",
-)
+__all__ = [
+    "REQUIRED_ARTIFACTS",
+    "REQUIRED_FEATURES",
+    "validate_required_artifacts",
+    "validate_required_document_features",
+    "validate_project",
+    "validate_latex_spec_files",
+]
 
-REQUIRED_FEATURES = (
-    "cover",
-    "toc",
-    "chapters",
-    "citations",
-    "image",
-    "graph",
-    "table",
-    "formula",
-    "hebrew_english_section",
-)
+# Derived from the shared artifact map so this list cannot drift from the
+# dry-run synthesizer (see bookgen.shared.constants).
+REQUIRED_ARTIFACTS = tuple(str(path) for path in GENERATED_ARTIFACTS.values())
 
 
 def validate_required_artifacts(root_dir: Path | str = ".") -> ValidationReport:
