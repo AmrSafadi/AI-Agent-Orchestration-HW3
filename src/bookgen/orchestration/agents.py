@@ -1,37 +1,31 @@
 """CrewAI agent factory functions.
 
-The factories use CrewAI's public ``Agent`` class when CrewAI is installed.
-For local dry-runs and tests, a small compatibility fallback is used so this
-milestone never requires an API key or model provider.
+Each factory builds one of the approved version-1 agents. The shared dry-run/real
+construction logic lives in ``orchestration.factory`` so this module stays focused
+on the agent roles themselves.
 """
 
 from __future__ import annotations
 
-from dataclasses import dataclass
 from typing import Any
 
-try:  # pragma: no cover - exercised only when CrewAI is installed locally.
-    from crewai import Agent as CrewAIAgent
-except ImportError:  # pragma: no cover - the fallback is covered via factories.
-    CrewAIAgent = None
-
+from bookgen.orchestration.factory import create_agent, crewai_available
 from bookgen.orchestration.skills import assigned_skill_paths
 
-
-@dataclass
-class DryRunAgent:
-    """Minimal Agent-compatible object used when CrewAI is unavailable."""
-
-    role: str
-    goal: str
-    backstory: str
-    allow_delegation: bool = False
-    verbose: bool = True
+__all__ = [
+    "create_planner_agent",
+    "create_research_agent",
+    "create_writer_agent",
+    "create_reviewer_agent",
+    "create_latex_agent",
+    "create_all_agents",
+    "crewai_available",
+]
 
 
 def create_planner_agent(use_real_crewai: bool = False) -> Any:
     """Create the Planner Agent."""
-    return _create_agent(
+    return create_agent(
         role="Document Planning Architect",
         goal=(
             "Create the book blueprint, including title, audience, chapter plan, "
@@ -48,7 +42,7 @@ def create_planner_agent(use_real_crewai: bool = False) -> Any:
 
 def create_research_agent(use_real_crewai: bool = False) -> Any:
     """Create the Research Agent."""
-    return _create_agent(
+    return create_agent(
         role="Course-Aligned Research Analyst",
         goal=(
             "Create a focused research pack with key concepts, terminology, source candidates, "
@@ -66,7 +60,7 @@ def create_research_agent(use_real_crewai: bool = False) -> Any:
 
 def create_writer_agent(use_real_crewai: bool = False) -> Any:
     """Create the Writer Agent."""
-    return _create_agent(
+    return create_agent(
         role="Senior Technical Writer",
         goal=(
             "Write a professional manuscript from the plan and research context, including "
@@ -83,7 +77,7 @@ def create_writer_agent(use_real_crewai: bool = False) -> Any:
 
 def create_reviewer_agent(use_real_crewai: bool = False) -> Any:
     """Create the Reviewer Agent."""
-    return _create_agent(
+    return create_agent(
         role="Senior Editorial Reviewer",
         goal=(
             "Review the manuscript for clarity, consistency, assignment coverage, and course alignment "
@@ -100,7 +94,7 @@ def create_reviewer_agent(use_real_crewai: bool = False) -> Any:
 
 def create_latex_agent(use_real_crewai: bool = False) -> Any:
     """Create the LaTeX Agent."""
-    return _create_agent(
+    return create_agent(
         role="LaTeX Assembly Specialist",
         goal=(
             "Create a LaTeX assembly specification that maps the reviewed manuscript to templates, "
@@ -124,31 +118,3 @@ def create_all_agents(use_real_crewai: bool = False) -> dict[str, Any]:
         "reviewer": create_reviewer_agent(use_real_crewai=use_real_crewai),
         "latex": create_latex_agent(use_real_crewai=use_real_crewai),
     }
-
-
-def crewai_available() -> bool:
-    """Return whether the real CrewAI package is available."""
-    return CrewAIAgent is not None
-
-
-def _create_agent(
-    role: str,
-    goal: str,
-    backstory: str,
-    use_real_crewai: bool = False,
-    skill_paths: list[str] | None = None,
-) -> Any:
-    agent_kwargs = {
-        "role": role,
-        "goal": goal,
-        "backstory": backstory,
-        "allow_delegation": False,
-        "verbose": True,
-    }
-    if not use_real_crewai:
-        return DryRunAgent(**agent_kwargs)
-    if CrewAIAgent is None:
-        raise RuntimeError("CrewAI is not installed; real agent construction is unavailable.")
-    if skill_paths:
-        agent_kwargs["skills"] = skill_paths
-    return CrewAIAgent(**agent_kwargs)

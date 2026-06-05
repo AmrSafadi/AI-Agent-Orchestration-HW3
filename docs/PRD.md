@@ -35,7 +35,7 @@ for the work that must be exact. Agents decide *intent*; Python executes
 | Demonstrate CrewAI orchestration | Five specialized agents, five context-linked tasks, `Process.sequential`. |
 | Produce a professional PDF | A compiled PDF containing every required feature (see §3). |
 | Keep the system safe to run | Dry-run is the default; no API call or spend without explicit `--run-crew` + key. |
-| Meet engineering standards | Ruff 0 violations; test coverage ≥ 85% (currently 92.27%, gate 85%, across 89 tests); files ≤ 150 code lines; `uv` only. |
+| Meet engineering standards | Ruff 0 violations; test coverage ≥ 85% (currently 92.46%, gate 85%, across 89 tests); files ≤ 150 code lines; `uv` only. |
 | Reproducibility & observability | Structured intermediate artifacts, validation report, build log. |
 
 ## 3. Functional Requirements
@@ -116,7 +116,7 @@ summary: planning, config/schemas, the deterministic harness, the CrewAI dry-run
 orchestration, LaTeX rendering, the SDK facade single entry point, the API
 gatekeeper, and the final compiled PDF are all **complete**. The 18-page
 Hebrew-primary `final.pdf` is committed at the repository root, verified end-to-end
-(18 pages, 0 overfull boxes, 89 tests, 92.27% coverage with an 85% gate).
+(18 pages, 0 overfull boxes, 89 tests, 92.46% coverage with an 85% gate).
 Reproducing the PDF from scratch requires a free TeX toolchain (LuaLaTeX + biber)
 with the Hebrew font David CLM (culmus) — not any missing code.
 

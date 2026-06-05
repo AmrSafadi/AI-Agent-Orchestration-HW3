@@ -529,13 +529,13 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 ### W. Engineering Standards
 
-- [ ] **T436** Enforce the 150-line-per-file limit across `src/`
+- [x] **T436** Enforce the 150-line-per-file limit across `src/`
 - [x] **T437** Split `crew.py` into focused modules (extracted `orchestration/dry_run.py`; crew.py now 85 lines)
 - [x] **T438** Introduce an SDK single entry point (`sdk/sdk.py` — `BookGenSDK`)
 - [x] **T439** Route all business logic through the SDK (`main.py` delegates entirely)
-- [ ] **T440** Remove any code duplication (DRY)
-- [ ] **T441** Add docstrings to every public function/module
-- [ ] **T442** Ensure comments explain 'why', not 'what'
+- [x] **T440** Remove any code duplication (DRY)
+- [x] **T441** Add docstrings to every public function/module
+- [x] **T442** Ensure comments explain 'why', not 'what'
 - [x] **T443** Generate and commit `uv.lock`
 - [x] **T444** Verify no `pip`/`python -m` calls anywhere
 - [x] **T445** Verify ISO/IEC 25010 quality characteristics are addressed
@@ -599,7 +599,7 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 - [x] **T481** Per-mechanism PRDs present
 - [x] **T482** Ruff = 0 violations
 - [x] **T483** Coverage >= 85%
-- [ ] **T484** All files <= 150 lines
+- [x] **T484** All files <= 150 lines
 - [x] **T485** `uv.lock` committed
 - [x] **T486** `.env-example` present, no secrets
 - [x] **T487** Cover page shows correct author/course/lecturer/date

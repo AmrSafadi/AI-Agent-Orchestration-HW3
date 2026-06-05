@@ -111,6 +111,7 @@ class LatexSpec(BaseModel):
     @field_validator("engine")
     @classmethod
     def engine_must_be_supported(cls, value: str) -> str:
+        """Restrict the LaTeX engine to the supported set."""
         if value not in {"lualatex", "xelatex", "pdflatex"}:
             raise ValueError(f"unsupported LaTeX engine: {value}")
         return value

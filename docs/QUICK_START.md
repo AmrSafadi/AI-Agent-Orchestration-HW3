@@ -51,7 +51,7 @@ Expected result:
 89 passed
 ```
 
-Coverage is 92.27% against an 85% gate, and ruff reports 0 violations.
+Coverage is 92.46% against an 85% gate, and ruff reports 0 violations.
 
 ## 4. Generate Deterministic Outputs
 
