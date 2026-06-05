@@ -6,6 +6,7 @@ Compilation degrades gracefully when no TeX toolchain is installed.
 
 from __future__ import annotations
 
+import shutil
 from pathlib import Path
 
 from bookgen.document.schemas import BookPlan, LatexSpec
@@ -48,6 +49,7 @@ def build_document(
         "main_tex": str(main_tex),
         "compiled": False,
         "message": "Rendered main.tex (LaTeX compilation not requested).",
+        "features": _features_present(main_tex.read_text(encoding="utf-8")),
     }
     if compile_after:
         config = latex_config or {}
@@ -56,8 +58,33 @@ def build_document(
             engine=config.get("engine", "lualatex"),
             bib_backend=config.get("bibliography_backend", "biber"),
             passes=config.get("passes", 4),
+            fallback_engine=config.get("fallback_engine"),
         )
         summary["compiled"] = result.success
         summary["message"] = result.message
         summary["pdf"] = str(result.pdf_path) if result.pdf_path else None
+        summary["pages"] = result.pages
+        summary["warnings"] = result.warnings
+        if result.success and result.pdf_path:
+            final_pdf = root / config.get("output_pdf", "generated/pdf/final.pdf")
+            final_pdf.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(result.pdf_path, final_pdf)
+            summary["final_pdf"] = str(final_pdf)
     return summary
+
+
+# Markers expected in the rendered main.tex for each required assignment feature.
+_FEATURE_MARKERS = {
+    "cover": "\\begin{titlepage}",
+    "toc": "\\tableofcontents",
+    "image_or_graph": "\\includegraphics",
+    "table_or_formula": "\\input{",
+    "bidi": "\\begin{english}",
+    "bibliography": "\\printbibliography",
+    "citation": "\\cite{",
+}
+
+
+def _features_present(tex_text: str) -> list[str]:
+    """Return which required document features are present in the rendered LaTeX."""
+    return [name for name, marker in _FEATURE_MARKERS.items() if marker in tex_text]

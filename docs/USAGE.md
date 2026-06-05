@@ -17,10 +17,13 @@ Set `$env:PYTHONPATH="src"` first (PowerShell).
 |---|---|---|
 | Startup check (default) | `uv run --no-project --with pydantic --with matplotlib --with jinja2 python -m bookgen.main` | No |
 | Explicit dry-run | `… python -m bookgen.main --dry-run` | No |
+| Render + build PDF | `… python -m bookgen.main --build-pdf` (renders `main.tex`, then compiles the PDF; needs a TeX toolchain) — verified to produce an 18-page `final.pdf` (lualatex + biber, culmus David CLM); a committed snapshot is at the repo root | No |
 | Real crew run | `… python -m bookgen.main --run-crew` (needs `OPENAI_API_KEY`) | Yes |
 | Run tests | `uv run --no-project --with pydantic --with pytest --with matplotlib --with jinja2 python -m pytest tests/unit` | No |
 
 `--dry-run` and `--run-crew` are mutually exclusive; dry-run is the default.
+The installed `bookgen` console script is an equivalent alternative to
+`python -m bookgen.main` (e.g. `bookgen --dry-run --build-pdf`).
 
 ## 3. What the user sees (sample dry-run session)
 
@@ -33,7 +36,8 @@ Artifact output directory: ...\generated\intermediate
 Execution mode: DRY-RUN (default). CrewAI kickoff will not be called.
 Crew assembled: 5 agents, 5 tasks, process=sequential.
 Dry-run completed. CrewAI kickoff was not called.
-PDF generation is not implemented yet.
+Rendered LaTeX project: <root>\generated\latex\main.tex
+Rendered main.tex (LaTeX compilation not requested).
 ```
 
 ## 4. UX qualities (Nielsen heuristics)
@@ -49,14 +53,23 @@ PDF generation is not implemented yet.
 
 ## 5. Outputs the user can inspect
 
-After a run: artifacts under `generated/intermediate/` (`book_plan`,
+After a run: the rendered LaTeX project at `generated/latex/main.tex` (the key
+rendered deliverable); artifacts under `generated/intermediate/` (`book_plan`,
 `research_pack`, `manuscript`, `review_report`, `latex_spec`); the pipeline graph
 under `generated/assets/graphs/`; the bibliography at
 `data/references/references.bib`. Committed `data/intermediate/sample_*` files
 show representative shapes without running anything.
 
+The generated document is primarily Hebrew (RTL), using English only for
+technical terms (Agent, Task, Crew, Harness, validation), and includes an
+explicit Hebrew↔English BiDi block to demonstrate the RTL↔LTR transition.
+
 ## 6. Planned
 
 Screenshots of representative runs and a fuller Nielsen-heuristics review are
-tracked in TODO. When the LaTeX pipeline lands, the final PDF becomes the primary
-visual deliverable.
+tracked in TODO. The LaTeX pipeline has landed: `main.tex` is rendered on every
+run, and `--build-pdf` compiles the final PDF end-to-end. The compiled,
+18-page `final.pdf` is committed (a snapshot at the repo root, plus
+`generated/pdf/final.pdf`) and serves as the primary visual deliverable.
+Reproducing it from scratch requires a free TeX toolchain (lualatex + biber)
+and the Hebrew font David CLM (culmus).

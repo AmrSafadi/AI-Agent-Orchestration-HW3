@@ -5,8 +5,10 @@ description = "CrewAI-based article/book generator with deterministic LaTeX PDF 
 readme = "README.md"
 requires-python = ">=3.10"
 authors = [
-  { name = "Amr Safadi" }
+  { name = "Amr Safadi" },
+  { name = "Sharbel Maroun" },
 ]
+license = { text = "MIT" }
 dependencies = [
   "crewai",
   "python-dotenv",

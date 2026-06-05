@@ -63,9 +63,13 @@ A ~15-page document on `gpt-4o-mini` is on the order of **a few cents per run**.
 ## 6. Budgeting & controls
 
 - `config/budgets.json` holds budget caps (currently placeholders).
-- Planned `shared/gatekeeper.py` (TODO Phase M) will enforce rate limits and
-  budget alerts at a single choke point and log token usage per call.
-- `result.token_usage` from `crew.kickoff()` lets a real run report actual tokens.
+- `shared/gatekeeper.py` is implemented: `ApiGatekeeper` is the single choke point
+  for provider calls. It enforces a per-minute 60s sliding-window rate limit, retries
+  via `max_retries`/`retry_after_seconds`, and applies backpressure by raising
+  `BackpressureError` once `max_queue_depth` is exceeded; `get_queue_status()` exposes
+  queue/rate state for monitoring.
+- The gatekeeper does **not** track per-call token usage. Actual token usage for a
+  real run comes from `result.token_usage` returned by `crew.kickoff()`.
 
 ## 7. Optimization strategies
 

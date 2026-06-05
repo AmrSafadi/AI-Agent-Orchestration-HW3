@@ -4,7 +4,12 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from bookgen.latex.compiler import compile_pdf, toolchain_available
+from bookgen.latex.compiler import (
+    compile_pdf,
+    pdf_page_count,
+    scan_log_issues,
+    toolchain_available,
+)
 
 
 def test_toolchain_available_false_for_missing() -> None:
@@ -24,3 +29,27 @@ def test_compile_pdf_without_toolchain_is_graceful(tmp_path: Path) -> None:
     assert result.pdf_path is None
     assert result.log_path is not None and result.log_path.exists()
     assert "not found" in result.message.lower()
+
+
+def test_scan_log_issues_detects_undefined_refs_and_citations() -> None:
+    log = "There were undefined references.\nThere were undefined citations.\n"
+    issues = scan_log_issues(log)
+    assert any("unresolved references" in issue for issue in issues)
+    assert any("undefined citations" in issue for issue in issues)
+
+
+def test_scan_log_issues_detects_overfull_box() -> None:
+    issues = scan_log_issues("Overfull \\hbox (12.0pt too wide) in paragraph")
+    assert any("overfull" in issue.lower() for issue in issues)
+
+
+def test_scan_log_issues_clean_log_has_no_issues() -> None:
+    assert scan_log_issues("Output written on main.pdf (18 pages).") == []
+
+
+def test_pdf_page_count_parses_output_line() -> None:
+    assert pdf_page_count("Output written on main.pdf (18 pages, 212889 bytes).") == 18
+
+
+def test_pdf_page_count_returns_none_when_absent() -> None:
+    assert pdf_page_count("no page line here") is None

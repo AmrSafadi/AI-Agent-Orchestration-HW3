@@ -162,9 +162,24 @@ Use feature branches and pull requests, and install the pre-commit hook above.
 
 ## License & Credits
 
-License: to be finalized (see TODO T573/T574 — add a `LICENSE` file and a
-`pyproject` `license` field). Built with CrewAI, Pydantic, Jinja2, and Matplotlib.
-Course: AI Agent Orchestration.
+This project is released under the **MIT License** — see [`LICENSE`](LICENSE).
+Copyright (c) 2026 Amr Safadi and Sharbel Maroun. Course: AI Agent Orchestration.
+
+### Third-party attribution
+
+Runtime dependencies and their licenses:
+
+| Component | Purpose | License |
+| :--- | :--- | :--- |
+| [CrewAI](https://docs.crewai.com/) | Agent/Task/Crew orchestration | MIT |
+| [Pydantic](https://docs.pydantic.dev/) | Schema validation | MIT |
+| [Jinja2](https://jinja.palletsprojects.com/) | LaTeX templating | BSD-3-Clause |
+| [Matplotlib](https://matplotlib.org/) | Python-generated graphs | Matplotlib (BSD-style) |
+| [python-dotenv](https://github.com/theskumar/python-dotenv) | Local env loading | BSD-3-Clause |
+
+PDF production uses the **LaTeX** toolchain (LuaLaTeX + biber, LPPL) and a Hebrew
+font such as **David CLM** from the [Culmus](https://culmus.sourceforge.io/)
+project (GPL/OFL). These are required at compile time but are not bundled here.
 
 ## Important Boundary
 

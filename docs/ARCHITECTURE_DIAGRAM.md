@@ -2,6 +2,10 @@
 
 This document gives visual diagrams and explains every component.
 
+**Status:** 89 tests passing, 92.46% coverage (gate 85%), ruff clean. Renderer and compiler are implemented and the deliverable PDF compiles end-to-end: `python -m bookgen.main --dry-run --build-pdf` produces an 18-page Hebrew-primary `final.pdf`, and a snapshot copy is committed at the repository root as `final.pdf`. Reproducing the PDF from scratch requires a free TeX toolchain (lualatex+biber) plus the culmus Hebrew font (David CLM).
+
+**Package layout:** `sdk/` (BookGenSDK facade), `shared/` (config, constants, gatekeeper, logging, version), `orchestration/` (agents, tasks, crew, dry_run, skills), `harness/` (citations, graph_generator, assets, evidence), `document/` (validators, schemas, report_schemas), `latex/` (renderer, compiler, escaping, build).
+
 ## Mermaid Architecture Diagram
 
 ```mermaid
@@ -69,7 +73,8 @@ sequenceDiagram
     H->>H: Generate references.bib
     H->>H: Generate agent_pipeline_graph.png
     H->>H: Validate artifacts and required features
-    H->>O: Future LaTeX files and PDF
+    H->>H: Render main.tex from templates
+    H->>O: main.tex (+ PDF when --build-pdf and toolchain present)
 ```
 
 ## Component Explanation
@@ -84,7 +89,7 @@ Located in `config/`. They define project metadata, model defaults, LaTeX settin
 
 ### `bookgen.main`
 
-Current entry point. It loads config, prints output directories, and runs dry-run by default. Real CrewAI execution requires `--run-crew` and `OPENAI_API_KEY`.
+Thin CLI entry point that delegates to the `BookGenSDK` facade (the single entry point holding all business logic). It loads config, prints output directories, and runs dry-run by default. Invocation: `python -m bookgen.main --dry-run [--build-pdf] [--run-crew]`. The `--build-pdf` flag renders `main.tex` and compiles the PDF when the TeX toolchain is present; `--run-crew` enables real CrewAI execution and requires `OPENAI_API_KEY`.
 
 ### CrewAI Sequential Crew
 
@@ -92,23 +97,23 @@ Implemented orchestration layer. `build_crew()` assembles the five agents and fi
 
 ### Planner Agent
 
-Implemented factory for the future agent that creates the book plan and requirement placement checklist.
+Implemented factory in `orchestration/agents.py`, wired into the sequential crew via `tasks.py`/`crew.py`. Creates the book plan and requirement placement checklist.
 
 ### Research Agent
 
-Implemented factory for the future agent that creates the research pack and source notes from the plan.
+Implemented factory in `orchestration/agents.py`, wired into the sequential crew via `tasks.py`/`crew.py`. Creates the research pack and source notes from the plan.
 
 ### Writer Agent
 
-Implemented factory for the future agent that writes the manuscript using plan and research context.
+Implemented factory in `orchestration/agents.py`, wired into the sequential crew via `tasks.py`/`crew.py`. Writes the manuscript using plan and research context.
 
 ### Reviewer Agent
 
-Implemented factory for the future agent that checks clarity, factual consistency, and requirement coverage.
+Implemented factory in `orchestration/agents.py`, wired into the sequential crew via `tasks.py`/`crew.py`. Checks clarity, factual consistency, and requirement coverage.
 
 ### LaTeX Agent
 
-Implemented factory for the future agent that creates a LaTeX assembly specification. It does not compile PDF.
+Implemented factory in `orchestration/agents.py`, wired into the sequential crew via `tasks.py`/`crew.py`. Creates a LaTeX assembly specification. It does not compile PDF.
 
 ### Structured Artifacts
 
@@ -134,12 +139,14 @@ Implemented in `src/bookgen/document/validators.py`. It checks required artifact
 
 ### LaTeX Renderer
 
-Placeholder in `src/bookgen/latex/renderer.py`. Future milestone will render `.tex` files from templates.
+Implemented in `src/bookgen/latex/renderer.py`. `render_main_tex` renders `.tex` files from Jinja templates using the `\VAR{}`/`\BLOCK{}` delimiter syntax and `escape_latex` for safe text injection.
+
+The rendered document is Hebrew-primary (RTL): the template sets `\setmainlanguage{hebrew}`, `\setotherlanguage{english}`, and `\setmainfont{David CLM}`. The manuscript is roughly 3,260 Hebrew words, with English kept inline only for technical terms (Agent, Task, Crew, Harness, validation). An explicit `\begin{english}` LTR block demonstrates the RTL-to-LTR BiDi transition.
 
 ### PDFCompiler
 
-Placeholder in `src/bookgen/latex/compiler.py`. Future milestone will compile LaTeX to PDF.
+Implemented in `src/bookgen/latex/compiler.py`. `compile_pdf` runs the multi-pass toolchain (`lualatex` -> `biber` -> `lualatex` -> `lualatex`), degrades gracefully via `toolchain_available`, and returns a `CompileResult`.
 
 ### Final PDF
 
-Future final output. It is intentionally not generated yet.
+The render and compile path is implemented and verified. `final.pdf` is compiled end-to-end (18 pages, Hebrew-primary) and committed at the repository root as `final.pdf` so a grader sees it on clone; the generated copy lives at `generated/pdf/final.pdf`. Verified with MiKTeX (LuaHBTeX / lualatex + biber) and the culmus "David CLM" font: cover, TOC, embedded image, Python-generated graph, table, mathematical formula, Hebrew-English BiDi (including an explicit `\begin{english}` block), and the bibliography with 3 citations all render; biber resolves the bibliography; 0 overfull boxes; no undefined references. Reproducing the PDF from scratch requires a free TeX toolchain (lualatex+biber) plus the culmus Hebrew font (David CLM).

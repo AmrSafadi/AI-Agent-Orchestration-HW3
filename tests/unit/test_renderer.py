@@ -61,8 +61,8 @@ def test_render_main_tex_contains_required_features(tmp_path: Path) -> None:
     for needle in (
         "\\tableofcontents",
         "\\includegraphics",
-        "\\begin{tabular}",
-        "\\begin{equation}",
+        "\\input{t.tex}",
+        "\\input{f.tex}",
         "\\setmainlanguage{hebrew}",
         "\\begin{english}",
         "\\printbibliography",
@@ -70,6 +70,11 @@ def test_render_main_tex_contains_required_features(tmp_path: Path) -> None:
         "\\chapter{Foundations}",
     ):
         assert needle in tex, needle
+
+    # The table and formula are materialized as standalone files on disk so the
+    # LaTeX spec's declared asset paths exist (validate_latex_spec_files).
+    assert "\\begin{tabular}" in (out.parent / "t.tex").read_text(encoding="utf-8")
+    assert "\\begin{equation}" in (out.parent / "f.tex").read_text(encoding="utf-8")
 
 
 def test_render_escapes_special_characters(tmp_path: Path) -> None:

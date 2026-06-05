@@ -6,8 +6,8 @@ This project is being built milestone by milestone. Keep changes narrow and upda
 
 - Do not implement future milestones early.
 - Do not add extra agents without explicit approval.
-- Do not call OpenAI or any external LLM API unless the current milestone requests it.
-- Do not compile PDFs before the PDF milestone.
+- Real LLM execution is opt-in via `--run-crew` (requires `OPENAI_API_KEY`); keep dry-run the default.
+- PDF compilation is opt-in via `--build-pdf` (requires a TeX toolchain); do not compile PDFs in default/CI runs.
 - Keep deterministic components deterministic and testable.
 - Update `docs/IMPLEMENTATION_STATUS.md` after each milestone.
 
@@ -37,8 +37,10 @@ Do not add Citation Agent, Visuals Agent, QA Agent, or Manager Agent in v1.
 
 ```powershell
 $env:PYTHONPATH="src"
-uv run --no-project --with pydantic --with pytest --with matplotlib --with jinja2 python -m pytest tests/unit
+uv run --no-project --with pydantic --with pytest --with matplotlib --with jinja2 python -m pytest tests
 ```
+
+Run the full suite (`python -m pytest tests`). The project currently has 89 tests at 92.46% coverage (gate 85%). To enforce the coverage gate, add `--cov=src/bookgen --cov-fail-under=85` (also configured via `fail_under=85` in `pyproject.toml`).
 
 ## Documentation Rules
 

@@ -22,13 +22,13 @@
     {
       "asset_id": "agent_roles_table",
       "kind": "table",
-      "target_path": "generated/latex/tables/agent_roles_table.tex",
+      "target_path": "generated/latex/agent_roles_table.tex",
       "caption": "תחומי האחריות של כל Agent ורכיב דטרמיניסטי."
     },
     {
       "asset_id": "quality_score_formula",
       "kind": "formula",
-      "target_path": "generated/latex/formulas/quality_score_formula.tex",
+      "target_path": "generated/latex/quality_score_formula.tex",
       "caption": "ציון איכות מסמך משוקלל לדוגמה."
     }
   ],

@@ -51,10 +51,10 @@ class CrewRunResult:
     output: Any | None = None
 
 
-def build_crew(use_real_crewai: bool = False) -> Any:
+def build_crew(use_real_crewai: bool = False, topic: str = "the configured topic") -> Any:
     """Create the sequential CrewAI crew, or a dry-run-compatible crew object."""
     agents_by_name = create_all_agents(use_real_crewai=use_real_crewai)
-    tasks = create_all_tasks(agents_by_name, use_real_crewai=use_real_crewai)
+    tasks = create_all_tasks(agents_by_name, use_real_crewai=use_real_crewai, topic=topic)
     agents = list(agents_by_name.values())
 
     if not use_real_crewai:
@@ -90,12 +90,16 @@ def run_crew(dry_run: bool = True, root_dir: Path | str | None = None) -> CrewRu
     if not os.getenv("OPENAI_API_KEY"):
         raise RuntimeError("OPENAI_API_KEY is required for real CrewAI execution.")
 
-    crew = build_crew(use_real_crewai=True)
+    app_config = load_config(root / "config")
+    topic = app_config.setup.project.topic
+    crew = build_crew(use_real_crewai=True, topic=topic)
     print(_describe_crew(crew))
 
-    app_config = load_config(root / "config")
     gatekeeper = ApiGatekeeper(app_config.rate_limits)
-    result = gatekeeper.execute(crew.kickoff, inputs={"topic": app_config.setup.project.topic})
+    try:
+        result = gatekeeper.execute(crew.kickoff, inputs={"topic": topic})
+    except Exception as exc:
+        raise RuntimeError(f"Real CrewAI execution failed: {exc}") from exc
     message = "Real CrewAI execution completed."
     print(message)
     return CrewRunResult(dry_run=False, message=message, artifacts=[], output=result)

@@ -9,6 +9,11 @@ requirements document for the project. Architecture and design live in
 **Product:** `bookgen` — a CrewAI-based article/book generator that produces a
 professional, LaTeX-compiled PDF.
 
+**Deliverable language.** The output is a **primarily Hebrew (RTL)** PDF, with
+English used inline only for technical terms (Agent, Task, Crew, Harness,
+validation, …). This follows the assignment's stated preference ("Hebrew more
+appreciated").
+
 **Problem.** A naive "ask one model to write a book and make a PDF" prompt is
 unreliable: it mixes reasoning-heavy work (planning, writing, reviewing) with
 fragile deterministic work (BibTeX keys, LaTeX escaping, multi-pass
@@ -30,7 +35,7 @@ for the work that must be exact. Agents decide *intent*; Python executes
 | Demonstrate CrewAI orchestration | Five specialized agents, five context-linked tasks, `Process.sequential`. |
 | Produce a professional PDF | A compiled PDF containing every required feature (see §3). |
 | Keep the system safe to run | Dry-run is the default; no API call or spend without explicit `--run-crew` + key. |
-| Meet engineering standards | Ruff = 0 violations; test coverage ≥ 85%; files ≤ 150 code lines; `uv` only. |
+| Meet engineering standards | Ruff 0 violations; test coverage ≥ 85% (currently 92.46%, gate 85%, across 89 tests); files ≤ 150 code lines; `uv` only. |
 | Reproducibility & observability | Structured intermediate artifacts, validation report, build log. |
 
 ## 3. Functional Requirements
@@ -45,9 +50,15 @@ for the work that must be exact. Agents decide *intent*; Python executes
 6. At least one Python-generated graph.
 7. At least one table.
 8. At least one mathematical formula (typeset, not plain text).
-9. A Hebrew–English bidirectional (BiDi) chapter with correct LTR/RTL handling.
-10. A bibliography with relevant citations.
-11. A final PDF output compiled with LuaLaTeX (XeLaTeX fallback).
+9. Bidirectional (BiDi) handling: because the document is **Hebrew-primary
+   (RTL)**, this is demonstrated by an English (LTR) inset placed within the
+   Hebrew (RTL) flow — a `\begin{english}` block — exercising the RTL↔LTR
+   transition with correct directionality.
+10. **Document language: Hebrew-primary.** Hebrew is the main typesetting
+    language (`\setmainlanguage{hebrew}`); English is the other language for
+    technical terms only.
+11. A bibliography with relevant citations.
+12. A final PDF output compiled with LuaLaTeX (XeLaTeX fallback).
 
 ### 3.2 System behavior
 
@@ -79,9 +90,18 @@ for the work that must be exact. Agents decide *intent*; Python executes
 
 ## 6. Assumptions, Dependencies, Out of Scope
 
-**Assumptions.** A LaTeX toolchain (LuaLaTeX + biber) is available for the
-compilation milestone; an OpenAI-compatible key is available only for the
-optional real-crew milestone.
+**Assumptions.** All code is implemented and the final compiled `final.pdf` is
+**done**: `python -m bookgen.main --dry-run --build-pdf` produces an 18-page
+Hebrew-primary PDF, and a snapshot copy is committed at the repository root as
+`final.pdf` so a grader sees it on clone. It was verified by compiling locally
+with LuaLaTeX + biber and the culmus Hebrew font "David CLM" (18 pages; cover,
+TOC, embedded image, Python-generated graph, table, mathematical formula,
+Hebrew-English BiDi, and a 3-citation bibliography all render; 0 overfull boxes).
+Reproducing the PDF from scratch requires a free TeX toolchain (LuaLaTeX + biber)
+with the culmus package (David CLM); the default `--dry-run` path does not
+compile. An OpenAI-compatible key would be needed only for an optional real-crew
+run, which is not executed under the project's no-paid-API constraint (manuscript
+content is authored deterministically).
 
 **Dependencies.** `crewai`, `pydantic`, `jinja2`, `matplotlib`, `python-dotenv`;
 a TeX distribution (MiKTeX/TeX Live) for PDF compilation.
@@ -92,9 +112,13 @@ approved five; autonomous source retrieval/RAG; a cost dashboard; a GUI.
 ## 7. Timeline and Milestones
 
 See [TODO.md](TODO.md) and `docs/IMPLEMENTATION_STATUS.md` for live status. In
-summary: planning, skeleton, config/schemas, deterministic harness, and CrewAI
-definitions with dry-run are complete; LaTeX rendering, PDF compilation, optional
-real-crew execution, and submission polish remain.
+summary: planning, config/schemas, the deterministic harness, the CrewAI dry-run
+orchestration, LaTeX rendering, the SDK facade single entry point, the API
+gatekeeper, and the final compiled PDF are all **complete**. The 18-page
+Hebrew-primary `final.pdf` is committed at the repository root, verified end-to-end
+(18 pages, 0 overfull boxes, 89 tests, 92.46% coverage with an 85% gate).
+Reproducing the PDF from scratch requires a free TeX toolchain (LuaLaTeX + biber)
+with the Hebrew font David CLM (culmus) — not any missing code.
 
 ## 8. Specialized Mechanism PRDs
 

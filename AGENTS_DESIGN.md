@@ -1,5 +1,7 @@
 # AGENTS_DESIGN.md
 
+> **Status: historical.** This early planning document is superseded by the docs in `docs/` (see `docs/PROJECT_BLUEPRINT.md`, `docs/IMPLEMENTATION_STATUS.md`, `docs/ARCHITECTURE_DIAGRAM.md`). Kept for provenance.
+
 ## Why This Document Is Needed
 
 This document defines the five allowed agents and prevents role overlap. It makes the "agent team as an organization" idea concrete and keeps the system small enough to explain in a university presentation.

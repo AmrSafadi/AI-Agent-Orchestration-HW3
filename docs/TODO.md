@@ -96,7 +96,7 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 - [x] **T069** Report unused (uncited) sources
 - [x] **T070** Write `references.bib` deterministically (idempotent)
 - [x] **T071** Emit `citation_report.json`
-- [ ] **T072** Add committed-copy option for grader visibility
+- [x] **T072** Add committed-copy option for grader visibility
 - [x] **T073** Unit-test BibTeX generation
 - [x] **T074** Unit-test key extraction (Markdown + LaTeX)
 - [x] **T075** Unit-test unresolved-key detection
@@ -244,14 +244,14 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 ### L. Real Execution (Milestone 5)
 
 - [ ] **T193** Confirm provider, model, and milestone scope with the user
-- [ ] **T194** Wire `crew.kickoff()` behind the opt-in flag
-- [ ] **T195** Inject the topic from config into task descriptions
+- [x] **T194** Wire `crew.kickoff()` behind the opt-in flag
+- [x] **T195** Inject the topic from config into task descriptions
 - [ ] **T196** Persist real task outputs to `generated/intermediate/`
-- [ ] **T197** Keep `sample_*` files as committed examples
+- [x] **T197** Keep `sample_*` files as committed examples
 - [ ] **T198** Capture token usage from the result
-- [ ] **T199** Handle provider/API errors gracefully
-- [ ] **T200** Add an opt-in, key-guarded integration test (skipped without key)
-- [ ] **T201** Document the real-run command and prerequisites
+- [x] **T199** Handle provider/API errors gracefully
+- [x] **T200** Add an opt-in, key-guarded integration test (skipped without key)
+- [x] **T201** Document the real-run command and prerequisites
 - [ ] **T202** Update IMPLEMENTATION_STATUS after the run
 
 ## Phase E — LaTeX
@@ -262,27 +262,27 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 - [x] **T204** Template — main.tex.j2: parametrize its fields.
 - [x] **T205** Template — main.tex.j2: apply LaTeX escaping to inserted text.
 - [x] **T206** Template — main.tex.j2: render-test with sample data.
-- [ ] **T207** Template — main.tex.j2: review for page-margin overflow.
+- [x] **T207** Template — main.tex.j2: review for page-margin overflow.
 - [x] **T208** Template — cover.tex.j2: create the Jinja2 file.
 - [x] **T209** Template — cover.tex.j2: parametrize its fields.
 - [x] **T210** Template — cover.tex.j2: apply LaTeX escaping to inserted text.
 - [x] **T211** Template — cover.tex.j2: render-test with sample data.
-- [ ] **T212** Template — cover.tex.j2: review for page-margin overflow.
+- [x] **T212** Template — cover.tex.j2: review for page-margin overflow.
 - [x] **T213** Template — chapter.tex.j2: create the Jinja2 file.
 - [x] **T214** Template — chapter.tex.j2: parametrize its fields.
 - [x] **T215** Template — chapter.tex.j2: apply LaTeX escaping to inserted text.
 - [x] **T216** Template — chapter.tex.j2: render-test with sample data.
-- [ ] **T217** Template — chapter.tex.j2: review for page-margin overflow.
+- [x] **T217** Template — chapter.tex.j2: review for page-margin overflow.
 - [x] **T218** Template — table.tex.j2: create the Jinja2 file.
 - [x] **T219** Template — table.tex.j2: parametrize its fields.
 - [x] **T220** Template — table.tex.j2: apply LaTeX escaping to inserted text.
 - [x] **T221** Template — table.tex.j2: render-test with sample data.
-- [ ] **T222** Template — table.tex.j2: review for page-margin overflow.
+- [x] **T222** Template — table.tex.j2: review for page-margin overflow.
 - [x] **T223** Template — formula.tex.j2: create the Jinja2 file.
 - [x] **T224** Template — formula.tex.j2: parametrize its fields.
 - [x] **T225** Template — formula.tex.j2: apply LaTeX escaping to inserted text.
 - [x] **T226** Template — formula.tex.j2: render-test with sample data.
-- [ ] **T227** Template — formula.tex.j2: review for page-margin overflow.
+- [x] **T227** Template — formula.tex.j2: review for page-margin overflow.
 
 ### N. Renderer
 
@@ -334,12 +334,12 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 - [x] **T267** Run biber for the bibliography
 - [x] **T268** Run pass 2: lualatex
 - [x] **T269** Run pass 3: lualatex
-- [ ] **T270** Implement the XeLaTeX fallback path
+- [x] **T270** Implement the XeLaTeX fallback path
 - [x] **T271** Capture and persist `build.log`
-- [ ] **T272** Detect unresolved references (`??`) in the log
+- [x] **T272** Detect unresolved references (`??`) in the log
 - [x] **T273** Fail gracefully when no toolchain is present
-- [ ] **T274** Emit `final.pdf` to `generated/pdf/`
-- [ ] **T275** Verify the PDF is non-empty
+- [x] **T274** Emit `final.pdf` to `generated/pdf/`
+- [x] **T275** Verify the PDF is non-empty
 - [ ] **T276** Add `tests/integration/test_pdf_build_smoke.py` (skip without toolchain)
 
 ## Phase F — Deliverables
@@ -351,61 +351,61 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 - [x] **T279** Requirement — Cover page: implement renderer support.
 - [x] **T280** Requirement — Cover page: produce/author the artifact.
 - [x] **T281** Requirement — Cover page: validate via DocumentValidator.
-- [ ] **T282** Requirement — Cover page: verify in the compiled PDF.
+- [x] **T282** Requirement — Cover page: verify in the compiled PDF.
 - [x] **T283** Requirement — Table of contents: specify in book_plan.
 - [x] **T284** Requirement — Table of contents: place in latex_spec.
 - [x] **T285** Requirement — Table of contents: implement renderer support.
 - [x] **T286** Requirement — Table of contents: produce/author the artifact.
 - [x] **T287** Requirement — Table of contents: validate via DocumentValidator.
-- [ ] **T288** Requirement — Table of contents: verify in the compiled PDF.
+- [x] **T288** Requirement — Table of contents: verify in the compiled PDF.
 - [x] **T289** Requirement — Chapters & sections (>=15 pages): specify in book_plan.
 - [x] **T290** Requirement — Chapters & sections (>=15 pages): place in latex_spec.
 - [x] **T291** Requirement — Chapters & sections (>=15 pages): implement renderer support.
 - [x] **T292** Requirement — Chapters & sections (>=15 pages): produce/author the artifact.
 - [x] **T293** Requirement — Chapters & sections (>=15 pages): validate via DocumentValidator.
-- [ ] **T294** Requirement — Chapters & sections (>=15 pages): verify in the compiled PDF.
+- [x] **T294** Requirement — Chapters & sections (>=15 pages): verify in the compiled PDF.
 - [x] **T295** Requirement — Image: specify in book_plan.
 - [x] **T296** Requirement — Image: place in latex_spec.
 - [x] **T297** Requirement — Image: implement renderer support.
 - [x] **T298** Requirement — Image: produce/author the artifact.
 - [x] **T299** Requirement — Image: validate via DocumentValidator.
-- [ ] **T300** Requirement — Image: verify in the compiled PDF.
+- [x] **T300** Requirement — Image: verify in the compiled PDF.
 - [x] **T301** Requirement — Python-generated graph: specify in book_plan.
 - [x] **T302** Requirement — Python-generated graph: place in latex_spec.
 - [x] **T303** Requirement — Python-generated graph: implement renderer support.
 - [x] **T304** Requirement — Python-generated graph: produce/author the artifact.
 - [x] **T305** Requirement — Python-generated graph: validate via DocumentValidator.
-- [ ] **T306** Requirement — Python-generated graph: verify in the compiled PDF.
+- [x] **T306** Requirement — Python-generated graph: verify in the compiled PDF.
 - [x] **T307** Requirement — Table: specify in book_plan.
 - [x] **T308** Requirement — Table: place in latex_spec.
 - [x] **T309** Requirement — Table: implement renderer support.
 - [x] **T310** Requirement — Table: produce/author the artifact.
 - [x] **T311** Requirement — Table: validate via DocumentValidator.
-- [ ] **T312** Requirement — Table: verify in the compiled PDF.
+- [x] **T312** Requirement — Table: verify in the compiled PDF.
 - [x] **T313** Requirement — Mathematical formula: specify in book_plan.
 - [x] **T314** Requirement — Mathematical formula: place in latex_spec.
 - [x] **T315** Requirement — Mathematical formula: implement renderer support.
 - [x] **T316** Requirement — Mathematical formula: produce/author the artifact.
 - [x] **T317** Requirement — Mathematical formula: validate via DocumentValidator.
-- [ ] **T318** Requirement — Mathematical formula: verify in the compiled PDF.
+- [x] **T318** Requirement — Mathematical formula: verify in the compiled PDF.
 - [x] **T319** Requirement — Hebrew-English BiDi chapter: specify in book_plan.
 - [x] **T320** Requirement — Hebrew-English BiDi chapter: place in latex_spec.
 - [x] **T321** Requirement — Hebrew-English BiDi chapter: implement renderer support.
 - [x] **T322** Requirement — Hebrew-English BiDi chapter: produce/author the artifact.
 - [x] **T323** Requirement — Hebrew-English BiDi chapter: validate via DocumentValidator.
-- [ ] **T324** Requirement — Hebrew-English BiDi chapter: verify in the compiled PDF.
+- [x] **T324** Requirement — Hebrew-English BiDi chapter: verify in the compiled PDF.
 - [x] **T325** Requirement — Bibliography & citations: specify in book_plan.
 - [x] **T326** Requirement — Bibliography & citations: place in latex_spec.
 - [x] **T327** Requirement — Bibliography & citations: implement renderer support.
 - [x] **T328** Requirement — Bibliography & citations: produce/author the artifact.
 - [x] **T329** Requirement — Bibliography & citations: validate via DocumentValidator.
-- [ ] **T330** Requirement — Bibliography & citations: verify in the compiled PDF.
+- [x] **T330** Requirement — Bibliography & citations: verify in the compiled PDF.
 - [x] **T331** Requirement — Final PDF: specify in book_plan.
 - [x] **T332** Requirement — Final PDF: place in latex_spec.
 - [x] **T333** Requirement — Final PDF: implement renderer support.
-- [ ] **T334** Requirement — Final PDF: produce/author the artifact.
-- [ ] **T335** Requirement — Final PDF: validate via DocumentValidator.
-- [ ] **T336** Requirement — Final PDF: verify in the compiled PDF.
+- [x] **T334** Requirement — Final PDF: produce/author the artifact.
+- [x] **T335** Requirement — Final PDF: validate via DocumentValidator.
+- [x] **T336** Requirement — Final PDF: verify in the compiled PDF.
 
 ## Phase G — Content
 
@@ -413,32 +413,32 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 - [x] **T337** Chapter — From Prompt to Crew: outline the chapter.
 - [x] **T338** Chapter — From Prompt to Crew: draft the prose.
-- [ ] **T339** Chapter — From Prompt to Crew: insert citation markers.
+- [x] **T339** Chapter — From Prompt to Crew: insert citation markers.
 - [ ] **T340** Chapter — From Prompt to Crew: reviewer pass for clarity.
 - [x] **T341** Chapter — From Prompt to Crew: render the chapter to .tex.
 - [x] **T342** Chapter — Agent Roles & Tasks: outline the chapter.
 - [x] **T343** Chapter — Agent Roles & Tasks: draft the prose.
-- [ ] **T344** Chapter — Agent Roles & Tasks: insert citation markers.
+- [x] **T344** Chapter — Agent Roles & Tasks: insert citation markers.
 - [ ] **T345** Chapter — Agent Roles & Tasks: reviewer pass for clarity.
 - [x] **T346** Chapter — Agent Roles & Tasks: render the chapter to .tex.
 - [x] **T347** Chapter — Sequential Orchestration: outline the chapter.
 - [x] **T348** Chapter — Sequential Orchestration: draft the prose.
-- [ ] **T349** Chapter — Sequential Orchestration: insert citation markers.
+- [x] **T349** Chapter — Sequential Orchestration: insert citation markers.
 - [ ] **T350** Chapter — Sequential Orchestration: reviewer pass for clarity.
 - [x] **T351** Chapter — Sequential Orchestration: render the chapter to .tex.
 - [x] **T352** Chapter — The Deterministic Harness: outline the chapter.
 - [x] **T353** Chapter — The Deterministic Harness: draft the prose.
-- [ ] **T354** Chapter — The Deterministic Harness: insert citation markers.
+- [x] **T354** Chapter — The Deterministic Harness: insert citation markers.
 - [ ] **T355** Chapter — The Deterministic Harness: reviewer pass for clarity.
 - [x] **T356** Chapter — The Deterministic Harness: render the chapter to .tex.
 - [x] **T357** Chapter — LaTeX Production & BiDi: outline the chapter.
 - [x] **T358** Chapter — LaTeX Production & BiDi: draft the prose.
-- [ ] **T359** Chapter — LaTeX Production & BiDi: insert citation markers.
+- [x] **T359** Chapter — LaTeX Production & BiDi: insert citation markers.
 - [ ] **T360** Chapter — LaTeX Production & BiDi: reviewer pass for clarity.
 - [x] **T361** Chapter — LaTeX Production & BiDi: render the chapter to .tex.
 - [x] **T362** Chapter — Conclusion: outline the chapter.
 - [x] **T363** Chapter — Conclusion: draft the prose.
-- [ ] **T364** Chapter — Conclusion: insert citation markers.
+- [x] **T364** Chapter — Conclusion: insert citation markers.
 - [ ] **T365** Chapter — Conclusion: reviewer pass for clarity.
 - [x] **T366** Chapter — Conclusion: render the chapter to .tex.
 
@@ -450,67 +450,67 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 - [x] **T370** Verify correct LTR/RTL transitions in source
 - [x] **T371** Select polyglossia/bidi packages
 - [x] **T372** Render the BiDi chapter to .tex
-- [ ] **T373** Verify BiDi correctness in the compiled PDF
+- [x] **T373** Verify BiDi correctness in the compiled PDF
 
 ## Phase H — Testing
 
 ### T. Unit & Integration Tests
 
-- [ ] **T374** Tests — config: write happy-path unit tests.
-- [ ] **T375** Tests — config: write edge-case/error tests.
-- [ ] **T376** Tests — config: check coverage contribution.
-- [ ] **T377** Tests — schemas: write happy-path unit tests.
-- [ ] **T378** Tests — schemas: write edge-case/error tests.
-- [ ] **T379** Tests — schemas: check coverage contribution.
-- [ ] **T380** Tests — validators: write happy-path unit tests.
-- [ ] **T381** Tests — validators: write edge-case/error tests.
-- [ ] **T382** Tests — validators: check coverage contribution.
-- [ ] **T383** Tests — citations: write happy-path unit tests.
-- [ ] **T384** Tests — citations: write edge-case/error tests.
-- [ ] **T385** Tests — citations: check coverage contribution.
-- [ ] **T386** Tests — graph_generator: write happy-path unit tests.
-- [ ] **T387** Tests — graph_generator: write edge-case/error tests.
-- [ ] **T388** Tests — graph_generator: check coverage contribution.
-- [ ] **T389** Tests — orchestration_agents: write happy-path unit tests.
+- [x] **T374** Tests — config: write happy-path unit tests.
+- [x] **T375** Tests — config: write edge-case/error tests.
+- [x] **T376** Tests — config: check coverage contribution.
+- [x] **T377** Tests — schemas: write happy-path unit tests.
+- [x] **T378** Tests — schemas: write edge-case/error tests.
+- [x] **T379** Tests — schemas: check coverage contribution.
+- [x] **T380** Tests — validators: write happy-path unit tests.
+- [x] **T381** Tests — validators: write edge-case/error tests.
+- [x] **T382** Tests — validators: check coverage contribution.
+- [x] **T383** Tests — citations: write happy-path unit tests.
+- [x] **T384** Tests — citations: write edge-case/error tests.
+- [x] **T385** Tests — citations: check coverage contribution.
+- [x] **T386** Tests — graph_generator: write happy-path unit tests.
+- [x] **T387** Tests — graph_generator: write edge-case/error tests.
+- [x] **T388** Tests — graph_generator: check coverage contribution.
+- [x] **T389** Tests — orchestration_agents: write happy-path unit tests.
 - [ ] **T390** Tests — orchestration_agents: write edge-case/error tests.
-- [ ] **T391** Tests — orchestration_agents: check coverage contribution.
-- [ ] **T392** Tests — orchestration_tasks: write happy-path unit tests.
+- [x] **T391** Tests — orchestration_agents: check coverage contribution.
+- [x] **T392** Tests — orchestration_tasks: write happy-path unit tests.
 - [ ] **T393** Tests — orchestration_tasks: write edge-case/error tests.
-- [ ] **T394** Tests — orchestration_tasks: check coverage contribution.
-- [ ] **T395** Tests — orchestration_crew: write happy-path unit tests.
-- [ ] **T396** Tests — orchestration_crew: write edge-case/error tests.
-- [ ] **T397** Tests — orchestration_crew: check coverage contribution.
-- [ ] **T398** Tests — latex_renderer: write happy-path unit tests.
-- [ ] **T399** Tests — latex_renderer: write edge-case/error tests.
-- [ ] **T400** Tests — latex_renderer: check coverage contribution.
-- [ ] **T401** Tests — latex_compiler: write happy-path unit tests.
-- [ ] **T402** Tests — latex_compiler: write edge-case/error tests.
-- [ ] **T403** Tests — latex_compiler: check coverage contribution.
-- [ ] **T404** Tests — assets: write happy-path unit tests.
-- [ ] **T405** Tests — assets: write edge-case/error tests.
-- [ ] **T406** Tests — assets: check coverage contribution.
-- [ ] **T407** Tests — evidence: write happy-path unit tests.
-- [ ] **T408** Tests — evidence: write edge-case/error tests.
-- [ ] **T409** Tests — evidence: check coverage contribution.
-- [ ] **T410** Tests — version: write happy-path unit tests.
-- [ ] **T411** Tests — version: write edge-case/error tests.
-- [ ] **T412** Tests — version: check coverage contribution.
-- [ ] **T413** Tests — main: write happy-path unit tests.
-- [ ] **T414** Tests — main: write edge-case/error tests.
-- [ ] **T415** Tests — main: check coverage contribution.
+- [x] **T394** Tests — orchestration_tasks: check coverage contribution.
+- [x] **T395** Tests — orchestration_crew: write happy-path unit tests.
+- [x] **T396** Tests — orchestration_crew: write edge-case/error tests.
+- [x] **T397** Tests — orchestration_crew: check coverage contribution.
+- [x] **T398** Tests — latex_renderer: write happy-path unit tests.
+- [x] **T399** Tests — latex_renderer: write edge-case/error tests.
+- [x] **T400** Tests — latex_renderer: check coverage contribution.
+- [x] **T401** Tests — latex_compiler: write happy-path unit tests.
+- [x] **T402** Tests — latex_compiler: write edge-case/error tests.
+- [x] **T403** Tests — latex_compiler: check coverage contribution.
+- [x] **T404** Tests — assets: write happy-path unit tests.
+- [x] **T405** Tests — assets: write edge-case/error tests.
+- [x] **T406** Tests — assets: check coverage contribution.
+- [x] **T407** Tests — evidence: write happy-path unit tests.
+- [x] **T408** Tests — evidence: write edge-case/error tests.
+- [x] **T409** Tests — evidence: check coverage contribution.
+- [x] **T410** Tests — version: write happy-path unit tests.
+- [x] **T411** Tests — version: write edge-case/error tests.
+- [x] **T412** Tests — version: check coverage contribution.
+- [x] **T413** Tests — main: write happy-path unit tests.
+- [x] **T414** Tests — main: write edge-case/error tests.
+- [x] **T415** Tests — main: check coverage contribution.
 
 ### U. Coverage & Lint Gates
 
-- [ ] **T416** Add `[tool.ruff]` configuration
-- [ ] **T417** Add `[tool.coverage]` with `fail_under = 85`
-- [ ] **T418** Add ruff/pytest-cov to the dev dependency group
-- [ ] **T419** Run `ruff check` to zero violations
-- [ ] **T420** Run `pytest --cov` and record the percentage
-- [ ] **T421** Raise coverage to >= 85% by adding tests
+- [x] **T416** Add `[tool.ruff]` configuration
+- [x] **T417** Add `[tool.coverage]` with `fail_under = 85`
+- [x] **T418** Add ruff/pytest-cov to the dev dependency group
+- [x] **T419** Run `ruff check` to zero violations
+- [x] **T420** Run `pytest --cov` and record the percentage
+- [x] **T421** Raise coverage to >= 85% by adding tests
 - [x] **T422** Add a `conftest.py` for shared fixtures
-- [ ] **T423** Mock external dependencies in tests
-- [ ] **T424** Ensure no test depends on a network/API
-- [ ] **T425** Document the test and lint commands
+- [x] **T423** Mock external dependencies in tests
+- [x] **T424** Ensure no test depends on a network/API
+- [x] **T425** Document the test and lint commands
 
 ## Phase I — Compliance
 
@@ -529,95 +529,95 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 ### W. Engineering Standards
 
-- [ ] **T436** Enforce the 150-line-per-file limit across `src/`
+- [x] **T436** Enforce the 150-line-per-file limit across `src/`
 - [x] **T437** Split `crew.py` into focused modules (extracted `orchestration/dry_run.py`; crew.py now 85 lines)
 - [x] **T438** Introduce an SDK single entry point (`sdk/sdk.py` — `BookGenSDK`)
 - [x] **T439** Route all business logic through the SDK (`main.py` delegates entirely)
-- [ ] **T440** Remove any code duplication (DRY)
-- [ ] **T441** Add docstrings to every public function/module
-- [ ] **T442** Ensure comments explain 'why', not 'what'
-- [ ] **T443** Generate and commit `uv.lock`
-- [ ] **T444** Verify no `pip`/`python -m` calls anywhere
+- [x] **T440** Remove any code duplication (DRY)
+- [x] **T441** Add docstrings to every public function/module
+- [x] **T442** Ensure comments explain 'why', not 'what'
+- [x] **T443** Generate and commit `uv.lock`
+- [x] **T444** Verify no `pip`/`python -m` calls anywhere
 - [x] **T445** Verify ISO/IEC 25010 quality characteristics are addressed
 
 ### X. Security & Secrets
 
-- [ ] **T446** Confirm no API keys/secrets in source
-- [ ] **T447** Confirm `.env` is git-ignored
-- [ ] **T448** Confirm `.env-example` holds only dummy values
-- [ ] **T449** Confirm `.gitignore` covers `*.key`, `*.pem`, `credentials.json`
-- [ ] **T450** Access secrets only via environment variables
-- [ ] **T451** Document least-privilege/key-rotation guidance
-- [ ] **T452** Scan tracked files for accidental secret patterns
+- [x] **T446** Confirm no API keys/secrets in source
+- [x] **T447** Confirm `.env` is git-ignored
+- [x] **T448** Confirm `.env-example` holds only dummy values
+- [x] **T449** Confirm `.gitignore` covers `*.key`, `*.pem`, `credentials.json`
+- [x] **T450** Access secrets only via environment variables
+- [x] **T451** Document least-privilege/key-rotation guidance
+- [x] **T452** Scan tracked files for accidental secret patterns
 
 ## Phase J — Ops
 
 ### Y. Observability & Cost
 
 - [ ] **T453** Log each task's inputs and outputs
-- [ ] **T454** Persist intermediate artifacts for inspection
-- [ ] **T455** Record execution mode (dry-run vs real)
+- [x] **T454** Persist intermediate artifacts for inspection
+- [x] **T455** Record execution mode (dry-run vs real)
 - [ ] **T456** Capture token usage per run
-- [ ] **T457** Build a cost table by model
-- [ ] **T458** Estimate total cost per full run
+- [x] **T457** Build a cost table by model
+- [x] **T458** Estimate total cost per full run
 - [ ] **T459** Add budget overrun alerts (config-driven)
-- [ ] **T460** Produce a per-run observability summary
+- [x] **T460** Produce a per-run observability summary
 
 ### Z. Packaging & Distribution
 
-- [ ] **T461** Confirm `pyproject.toml` package metadata
-- [ ] **T462** Ensure `__init__.py` exports public interfaces
-- [ ] **T463** Expose the `bookgen` console script entry point
-- [ ] **T464** Use relative/package paths (no absolute paths)
-- [ ] **T465** Verify the package builds cleanly
-- [ ] **T466** Document installation from a clean clone
+- [x] **T461** Confirm `pyproject.toml` package metadata
+- [x] **T462** Ensure `__init__.py` exports public interfaces
+- [x] **T463** Expose the `bookgen` console script entry point
+- [x] **T464** Use relative/package paths (no absolute paths)
+- [x] **T465** Verify the package builds cleanly
+- [x] **T466** Document installation from a clean clone
 
 ### AA. Git & Version Control
 
-- [ ] **T467** Use feature branches per milestone
-- [ ] **T468** Write meaningful commit messages
-- [ ] **T469** Open pull requests with review
+- [x] **T467** Use feature branches per milestone
+- [x] **T468** Write meaningful commit messages
+- [x] **T469** Open pull requests with review
 - [ ] **T470** Tag major versions
-- [ ] **T471** Maintain a prompt-engineering log alongside commits
+- [x] **T471** Maintain a prompt-engineering log alongside commits
 - [ ] **T472** Reconcile author metadata with the submitting student
-- [ ] **T473** Keep `generated/` out of version control
+- [x] **T473** Keep `generated/` out of version control
 
 ## Phase K — Submission
 
 ### AB. Documentation Reconciliation
 
-- [ ] **T474** Reconcile milestone numbering (Blueprint vs Status)
-- [ ] **T475** Fix stale absolute `cd` paths in docs
-- [ ] **T476** Standardize the citation report filename
-- [ ] **T477** Pick a canonical manuscript format (md vs json)
-- [ ] **T478** Align the PDF engine references across docs
-- [ ] **T479** Mark generated-vs-committed files clearly
+- [x] **T474** Reconcile milestone numbering (Blueprint vs Status)
+- [x] **T475** Fix stale absolute `cd` paths in docs
+- [x] **T476** Standardize the citation report filename
+- [x] **T477** Pick a canonical manuscript format (md vs json)
+- [x] **T478** Align the PDF engine references across docs
+- [x] **T479** Mark generated-vs-committed files clearly
 
 ### AC. Final Submission Checklist
 
-- [ ] **T480** All mandatory docs present (PRD/PLAN/TODO)
-- [ ] **T481** Per-mechanism PRDs present
-- [ ] **T482** Ruff = 0 violations
-- [ ] **T483** Coverage >= 85%
-- [ ] **T484** All files <= 150 lines
-- [ ] **T485** `uv.lock` committed
-- [ ] **T486** `.env-example` present, no secrets
-- [ ] **T487** Cover page shows correct author/course/lecturer/date
-- [ ] **T488** Table of contents renders
-- [ ] **T489** Document is >= 15 pages
-- [ ] **T490** Image present and rendered
-- [ ] **T491** Python graph embedded
-- [ ] **T492** Table rendered
-- [ ] **T493** Formula typeset (not plain text)
-- [ ] **T494** BiDi chapter renders correctly
-- [ ] **T495** Bibliography resolves with working citations
-- [ ] **T496** Final PDF compiles end-to-end
-- [ ] **T497** Build log captured
-- [ ] **T498** Validation report green
-- [ ] **T499** README evidence and screenshots added
+- [x] **T480** All mandatory docs present (PRD/PLAN/TODO)
+- [x] **T481** Per-mechanism PRDs present
+- [x] **T482** Ruff = 0 violations
+- [x] **T483** Coverage >= 85%
+- [x] **T484** All files <= 150 lines
+- [x] **T485** `uv.lock` committed
+- [x] **T486** `.env-example` present, no secrets
+- [x] **T487** Cover page shows correct author/course/lecturer/date
+- [x] **T488** Table of contents renders
+- [x] **T489** Document is >= 15 pages
+- [x] **T490** Image present and rendered
+- [x] **T491** Python graph embedded
+- [x] **T492** Table rendered
+- [x] **T493** Formula typeset (not plain text)
+- [x] **T494** BiDi chapter renders correctly
+- [x] **T495** Bibliography resolves with working citations
+- [x] **T496** Final PDF compiles end-to-end
+- [x] **T497** Build log captured
+- [x] **T498** Validation report green
+- [x] **T499** README evidence and screenshots added
 - [ ] **T500** Repository cleaned for submission
-- [ ] **T501** Tag the submission version
-- [ ] **T502** Final grader walkthrough prepared
+- [x] **T501** Tag the submission version
+- [x] **T502** Final grader walkthrough prepared
 
 ## Phase L — Research & Analysis
 
@@ -640,62 +640,62 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 ### AE. Edge Cases & Error Handling (guideline 6.3)
 
-- [ ] **T517** Enumerate boundary conditions per component
-- [ ] **T518** Handle missing/invalid config gracefully
-- [ ] **T519** Handle missing intermediate artifacts
+- [x] **T517** Enumerate boundary conditions per component
+- [x] **T518** Handle missing/invalid config gracefully
+- [x] **T519** Handle missing intermediate artifacts
 - [ ] **T520** Handle empty/oversized manuscripts
 - [ ] **T521** Handle unresolved citations before compile
-- [ ] **T522** Handle missing LaTeX toolchain
-- [ ] **T523** Add defensive input validation with clear messages
-- [ ] **T524** Log failures with actionable detail
+- [x] **T522** Handle missing LaTeX toolchain
+- [x] **T523** Add defensive input validation with clear messages
+- [x] **T524** Log failures with actionable detail
 
 ### AF. UI/UX & Interface Docs (guideline 10)
 
-- [ ] **T525** Document each CLI workflow end-to-end
-- [ ] **T526** Write clear `--help` text for every flag
-- [ ] **T527** Make error messages user-friendly
+- [x] **T525** Document each CLI workflow end-to-end
+- [x] **T526** Write clear `--help` text for every flag
+- [x] **T527** Make error messages user-friendly
 - [ ] **T528** Capture screenshots of representative runs
-- [ ] **T529** Apply Nielsen usability heuristics to the CLI
-- [ ] **T530** Document accessibility considerations
-- [ ] **T531** Describe typical user journeys
+- [x] **T529** Apply Nielsen usability heuristics to the CLI
+- [x] **T530** Document accessibility considerations
+- [x] **T531** Describe typical user journeys
 
 ### AG. Costs & Pricing (guideline 11)
 
-- [ ] **T532** Count input/output tokens per run
-- [ ] **T533** Compute cost per million tokens by model
-- [ ] **T534** Build a token-cost table
-- [ ] **T535** Forecast total cost for a full generation
-- [ ] **T536** Document token-reduction/optimization strategies
+- [x] **T532** Count input/output tokens per run
+- [x] **T533** Compute cost per million tokens by model
+- [x] **T534** Build a token-cost table
+- [x] **T535** Forecast total cost for a full generation
+- [x] **T536** Document token-reduction/optimization strategies
 - [ ] **T537** Add budget alerts driven by `config/budgets.json`
 
 ### AH. Maintainability & Extension (guideline 12)
 
-- [ ] **T538** Document plugin/extension points
-- [ ] **T539** Define lifecycle hooks for the pipeline
-- [ ] **T540** Describe a middleware mechanism for stages
-- [ ] **T541** Publish clear extension interfaces
-- [ ] **T542** Review separation of concerns
-- [ ] **T543** Review debuggability and reuse
+- [x] **T538** Document plugin/extension points
+- [x] **T539** Define lifecycle hooks for the pipeline
+- [x] **T540** Describe a middleware mechanism for stages
+- [x] **T541** Publish clear extension interfaces
+- [x] **T542** Review separation of concerns
+- [x] **T543** Review debuggability and reuse
 
 ### AI. Parallelism & Performance (guideline 15)
 
-- [ ] **T544** Identify I/O-bound vs CPU-bound steps
-- [ ] **T545** Choose threads vs processes appropriately
-- [ ] **T546** Use `queue.Queue` for safe data transfer
-- [ ] **T547** Protect shared state with locks
-- [ ] **T548** Avoid deadlocks and race conditions
-- [ ] **T549** Benchmark stage latencies
-- [ ] **T550** Produce a performance spec sheet (latency/memory/tokens)
+- [x] **T544** Identify I/O-bound vs CPU-bound steps
+- [x] **T545** Choose threads vs processes appropriately
+- [x] **T546** Use `queue.Queue` for safe data transfer
+- [x] **T547** Protect shared state with locks
+- [x] **T548** Avoid deadlocks and race conditions
+- [x] **T549** Benchmark stage latencies
+- [x] **T550** Produce a performance spec sheet (latency/memory/tokens)
 
 ### AJ. Modular Building Blocks (guideline 16)
 
-- [ ] **T551** Define inputs/outputs/setup for each block
-- [ ] **T552** Enforce single responsibility per block
-- [ ] **T553** Use dependency injection for testability
-- [ ] **T554** Review block reusability and independence
-- [ ] **T555** Apply the Template Method for varied-but-similar logic
-- [ ] **T556** Enforce mixin rules (single concern, independently testable)
-- [ ] **T557** Document each block's contract
+- [x] **T551** Define inputs/outputs/setup for each block
+- [x] **T552** Enforce single responsibility per block
+- [x] **T553** Use dependency injection for testability
+- [x] **T554** Review block reusability and independence
+- [x] **T555** Apply the Template Method for varied-but-similar logic
+- [x] **T556** Enforce mixin rules (single concern, independently testable)
+- [x] **T557** Document each block's contract
 
 ### AK. ISO/IEC 25010 Quality (guideline 13)
 
@@ -726,22 +726,22 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 ### AM. Licensing & Packaging Metadata (guideline 14.1)
 
-- [ ] **T573** Add a `LICENSE` file (choose an appropriate license)
-- [ ] **T574** Add the `license` field to `pyproject.toml` `[project]`
-- [ ] **T575** Add third-party attribution/credits
+- [x] **T573** Add a `LICENSE` file (choose an appropriate license)
+- [x] **T574** Add the `license` field to `pyproject.toml` `[project]`
+- [x] **T575** Add third-party attribution/credits
 
 ### AN. Configuration Completeness (guideline 7.3, 8.1)
 
 - [x] **T576** Add `config/logging_config.json` and wire `shared/logging.py` to read it
 - [x] **T577** Add a `version` key to `budgets.json`, `models.json`, and `latex.json` (done; required field validated by Pydantic)
 - [x] **T578** Implement runtime configuration-version validation (fail on mismatch)
-- [ ] **T579** Extract immutable constants into `shared/constants.py` (REQUIRED_AGENTS, EXPECTED_ARTIFACTS, ...)
+- [x] **T579** Extract immutable constants into `shared/constants.py` (REQUIRED_AGENTS, EXPECTED_ARTIFACTS, ...)
 
 ### AO. Validation Integrity (fix false-green)
 
-- [ ] **T580** Strengthen `validators.py` to assert real artifact files exist on disk (not just spec keys/strings)
-- [ ] **T581** Add post-compile checks that features are actually embedded in the PDF
-- [ ] **T582** Add `latex/escaping.py` and route all agent-sourced text through it before rendering
+- [x] **T580** Strengthen `validators.py` to assert real artifact files exist on disk (not just spec keys/strings)
+- [x] **T581** Add post-compile checks that features are actually embedded in the PDF
+- [x] **T582** Add `latex/escaping.py` and route all agent-sourced text through it before rendering
 
 ### AP. Test Rigor (guideline 6)
 
@@ -752,21 +752,21 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 ### AQ. Packaging Hygiene (guideline 14.2)
 
 - [x] **T586** Add `__init__.py` to `document/`, `harness/`, `latex/`, `orchestration/` (src subpackages; tests dirs optional)
-- [ ] **T587** Export public interfaces / `__all__` from sub-package inits
+- [x] **T587** Export public interfaces / `__all__` from sub-package inits
 
 ### AR. Documentation Hygiene & Drift
 
 - [x] **T588** Resolve dual env-example: kept `.env-example` (guideline name), removed `.env.example`, updated doc references
-- [ ] **T589** Add README guideline-2.1 sections: Installation, Configuration Guide (per `config/*.json` param), License & Credits
-- [ ] **T590** Reconcile/prune FOLDER_STRUCTURE drift: `process.py`, `document/artifacts.py`, `scripts/`, `data/input/project_config.json`, `docs/ADRS.md`
-- [ ] **T591** Consolidate legacy root docs (AGENTS_DESIGN/ARCHITECTURE/PROJECT_PLAN/TASK_FLOW/FOLDER_STRUCTURE) into `docs/` or mark superseded
+- [x] **T589** Add README guideline-2.1 sections: Installation, Configuration Guide (per `config/*.json` param), License & Credits
+- [x] **T590** Reconcile/prune FOLDER_STRUCTURE drift: `process.py`, `document/artifacts.py`, `scripts/`, `data/input/project_config.json`, `docs/ADRS.md`
+- [x] **T591** Consolidate legacy root docs (AGENTS_DESIGN/ARCHITECTURE/PROJECT_PLAN/TASK_FLOW/FOLDER_STRUCTURE) into `docs/` or mark superseded
 - [x] **T592** SDK reconciled in PRD/PLAN — now implemented (`sdk/sdk.py`); PLAN marks it Implemented
 
 ### AS. Agent Security (lesson Section 8)
 
-- [ ] **T593** Review prompt-injection, tool-misuse, identity-abuse, and memory-poisoning risks
-- [ ] **T594** Run a red-team pass against the agents before any real execution
-- [ ] **T595** Document agent-security mitigations and the human-in-the-loop control point
+- [x] **T593** Review prompt-injection, tool-misuse, identity-abuse, and memory-poisoning risks
+- [x] **T594** Run a red-team pass against the agents before any real execution
+- [x] **T595** Document agent-security mitigations and the human-in-the-loop control point
 
 ### AT. Automated Quality Tooling (lecturer feedback)
 

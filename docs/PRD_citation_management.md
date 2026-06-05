@@ -22,14 +22,22 @@ the document is compiled.
   url, type).
 - Manuscript / reviewed manuscript: citation markers using source ids.
 
+> Canonical manuscript format (T477): the canonical authored manuscript is
+> `data/intermediate/sample_book_plan.json` (the BookPlan / `book_plan.json`
+> contract), which the renderer renders from; `sample_manuscript.md` is only an
+> auxiliary sample (and the source of Markdown citation-marker extraction tests),
+> not the rendered document.
+
 **Outputs**
 - `data/references/references.bib`: generated BibTeX (git-ignored; regenerated
   from the registry).
 - A citation report listing unresolved or unused keys.
 
-> Naming note: design docs refer to this report as both `citation_report.json`
-> and `citation_registry.json`; the canonical name to standardize on is
-> `citation_report.json` (see the doc-reconciliation task in [TODO.md](TODO.md)).
+> Naming note: the canonical report name is standardized in code as
+> `citation_report.json` (`src/bookgen/harness/citation_report.py` →
+> `generated/reports/citation_report.json`). The remaining
+> `citation_registry.json` is only a stale reference in the legacy root
+> `ARCHITECTURE.md`, not an open decision.
 
 ## 3. Requirements and Performance Metrics
 
@@ -43,8 +51,11 @@ the document is compiled.
 
 - The Research agent may only *propose* source candidates; it must not write
   `.bib` files (separation of judgment from deterministic output).
-- `references.bib` is generated, so it is git-ignored; a committed copy may be
-  added for grader visibility (see TODO C4).
+- `references.bib` is generated, so it is git-ignored; `data/references/references.bib`
+  is now committed for grader visibility (T072 done; `.gitignore` re-includes that
+  one file).
+- Citation-key extraction is ASCII/Latin-key based and is unaffected by the
+  Hebrew-primary (RTL) manuscript body.
 - Keep the module ≤ 150 code lines; factor escaping into a shared helper if it
   grows.
 

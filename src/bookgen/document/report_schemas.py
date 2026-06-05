@@ -41,6 +41,7 @@ class SourceRegistryEntry(BaseModel):
     @field_validator("key")
     @classmethod
     def key_must_be_citation_safe(cls, value: str) -> str:
+        """Reject citation keys with characters unsafe for LaTeX/BibTeX."""
         if not all(character.isalnum() or character in "_-:" for character in value):
             raise ValueError("citation key may contain only letters, digits, '_', '-', ':'")
         return value
@@ -73,6 +74,7 @@ class CitationReport(BaseModel):
 
     @model_validator(mode="after")
     def passed_matches_missing(self) -> CitationReport:
+        """Keep the passed flag consistent with the missing-keys list."""
         if self.missing_keys and self.passed:
             raise ValueError("passed cannot be True while missing_keys is non-empty")
         return self
@@ -129,6 +131,7 @@ class EvidenceReport(BaseModel):
     @field_validator("pdf_path")
     @classmethod
     def pdf_path_must_be_pdf(cls, value: str | None) -> str | None:
+        """Require the output PDF path to end with '.pdf'."""
         if value is not None and not value.endswith(".pdf"):
             raise ValueError("pdf_path must end with '.pdf'")
         return value
