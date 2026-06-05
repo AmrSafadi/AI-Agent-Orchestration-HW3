@@ -73,9 +73,9 @@ def create_document_generation_crew(use_real_crewai: bool = False) -> Any:
 def run_crew(dry_run: bool = True, root_dir: Path | str | None = None) -> CrewRunResult:
     """Run the crew safely.
 
-    Dry-run is the default and never calls ``kickoff``. It creates or reuses the
-    expected runtime artifacts so later deterministic milestones can be tested
-    without an API key.
+    Dry-run is the default and never calls ``kickoff``. It refreshes the
+    expected runtime artifacts from committed samples so later deterministic
+    milestones can be tested without an API key or stale generated state.
     """
     root = Path(root_dir) if root_dir else project_root()
 

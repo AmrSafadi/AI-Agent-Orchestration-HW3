@@ -137,7 +137,7 @@ config/
   -> final.pdf
 ```
 
-Committed example files use the `sample_` prefix under `data/intermediate/`. Dry-run copies those examples into `generated/intermediate/` and never calls `crew.kickoff()`. A real CrewAI run (`--run-crew`) would write to the same generated runtime directory, but under the project's no-paid-API constraint it is not executed and the delivered manuscript content is authored deterministically.
+Committed example files use the `sample_` prefix under `data/intermediate/`. Dry-run refreshes those examples into `generated/intermediate/` on each run and never calls `crew.kickoff()`. A real CrewAI run (`--run-crew`) would write to the same generated runtime directory, but under the project's no-paid-API constraint it is not executed and the delivered manuscript content is authored deterministically.
 
 ## 8. Folder Structure
 

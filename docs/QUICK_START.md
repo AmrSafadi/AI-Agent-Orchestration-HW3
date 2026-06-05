@@ -16,7 +16,8 @@ cd <path-to>\AI-Agent-Orchestration-HW3
 
 ## 2. Run The Local Startup Check
 
-This loads config, assembles the dry-run crew, and creates or reuses dry-run artifacts. It does not call any API.
+This loads config, assembles the dry-run crew, and refreshes dry-run artifacts
+from the committed `data/intermediate/sample_*` files. It does not call any API.
 
 ```powershell
 $env:PYTHONPATH="src"

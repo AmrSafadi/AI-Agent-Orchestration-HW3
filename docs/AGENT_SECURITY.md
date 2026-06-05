@@ -15,7 +15,7 @@ from the agents' ability to *plan and act*, not merely to generate prose.
 What reduces our exposure by design:
 
 - **Dry-run is the default.** `python -m bookgen.main` never calls the model
-  provider; it reuses committed sample artifacts. The API path is opt-in only
+  provider; it refreshes committed sample artifacts. The API path is opt-in only
   (`--run-crew`, and only with `OPENAI_API_KEY` set). No autonomous loop ships
   enabled.
 - **No destructive tools are wired in.** The agents author text and a build
@@ -33,7 +33,7 @@ The four primary attack types from §8, assessed for *this* system:
 | 1 | **Prompt injection** | A malicious instruction hidden in a topic, a source document, or research text ("ignore instructions and …") could steer the Writer/LaTeX agents. | Agents work *from structured Context only* (no open web tool on the Writer/Reviewer/LaTeX agents). All agent-sourced text is treated as untrusted and **escaped via `latex/escaping.py`** before it reaches a template, so injected `\input`, `\write18`, or backslash payloads become literal characters, not LaTeX commands. Schemas (`document/schemas.py`) constrain shapes so a payload cannot smuggle extra fields. |
 | 2 | **Tool misuse** | A legitimate capability used for an unintended effect (e.g. a search/file tool exfiltrating or overwriting data). | The shipped agents have **no file-write or shell tools**; the only external capability (provider call) is routed through `shared/gatekeeper.py` (rate-limit + retry + backpressure), which bounds call volume. LaTeX compilation runs `lualatex`/`biber` as fixed, non-shell-escape commands; we do **not** enable `-shell-escape`. |
 | 3 | **Identity abuse** | Uncontrolled use of an API key or the agent's identity. | Secrets are read **only from environment variables** (`.env`, git-ignored); `.env-example` carries dummy values; `.gitignore` covers `*.key`, `*.pem`, `credentials.json`. No key is hard-coded or logged. Least-privilege and key-rotation guidance is in §5 below. |
-| 4 | **Memory poisoning** | A "dormant" instruction embedded in persisted state that triggers on a later run. | The pipeline is **stateless across runs** in dry-run: each run regenerates artifacts from versioned config + committed samples; there is no long-lived agent memory store that an earlier run can poison. Intermediate artifacts are written to `generated/` (git-ignored) and are inspectable before reuse. |
+| 4 | **Memory poisoning** | A "dormant" instruction embedded in persisted state that triggers on a later run. | The pipeline is **stateless across runs** in dry-run: each run regenerates artifacts from versioned config + committed samples; there is no long-lived agent memory store that an earlier run can poison. Intermediate artifacts are written to `generated/` (git-ignored) and refreshed on the next dry-run. |
 
 ## 3. Red-team pass (pre-real-run checklist)
 
