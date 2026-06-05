@@ -784,5 +784,5 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 ---
 
-**Total tasks: 603** (386 completed, 217 remaining).
+**Total tasks: 603** (584 completed, 19 remaining).
 
