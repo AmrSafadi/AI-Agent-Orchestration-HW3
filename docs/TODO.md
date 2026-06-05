@@ -414,32 +414,32 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 - [x] **T337** Chapter — From Prompt to Crew: outline the chapter.
 - [x] **T338** Chapter — From Prompt to Crew: draft the prose.
 - [x] **T339** Chapter — From Prompt to Crew: insert citation markers.
-- [ ] **T340** Chapter — From Prompt to Crew: reviewer pass for clarity.
+- [x] **T340** Chapter — From Prompt to Crew: reviewer pass for clarity.
 - [x] **T341** Chapter — From Prompt to Crew: render the chapter to .tex.
 - [x] **T342** Chapter — Agent Roles & Tasks: outline the chapter.
 - [x] **T343** Chapter — Agent Roles & Tasks: draft the prose.
 - [x] **T344** Chapter — Agent Roles & Tasks: insert citation markers.
-- [ ] **T345** Chapter — Agent Roles & Tasks: reviewer pass for clarity.
+- [x] **T345** Chapter — Agent Roles & Tasks: reviewer pass for clarity.
 - [x] **T346** Chapter — Agent Roles & Tasks: render the chapter to .tex.
 - [x] **T347** Chapter — Sequential Orchestration: outline the chapter.
 - [x] **T348** Chapter — Sequential Orchestration: draft the prose.
 - [x] **T349** Chapter — Sequential Orchestration: insert citation markers.
-- [ ] **T350** Chapter — Sequential Orchestration: reviewer pass for clarity.
+- [x] **T350** Chapter — Sequential Orchestration: reviewer pass for clarity.
 - [x] **T351** Chapter — Sequential Orchestration: render the chapter to .tex.
 - [x] **T352** Chapter — The Deterministic Harness: outline the chapter.
 - [x] **T353** Chapter — The Deterministic Harness: draft the prose.
 - [x] **T354** Chapter — The Deterministic Harness: insert citation markers.
-- [ ] **T355** Chapter — The Deterministic Harness: reviewer pass for clarity.
+- [x] **T355** Chapter — The Deterministic Harness: reviewer pass for clarity.
 - [x] **T356** Chapter — The Deterministic Harness: render the chapter to .tex.
 - [x] **T357** Chapter — LaTeX Production & BiDi: outline the chapter.
 - [x] **T358** Chapter — LaTeX Production & BiDi: draft the prose.
 - [x] **T359** Chapter — LaTeX Production & BiDi: insert citation markers.
-- [ ] **T360** Chapter — LaTeX Production & BiDi: reviewer pass for clarity.
+- [x] **T360** Chapter — LaTeX Production & BiDi: reviewer pass for clarity.
 - [x] **T361** Chapter — LaTeX Production & BiDi: render the chapter to .tex.
 - [x] **T362** Chapter — Conclusion: outline the chapter.
 - [x] **T363** Chapter — Conclusion: draft the prose.
 - [x] **T364** Chapter — Conclusion: insert citation markers.
-- [ ] **T365** Chapter — Conclusion: reviewer pass for clarity.
+- [x] **T365** Chapter — Conclusion: reviewer pass for clarity.
 - [x] **T366** Chapter — Conclusion: render the chapter to .tex.
 
 ### S. BiDi Hebrew-English
