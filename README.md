@@ -18,15 +18,17 @@ compilation). Requirements: [docs/PRD.md](docs/PRD.md); architecture:
 
 Implemented: planning docs, config + Pydantic schemas, deterministic harness
 (citations/BibTeX, matplotlib graph, validators), and the five-agent crew with a
-safe dry-run default. Not yet implemented: LaTeX rendering, PDF compilation, and
-real (paid) crew execution. Live status:
+safe dry-run default. Also implemented: LaTeX rendering, PDF compilation, the
+SDK facade, API gatekeeper/rate limits, CrewAI Skills, and a committed final
+PDF snapshot at `final.pdf`. Real paid CrewAI execution is available only as an
+opt-in path and is not required for grading. Live status:
 [docs/IMPLEMENTATION_STATUS.md](docs/IMPLEMENTATION_STATUS.md).
 
 ## Report
 
-A running summary of what we have built. **We are actively building this project —
-including CrewAI Skills — and will keep this section updated until the homework is
-complete.**
+A running summary of what we have built. The project is in submission-polish
+mode: the deterministic dry-run and PDF deliverable are complete, while the
+real paid CrewAI path remains optional.
 
 **Delivered so far (verified working)**
 - **Documentation:** `PRD`, `PLAN` (architecture, ADRs, extensibility, components),
@@ -44,25 +46,30 @@ complete.**
 - **CrewAI Skills:** three knowledge packs under `skills/` (latex-style,
   citation-discipline, course-alignment) with a discovery/assignment loader wired
   into the agents in real-crew mode — the course Skill concept.
+- **LaTeX PDF pipeline:** Jinja2 templates, LaTeX escaping, LuaLaTeX/biber
+  compiler integration, generated bibliography, and a verified 18-page
+  Hebrew-primary PDF.
 - **Quality tooling:** Ruff lint (0 violations) + `ruff format`; a shared pre-commit
   hook; GitHub Actions CI enforcing an 85% coverage gate.
 - **Build skill:** a Claude Code `/build-bookgen` skill that encodes our build workflow.
-- **Tests:** 44 passing, **91.60%** coverage.
+- **Tests:** 89 passing, 1 skipped, **92.46%** coverage.
 
 **Verified**
 - `ruff check` → 0 violations; `ruff format` → clean; every code file ≤ 150 lines.
-- `pytest tests` → 44 passed; coverage 91.60% (gate 85%).
-- The dry-run pipeline produces all five intermediate artifacts with no API call.
+- `pytest tests --cov=bookgen` → 89 passed, 1 skipped; coverage 92.46% (gate 85%).
+- The dry-run pipeline produces all five intermediate artifacts, assets, and
+  `generated/latex/main.tex` with no API call.
+- `--dry-run --build-pdf` compiles the final PDF when a TeX toolchain is
+  installed; a verified snapshot is committed at `final.pdf`.
 
 **In progress / next**
-- Continuing to build out **CrewAI Skills** and the remaining phases (Phase C
-  harness hardening, then the LaTeX renderer and PDF compiler).
-- Remaining work is tracked in [docs/TODO.md](docs/TODO.md); this Report will be
-  updated as we go.
+- Submission polish: keep README/status docs aligned, keep generated folders out
+  of git, and optionally improve the real paid CrewAI run path.
+- Remaining work is tracked in [docs/TODO.md](docs/TODO.md).
 
 **Not yet implemented**
-- LaTeX rendering & PDF compilation (renderer/compiler are stubs) — no final PDF yet.
-- Real (paid) CrewAI execution.
+- Persisting and token-accounting real paid CrewAI task outputs. The default
+  deterministic dry-run and final PDF deliverable are complete.
 
 ## Installation
 
@@ -98,6 +105,9 @@ uv run --no-project --with pydantic --with matplotlib --with jinja2 python -m bo
 # Explicit dry-run:
 uv run --no-project --with pydantic --with matplotlib --with jinja2 python -m bookgen.main --dry-run
 
+# Render and compile the PDF (requires lualatex + biber):
+uv run --no-project --with pydantic --with matplotlib --with jinja2 python -m bookgen.main --dry-run --build-pdf
+
 # Real crew run (needs OPENAI_API_KEY, costs money):
 uv run python -m bookgen.main --run-crew
 ```
@@ -108,6 +118,8 @@ BookGen configuration loaded successfully.
 Execution mode: DRY-RUN (default). CrewAI kickoff will not be called.
 Crew assembled: 5 agents, 5 tasks, process=sequential.
 Dry-run completed. CrewAI kickoff was not called.
+Rendered LaTeX project: ...\generated\latex\main.tex
+Rendered main.tex (LaTeX compilation not requested).
 ```
 
 ## Configuration Guide
@@ -130,8 +142,8 @@ variables. Cost details: [docs/COSTS.md](docs/COSTS.md).
 |---|---|
 | Lint | `uv run --no-project --with ruff ruff check .` |
 | Format | `uv run --no-project --with ruff ruff format .` |
-| Tests | `$env:PYTHONPATH="src"; uv run --no-project --with pydantic --with pytest --with matplotlib --with jinja2 python -m pytest tests/unit` |
-| Coverage | append `--with pytest-cov` and run `python -m pytest tests --cov` |
+| Tests | `$env:PYTHONPATH="src"; uv run --no-project --with pydantic --with pytest --with pytest-cov --with matplotlib --with jinja2 python -m pytest tests --cov=bookgen` |
+| Coverage | enforced at 85% via `pyproject.toml` and CI |
 
 Install the shared pre-commit hook once (runs lint + format check before each commit):
 ```powershell
@@ -183,6 +195,7 @@ project (GPL/OFL). These are required at compile time but are not bundled here.
 
 ## Important Boundary
 
-The default path is local and deterministic: it does **not** call any API and does
-**not** compile a PDF. Real CrewAI execution requires the explicit `--run-crew`
-flag and `OPENAI_API_KEY`.
+The default path is local and deterministic: it does **not** call any API. It
+renders `generated/latex/main.tex`; PDF compilation happens only when
+`--build-pdf` is supplied and a TeX toolchain is installed. Real CrewAI execution
+requires the explicit `--run-crew` flag and `OPENAI_API_KEY`.
