@@ -2,11 +2,11 @@
   "project": {
     "name": "AI Agent Orchestration HW3",
     "topic": "AI Agent Orchestration: From Prompting to Production-Ready Crews",
-    "author": "Amr Safadi",
+    "author": "Amr Safadi and Sharbel Maroun",
     "course": "AI Agent Orchestration",
     "lecturer": "Dr. Yoram Segal",
     "date": "2026-06-04",
-    "version": "0.1.0"
+    "version": "1.0.0"
   },
   "workflow": {
     "process": "sequential",

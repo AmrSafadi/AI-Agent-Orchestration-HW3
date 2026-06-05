@@ -136,7 +136,7 @@ not abstract base classes.
 
 - **Contract:** a function with the `renderer.py::render_main_tex` shape —
   `(latex_spec, book_plan, metadata, output_dir=..., templates_dir=...,
-  references_bib=...) -> Path`. All agent-authored text must be passed through
+  references_bib=..., root_dir=...) -> Path`. All agent-authored text must be passed through
   `latex/escaping.py::escape_latex` first (injection-safety is part of the
   contract).
 - **Wire it:** `build.py::build_document` calls the renderer; swap the import or

@@ -38,10 +38,17 @@ def _environment(templates_dir: Path) -> jinja2.Environment:
     )
 
 
-def _asset(latex_spec: LatexSpec, kind: str) -> tuple[str, str]:
+def _asset(
+    latex_spec: LatexSpec,
+    kind: str,
+    path_overrides: dict[str, str] | None = None,
+) -> tuple[str, str]:
     for asset in latex_spec.assets:
         if asset.kind == kind:
-            return asset.target_path, escape_latex(asset.caption or "")
+            path = (
+                path_overrides.get(kind, asset.target_path) if path_overrides else asset.target_path
+            )
+            return path, escape_latex(asset.caption or "")
     return "", ""
 
 
@@ -67,10 +74,11 @@ def build_context(
     book_plan: BookPlan,
     metadata: dict[str, str],
     cite_key: str,
+    asset_paths: dict[str, str] | None = None,
 ) -> dict:
     """Build the Jinja render context from the artifacts and run metadata."""
-    image_path, image_caption = _asset(latex_spec, "image")
-    graph_path, graph_caption = _asset(latex_spec, "graph")
+    image_path, image_caption = _asset(latex_spec, "image", asset_paths)
+    graph_path, graph_caption = _asset(latex_spec, "graph", asset_paths)
     table_path, table_caption = _asset(latex_spec, "table")
     formula_path, _ = _asset(latex_spec, "formula")
     return {
@@ -101,16 +109,16 @@ def render_main_tex(
     templates_dir: Path | str = DEFAULT_TEMPLATES_DIR,
     cite_key: str = "crewai_docs",
     references_bib: Path | str | None = None,
+    root_dir: Path | str | None = None,
 ) -> Path:
     """Render ``main.tex`` from the LaTeX spec and book plan; return its path."""
     out_dir = Path(output_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
 
     environment = _environment(Path(templates_dir))
-    context = build_context(latex_spec, book_plan, metadata, cite_key)
+    asset_paths = _copy_assets_to_build(latex_spec, out_dir, Path(root_dir) if root_dir else None)
+    context = build_context(latex_spec, book_plan, metadata, cite_key, asset_paths)
 
-    # Materialize the table and formula assets as standalone files so the LaTeX
-    # spec's declared asset paths exist on disk and are ``\input`` by the document.
     for template_name, filename in (
         ("table.tex.j2", context["table_file"]),
         ("formula.tex.j2", context["formula_file"]),
@@ -121,7 +129,47 @@ def render_main_tex(
 
     main_tex = out_dir / "main.tex"
     main_tex.write_text(environment.get_template("main.tex.j2").render(**context), encoding="utf-8")
+    _render_chapter_files(environment, context, latex_spec, out_dir)
 
     if references_bib and Path(references_bib).exists():
         shutil.copyfile(references_bib, out_dir / Path(latex_spec.bibliography_file).name)
     return main_tex
+
+
+def _copy_assets_to_build(
+    latex_spec: LatexSpec,
+    output_dir: Path,
+    root_dir: Path | None,
+) -> dict[str, str]:
+    copied: dict[str, str] = {}
+    for asset in latex_spec.assets:
+        if asset.kind not in {"image", "graph"}:
+            continue
+        source = Path(asset.target_path)
+        source = source if source.is_absolute() else (root_dir / source if root_dir else source)
+        if not source.exists() or not source.is_file():
+            continue
+        target = output_dir / "assets" / source.name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        if source.resolve() != target.resolve():
+            shutil.copyfile(source, target)
+        copied[asset.kind] = f"assets/{source.name}"
+    return copied
+
+
+def _render_chapter_files(
+    environment: jinja2.Environment,
+    context: dict,
+    latex_spec: LatexSpec,
+    output_dir: Path,
+) -> None:
+    template = environment.get_template("chapter.tex.j2")
+    for index, chapter in enumerate(context["chapters"]):
+        relative_path = (
+            latex_spec.chapter_files[index]
+            if index < len(latex_spec.chapter_files)
+            else f"chapters/chapter_{index + 1:02d}.tex"
+        )
+        target = output_dir / relative_path
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(template.render(**context, chapter=chapter), encoding="utf-8")

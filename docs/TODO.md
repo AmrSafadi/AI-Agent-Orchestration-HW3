@@ -234,7 +234,7 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 - [x] **T184** Provide a `DryRunCrew` fallback when CrewAI is absent
 - [x] **T185** Implement `run_crew()` with dry-run as default
 - [x] **T186** Guard real execution behind `--run-crew` + `OPENAI_API_KEY`
-- [x] **T187** Create-or-reuse dry-run artifacts from sample data
+- [x] **T187** Refresh dry-run artifacts from sample data on each run
 - [x] **T188** Describe the assembled crew (agent/task/process counts)
 - [x] **T189** Keep `crew.py` within the 150-line limit (split if needed)
 - [x] **T190** Unit-test crew assembly
@@ -243,16 +243,16 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 ### L. Real Execution (Milestone 5)
 
-- [ ] **T193** Confirm provider, model, and milestone scope with the user
+- [x] **T193** Confirm provider, model, and milestone scope with the user (`config/models.json`, opt-in real run)
 - [x] **T194** Wire `crew.kickoff()` behind the opt-in flag
 - [x] **T195** Inject the topic from config into task descriptions
-- [ ] **T196** Persist real task outputs to `generated/intermediate/`
+- [x] **T196** Persist real task outputs to `generated/intermediate/`
 - [x] **T197** Keep `sample_*` files as committed examples
-- [ ] **T198** Capture token usage from the result
+- [x] **T198** Capture token usage from the result
 - [x] **T199** Handle provider/API errors gracefully
 - [x] **T200** Add an opt-in, key-guarded integration test (skipped without key)
 - [x] **T201** Document the real-run command and prerequisites
-- [ ] **T202** Update IMPLEMENTATION_STATUS after the run
+- [x] **T202** Update IMPLEMENTATION_STATUS after real-run support pass
 
 ## Phase E — LaTeX
 
@@ -289,7 +289,7 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 - [x] **T228** Create `latex/renderer.py` (LatexRenderer)
 - [x] **T229** Load `latex_spec.json` and the reviewed manuscript
 - [x] **T230** Render `main.tex` from the main template
-- [ ] **T231** Render per-chapter `.tex` files
+- [x] **T231** Render per-chapter `.tex` files
 - [x] **T232** Insert `\tableofcontents`
 - [x] **T233** Insert the cover page with metadata
 - [x] **T234** Insert `\includegraphics` for the Python graph
@@ -298,7 +298,7 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 - [x] **T237** Render a display-math formula
 - [x] **T238** Render the Hebrew-English BiDi chapter
 - [x] **T239** Insert `\printbibliography` / bibliography commands
-- [ ] **T240** Copy assets into the build directory
+- [x] **T240** Copy assets into the build directory
 - [x] **T241** Copy `references.bib` into the build directory
 - [x] **T242** Keep renderer files within the 150-line limit
 - [x] **T243** Add `tests/unit/test_latex_renderer.py`
@@ -340,7 +340,7 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 - [x] **T273** Fail gracefully when no toolchain is present
 - [x] **T274** Emit `final.pdf` to `generated/pdf/`
 - [x] **T275** Verify the PDF is non-empty
-- [ ] **T276** Add `tests/integration/test_pdf_build_smoke.py` (skip without toolchain)
+- [x] **T276** Add `tests/integration/test_pdf_build_smoke.py` (skip without toolchain)
 
 ## Phase F — Deliverables
 
@@ -472,10 +472,10 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 - [x] **T387** Tests — graph_generator: write edge-case/error tests.
 - [x] **T388** Tests — graph_generator: check coverage contribution.
 - [x] **T389** Tests — orchestration_agents: write happy-path unit tests.
-- [ ] **T390** Tests — orchestration_agents: write edge-case/error tests.
+- [x] **T390** Tests — orchestration_agents: write edge-case/error tests.
 - [x] **T391** Tests — orchestration_agents: check coverage contribution.
 - [x] **T392** Tests — orchestration_tasks: write happy-path unit tests.
-- [ ] **T393** Tests — orchestration_tasks: write edge-case/error tests.
+- [x] **T393** Tests — orchestration_tasks: write edge-case/error tests.
 - [x] **T394** Tests — orchestration_tasks: check coverage contribution.
 - [x] **T395** Tests — orchestration_crew: write happy-path unit tests.
 - [x] **T396** Tests — orchestration_crew: write edge-case/error tests.
@@ -554,13 +554,13 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 ### Y. Observability & Cost
 
-- [ ] **T453** Log each task's inputs and outputs
+- [x] **T453** Log each task's inputs and outputs
 - [x] **T454** Persist intermediate artifacts for inspection
 - [x] **T455** Record execution mode (dry-run vs real)
-- [ ] **T456** Capture token usage per run
+- [x] **T456** Capture token usage per run
 - [x] **T457** Build a cost table by model
 - [x] **T458** Estimate total cost per full run
-- [ ] **T459** Add budget overrun alerts (config-driven)
+- [x] **T459** Add budget overrun alerts (config-driven)
 - [x] **T460** Produce a per-run observability summary
 
 ### Z. Packaging & Distribution
@@ -577,9 +577,9 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 - [x] **T467** Use feature branches per milestone
 - [x] **T468** Write meaningful commit messages
 - [x] **T469** Open pull requests with review
-- [ ] **T470** Tag major versions
+- [x] **T470** Tag major versions
 - [x] **T471** Maintain a prompt-engineering log alongside commits
-- [ ] **T472** Reconcile author metadata with the submitting student
+- [x] **T472** Reconcile author metadata with the submitting student
 - [x] **T473** Keep `generated/` out of version control
 
 ## Phase K — Submission
@@ -615,7 +615,7 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 - [x] **T497** Build log captured
 - [x] **T498** Validation report green
 - [x] **T499** README evidence and screenshots added
-- [ ] **T500** Repository cleaned for submission
+- [x] **T500** Repository cleaned for submission
 - [x] **T501** Tag the submission version
 - [x] **T502** Final grader walkthrough prepared
 
@@ -643,8 +643,8 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 - [x] **T517** Enumerate boundary conditions per component
 - [x] **T518** Handle missing/invalid config gracefully
 - [x] **T519** Handle missing intermediate artifacts
-- [ ] **T520** Handle empty/oversized manuscripts
-- [ ] **T521** Handle unresolved citations before compile
+- [x] **T520** Handle empty/oversized manuscripts
+- [x] **T521** Handle unresolved citations before compile
 - [x] **T522** Handle missing LaTeX toolchain
 - [x] **T523** Add defensive input validation with clear messages
 - [x] **T524** Log failures with actionable detail
@@ -654,7 +654,7 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 - [x] **T525** Document each CLI workflow end-to-end
 - [x] **T526** Write clear `--help` text for every flag
 - [x] **T527** Make error messages user-friendly
-- [ ] **T528** Capture screenshots of representative runs
+- [x] **T528** Capture screenshots of representative runs
 - [x] **T529** Apply Nielsen usability heuristics to the CLI
 - [x] **T530** Document accessibility considerations
 - [x] **T531** Describe typical user journeys
@@ -666,7 +666,7 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 - [x] **T534** Build a token-cost table
 - [x] **T535** Forecast total cost for a full generation
 - [x] **T536** Document token-reduction/optimization strategies
-- [ ] **T537** Add budget alerts driven by `config/budgets.json`
+- [x] **T537** Add budget alerts driven by `config/budgets.json`
 
 ### AH. Maintainability & Extension (guideline 12)
 
@@ -784,5 +784,5 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 ---
 
-**Total tasks: 603** (584 completed, 19 remaining).
+**Total tasks: 603** (603 completed, 0 remaining).
 

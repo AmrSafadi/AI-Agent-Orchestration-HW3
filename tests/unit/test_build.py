@@ -41,3 +41,30 @@ def test_build_document_compile_is_graceful(
     )
     assert result["compiled"] is False
     assert "not found" in result["message"].lower()
+
+
+def test_build_document_stops_before_compile_on_unresolved_citation(
+    tmp_path, default_book_plan, default_latex_spec
+) -> None:
+    _setup(tmp_path, default_book_plan, default_latex_spec)
+    registry = tmp_path / "data/input/source_registry.json"
+    registry.parent.mkdir(parents=True)
+    registry.write_text(
+        json.dumps(
+            [
+                {
+                    "key": "other_source",
+                    "entry_type": "online",
+                    "title": "Other",
+                    "year": "2026",
+                }
+            ]
+        ),
+        encoding="utf-8",
+    )
+
+    result = build_document(tmp_path, META, compile_after=True)
+
+    assert result["compiled"] is False
+    assert result["citation_preflight"]["missing_keys"] == ["crewai_docs"]
+    assert "Unresolved citation keys" in result["message"]

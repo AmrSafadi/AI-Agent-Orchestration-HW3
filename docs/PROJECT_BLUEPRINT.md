@@ -137,7 +137,7 @@ config/
   -> final.pdf
 ```
 
-Committed example files use the `sample_` prefix under `data/intermediate/`. Dry-run refreshes those examples into `generated/intermediate/` on each run and never calls `crew.kickoff()`. A real CrewAI run (`--run-crew`) would write to the same generated runtime directory, but under the project's no-paid-API constraint it is not executed and the delivered manuscript content is authored deterministically.
+Committed example files use the `sample_` prefix under `data/intermediate/`. Dry-run refreshes those examples into `generated/intermediate/` on each run and never calls `crew.kickoff()`. A real CrewAI run (`--run-crew`) is implemented as an opt-in, API-key-guarded path: it writes task outputs to the same generated runtime directory, records `real_run_trace.json`, captures token usage when CrewAI exposes it, and emits budget alerts from `config/budgets.json`. The delivered manuscript content remains authored deterministically so the default path costs nothing.
 
 ## 8. Folder Structure
 
@@ -235,7 +235,7 @@ Possible post-v1 improvements:
 
 ## 12. How To Run The Project
 
-The CLI entry point is `python -m bookgen.main --dry-run [--build-pdf] [--run-crew]`, also exposed as the `bookgen` console script. Dry-run is the default and never calls the API; `--run-crew` requires `OPENAI_API_KEY` but under the project's no-paid-API constraint the real run is not executed and the delivered manuscript content is authored deterministically.
+The CLI entry point is `python -m bookgen.main --dry-run [--build-pdf] [--run-crew]`, also exposed as the `bookgen` console script. Dry-run is the default and never calls the API; `--run-crew` requires `OPENAI_API_KEY`, routes through the gatekeeper, and persists real-run evidence when deliberately enabled.
 
 ```powershell
 bookgen --dry-run

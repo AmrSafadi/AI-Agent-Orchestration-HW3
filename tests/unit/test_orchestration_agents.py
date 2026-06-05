@@ -1,3 +1,6 @@
+import pytest
+
+import bookgen.orchestration.factory as factory
 from bookgen.orchestration.agents import (
     create_all_agents,
     create_latex_agent,
@@ -32,3 +35,10 @@ def test_create_all_agents_uses_approved_agent_names() -> None:
     agents = create_all_agents()
 
     assert list(agents) == ["planner", "research", "writer", "reviewer", "latex"]
+
+
+def test_real_agent_construction_requires_crewai(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(factory, "CrewAIAgent", None)
+
+    with pytest.raises(RuntimeError, match="CrewAI is not installed"):
+        create_planner_agent(use_real_crewai=True)

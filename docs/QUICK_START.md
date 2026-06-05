@@ -49,10 +49,10 @@ uv run --no-project --with pydantic --with pytest --with matplotlib --with jinja
 Expected result:
 
 ```text
-89 passed
+99 passed, 2 skipped
 ```
 
-Coverage is 92.46% against an 85% gate, and ruff reports 0 violations.
+Coverage is 93.05% against an 85% gate, and ruff reports 0 violations.
 
 ## 4. Generate Deterministic Outputs
 

@@ -12,6 +12,8 @@ from pathlib import Path
 from bookgen.document.schemas import BookPlan, LatexSpec, ValidationCheck, ValidationReport
 from bookgen.harness.citations import extract_citation_keys
 
+MAX_MANUSCRIPT_CHARACTERS = 80_000
+
 
 def report_from_checks(checks: list[ValidationCheck]) -> ValidationReport:
     """Build a ValidationReport, collecting failing-check messages as errors."""
@@ -52,6 +54,15 @@ def validate_required_document_features(
             name="feature:citations",
             passed=bool(extract_citation_keys(manuscript_text)),
             message="Manuscript must include at least one citation marker.",
+        ),
+        ValidationCheck(
+            name="feature:manuscript_size",
+            passed=bool(manuscript_text.strip())
+            and len(manuscript_text) <= MAX_MANUSCRIPT_CHARACTERS,
+            message=(
+                "Manuscript must be non-empty and no larger than "
+                f"{MAX_MANUSCRIPT_CHARACTERS} characters."
+            ),
         ),
         ValidationCheck(
             name="feature:image",
