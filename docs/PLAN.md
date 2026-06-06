@@ -141,11 +141,11 @@ one place (60s sliding-window rate limit, retries, `BackpressureError`,
 | Tool | Purpose | Status |
 |---|---|---|
 | Ruff | Lint (guideline rule set), ruff 0 violations | Configured & passing |
-| pytest + pytest-cov | Tests + 85% coverage gate; 104 passed, 2 skipped, 93.37% coverage (gate 85%) | Configured & passing |
+| pytest + pytest-cov | Tests + 85% coverage gate; 105 passed, 2 skipped, 93.34% coverage (gate 85%) | Configured & passing |
 | Formatter (`ruff format` / black) | Consistent style | Configured |
 | pre-commit hooks | Lint/format/tests before commit | Configured (`scripts/hooks/pre-commit`) |
 | CI (GitHub Actions) | Ruff + tests on each PR | Configured (`.github/workflows/ci.yml`) |
 
-Automated gates replace manual review: 104 tests pass, 2 skip, at 93.37% coverage
+Automated gates replace manual review: 105 tests pass, 2 skip, at 93.34% coverage
 (gate 85%) with ruff 0 violations, and pre-commit plus CI enforce quality rather
 than assume it.
