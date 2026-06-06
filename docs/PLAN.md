@@ -45,6 +45,73 @@ Config (config/*.json)
 - **Code:** Pydantic models define artifact contracts; factory functions build
   agents/tasks; deterministic functions own fragile output.
 
+### C4 Level 1 — System Context
+
+```mermaid
+C4Context
+    title System Context — BookGen
+    Person(dev, "Developer / Grader", "Provides a topic via config; runs the CLI; inspects artifacts and the PDF")
+    System(bookgen, "BookGen", "CrewAI crew + deterministic LaTeX harness that produces a Hebrew-primary PDF")
+    System_Ext(provider, "LLM Provider (OpenAI)", "Called only on the opt-in --run-crew path")
+    System_Ext(tex, "TeX Toolchain", "lualatex + biber; needed only for --build-pdf")
+    Rel(dev, bookgen, "Runs CLI, reads outputs")
+    Rel(bookgen, provider, "Routes calls via the gatekeeper (opt-in)")
+    Rel(bookgen, tex, "Compiles main.tex (opt-in)")
+```
+
+### C4 Level 2 — Containers
+
+```mermaid
+C4Container
+    title Container Diagram — BookGen
+    Person(dev, "Developer / Grader")
+    Container_Boundary(bg, "BookGen package") {
+        Container(cli, "CLI", "main.py", "Parses argv; holds no business logic")
+        Container(sdk, "SDK Facade", "sdk/sdk.py BookGenSDK", "Single assembly point + extension hooks + estimate_cost")
+        Container(orch, "Orchestration", "orchestration/*", "Agents, tasks, crew, dry-run, skills")
+        Container(latex, "LaTeX Pipeline", "latex/*", "Renderer, compiler, escaping, build")
+        Container(harness, "Harness", "harness/*", "Citations, graph, assets, evidence")
+        Container(doc, "Document", "document/*", "Pydantic schemas + validators")
+        Container(shared, "Shared + Config", "shared/* + config/*.json + gatekeeper", "Config, logging, version, rate-limited gatekeeper")
+    }
+    Rel(dev, cli, "Invokes")
+    Rel(cli, sdk, "Delegates all work")
+    Rel(sdk, orch, "run_crew()")
+    Rel(sdk, latex, "build_document()")
+    Rel(sdk, harness, "generate_assets()")
+    Rel(sdk, doc, "validate")
+    Rel(orch, shared, "Routes provider calls via gatekeeper")
+    Rel(latex, shared, "Reads config")
+    Rel(harness, shared, "Reads config")
+    Rel(doc, shared, "Reads config")
+```
+
+### UML — Pipeline sequence
+
+The following Mermaid **UML** sequence diagram shows the runtime interaction
+across the dry-run pipeline (the default path).
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor User
+    participant CLI as main.py
+    participant SDK as BookGenSDK
+    participant Crew as orchestration
+    participant Assets as harness
+    participant Build as latex
+    User->>CLI: bookgen --dry-run [--build-pdf]
+    CLI->>SDK: generate_book(dry_run=True)
+    SDK->>Crew: run_crew() -> intermediate artifacts
+    SDK->>Assets: generate_assets() -> image + graph PNGs
+    SDK->>Build: build_document() -> main.tex
+    opt --build-pdf and TeX toolchain present
+        Build->>Build: lualatex -> biber -> lualatex x2 -> final.pdf
+    end
+    SDK-->>CLI: summary (paths, status)
+    CLI-->>User: printed status lines + exit code
+```
+
 ## 3. Components and Responsibilities
 
 | Component | File(s) | Responsibility | Status |
@@ -63,7 +130,7 @@ Config (config/*.json)
 | Tasks | `orchestration/tasks.py` | Five context-linked task factories. | Implemented |
 | Crew | `orchestration/crew.py` | `build_crew()` / `run_crew()`; dry-run default. | Implemented |
 | Dry-run | `orchestration/dry_run.py` | Deterministic artifact synthesis with no API calls (default mode). | Implemented |
-| CrewAI Skills | `orchestration/skills.py` + `skills/*/SKILL.md` | Knowledge packs injected into agents in real-crew mode (course Skill concept). | Implemented |
+| CrewAI Skills | `orchestration/skills.py` + `skills/*/SKILL.md` | Knowledge packs injected into agents in real-crew mode: `load_skills(agent_key)` discovers the packs and returns **activated `Skill` objects** that `factory.create_agent` attaches to the real CrewAI `Agent` (per-agent, course Method 1). | Implemented |
 | Renderer | `latex/renderer.py` + `latex/escaping.py` + `templates/latex/*` | Render `main.tex` (cover, TOC, figures, table, formula, BiDi, bibliography) from artifacts. | Implemented |
 | PDFCompiler | `latex/compiler.py` | Multi-pass LuaLaTeX/biber compile; graceful without a toolchain. | Implemented; PDF compiled & verified (18-page Hebrew-primary `final.pdf`, committed at repo root). Reproducing it needs a TeX toolchain (lualatex+biber) with culmus (David CLM). |
 | Build wiring | `latex/build.py` + `main.py --build-pdf` | Render `main.tex` then optionally compile; end-to-end from the CLI. | Implemented |
@@ -98,7 +165,9 @@ go to the git-ignored `generated/` tree.
 - Python ≥ 3.10, `uv` package manager.
 - CrewAI (orchestration), Pydantic (schemas/config), Jinja2 (templates),
   Matplotlib (graph).
-- LaTeX: LuaLaTeX (+ XeLaTeX fallback), biber; TikZ for diagrams.
+- LaTeX: LuaLaTeX (+ XeLaTeX fallback), biber. Diagrams are matplotlib-generated
+  PNGs included via `\includegraphics` (the pipeline graph and the sensitivity
+  figures); **TikZ is not used**.
 - Document language: primarily Hebrew (RTL) via `\setmainlanguage{hebrew}` /
   `\setotherlanguage{english}` / `\setmainfont{David CLM}`, with an explicit
   `\begin{english}` BiDi block; English inline only for technical terms
@@ -133,19 +202,21 @@ Implemented extension points: an `sdk/` facade (`sdk/sdk.py`, class
 `BookGenSDK`) is the single entry point so CLI/services/tests call one API
 (`main.py` holds no business logic), and `shared/gatekeeper.py`
 (`ApiGatekeeper`) wraps provider calls so rate-limit/retry/monitoring change in
-one place (60s sliding-window rate limit, retries, `BackpressureError`,
-`get_queue_status`).
+one place. It is **thread-safe** (`threading.Lock` + `Semaphore`) and enforces
+per-minute **and** per-hour limits plus a `concurrent_max` cap, with a
+synchronous block-until-reset overflow model that raises `BackpressureError` at
+`max_queue_depth`; retries and `get_queue_status` round it out.
 
 ## 9. Quality Tooling
 
 | Tool | Purpose | Status |
 |---|---|---|
 | Ruff | Lint (guideline rule set), ruff 0 violations | Configured & passing |
-| pytest + pytest-cov | Tests + 85% coverage gate; 109 passed, 2 skipped, 91.96% coverage (gate 85%) | Configured & passing |
+| pytest + pytest-cov | Tests + 85% coverage gate; 134 passed, 2 skipped, ~94% coverage (gate 85%) | Configured & passing |
 | Formatter (`ruff format` / black) | Consistent style | Configured |
 | pre-commit hooks | Lint/format/tests before commit | Configured (`scripts/hooks/pre-commit`) |
 | CI (GitHub Actions) | Ruff + tests on each PR | Configured (`.github/workflows/ci.yml`) |
 
-Automated gates replace manual review: 109 tests pass, 2 skip, at 91.96% coverage
+Automated gates replace manual review: 134 tests pass, 2 skip, at ~94% coverage
 (gate 85%) with ruff 0 violations, and pre-commit plus CI enforce quality rather
 than assume it.

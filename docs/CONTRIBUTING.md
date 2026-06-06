@@ -33,14 +33,37 @@ Do not add Citation Agent, Visuals Agent, QA Agent, or Manager Agent in v1.
 6. Update status docs.
 7. Summarize changed files and test results.
 
+## Code Standards & Style
+
+All changes must meet these standards before they are merged:
+
+- **Ruff lint, zero violations.** Lint with the configured rule set
+  `select = ["E", "F", "W", "I", "N", "UP", "B", "C4", "SIM"]`; `ruff check .`
+  must report **0 violations**.
+- **Ruff format.** Run `ruff format .`; the formatter must report no changes.
+- **≤ 150 lines per file.** Keep every source file at or under 150 lines; split
+  modules (e.g. crew assembly vs. dry-run helpers) instead of growing one file.
+- **Docstrings everywhere.** Every module, class, and public function carries a
+  docstring describing intent and contract.
+- **Descriptive names.** Prefer explicit, intention-revealing names over
+  abbreviations.
+- **DRY.** Extract shared logic into a single helper rather than duplicating it;
+  one block, one responsibility.
+- **Tests + 85% coverage gate.** Add or update focused tests for every change;
+  `pytest --cov=bookgen` must stay at or above the 85% coverage gate
+  (`fail_under = 85` in `pyproject.toml`).
+
 ## Testing Command
 
 ```powershell
 $env:PYTHONPATH="src"
-uv run --no-project --with pydantic --with pytest --with matplotlib --with jinja2 python -m pytest tests
+uv run --no-project --with pydantic --with pytest --with pytest-cov --with matplotlib --with jinja2 python -m pytest tests --cov=bookgen
 ```
 
-Run the full suite (`python -m pytest tests`). The project currently has 109 passing tests, 2 skipped integration tests, and 91.96% coverage (gate 85%). To enforce the coverage gate, add `--cov=bookgen --cov-fail-under=85` (also configured via `fail_under=85` in `pyproject.toml`).
+Run the full suite (`uv run pytest`). The project currently has **134 passing
+tests, 2 skipped** integration tests, and **~94% coverage** (gate 85%). The
+coverage gate is enforced via `--cov=bookgen --cov-fail-under=85` (also
+configured via `fail_under=85` in `pyproject.toml`).
 
 ## Documentation Rules
 

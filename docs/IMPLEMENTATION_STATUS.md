@@ -12,7 +12,7 @@ This document tracks what is complete, what is in progress, and what remains.
 | 3. Deterministic Harness | Complete | `graph_generator.py`, `citations.py` + `citation_report.py`, `validators.py` (+ latex-spec file checks), `assets.py`, `evidence.py`; headless Agg backend (`_mpl.py`); sample data, tests. (Phase C complete; a committed `references.bib` copy is now tracked for grader visibility.) |
 | Documentation | Complete | `docs/PROJECT_BLUEPRINT.md`, `COURSE_ALIGNMENT.md`, `IMPLEMENTATION_STATUS.md`, `ARCHITECTURE_DIAGRAM.md`, `QUICK_START.md`, `CONTRIBUTING.md`. |
 | 4. CrewAI Definitions | Complete | `agents.py`, `tasks.py`, `build_crew()`, `run_crew()`, CLI dry-run mode, generated intermediate artifacts, orchestration tests. |
-| Guideline Compliance (docs + quality config) | Complete | `docs/PRD.md`, `PLAN.md`, `TODO.md`, `PROMPTS.md`, `PRD_latex_pipeline.md`, `PRD_citation_management.md`; `pyproject.toml` ruff + coverage config; `shared/version.py`; `.env-example`. `ruff check` passes (0 violations); 109 tests pass, 2 skip; coverage 91.96% (gate 85%, pyproject fail_under=85) with `--cov`; `ruff format` clean; pre-commit hook (`scripts/hooks/pre-commit`) + CI (`.github/workflows/ci.yml`) added; README expanded (install/usage/config/license); `uv.lock` committed; all audit gap-closure items in `docs/TODO.md` are complete. |
+| Guideline Compliance (docs + quality config) | Complete | `docs/PRD.md`, `PLAN.md`, `TODO.md`, `PROMPTS.md`, `PRD_latex_pipeline.md`, `PRD_citation_management.md`; `pyproject.toml` ruff + coverage config; `shared/version.py`; `.env-example`. `ruff check` passes (0 violations); 134 tests pass, 2 skip; coverage ~94% (gate 85%, pyproject fail_under=85) with `--cov`; `ruff format` clean; pre-commit hook (`scripts/hooks/pre-commit`) + CI (`.github/workflows/ci.yml`) added; README expanded (install/usage/config/license); `uv.lock` committed; all audit gap-closure items in `docs/TODO.md` are complete. |
 | Real Execution Support (Milestone 5) | Complete | Real runs remain opt-in and API-key guarded (`--run-crew` + `OPENAI_API_KEY`). When enabled, `crew.kickoff()` runs through `ApiGatekeeper`, task outputs persist to `generated/intermediate/`, `real_run_trace.json` logs task inputs/outputs, token usage is extracted when CrewAI exposes it, and config-driven budget alerts come from `config/budgets.json`. |
 | CrewAI Skills + build-skill | Complete | 3 `SKILL.md` knowledge packs under `skills/`, `orchestration/skills.py` discovery/assignment loader wired into agents (real-crew mode), unit tests; plus a Claude Code build skill at `.claude/skills/build-bookgen/`. |
 | LaTeX Renderer + Compiler (Phase E) | Complete | `latex/escaping.py`, 5 Jinja templates, `latex/renderer.py` (Hebrew-primary `main.tex` plus `generated/latex/chapters/*.tex` — with cover/TOC/figures/table/formula/BiDi/bibliography), `latex/compiler.py` (multi-pass, graceful, UTF-8 log capture), `latex/build.py` wired into `main.py` (`--build-pdf`, renders **and compiles** end-to-end; emits `generated/pdf/final.pdf`). Build assets are copied into `generated/latex/assets/`, rendered citations are preflighted before compile, and the cover carries reconciled author/course/lecturer/date metadata. **Verified:** `--build-pdf` compiles an 18-page `final.pdf` (lualatex + biber, culmus `David CLM`). |
@@ -28,6 +28,20 @@ This document tracks what is complete, what is in progress, and what remains.
 Phase A through Phase M are complete. The optional operational choice is whether to spend money on a fresh API-backed CrewAI run; the delivered and tested default path remains deterministic and free.
 
 LaTeX rendering is complete (`src/bookgen/latex/renderer.py` renders the full Hebrew-primary `main.tex`; `build.py` wires it into the CLI). PDF compilation is also COMPLETE: `--build-pdf` compiles a verified 18-page Hebrew-primary `final.pdf` end-to-end (lualatex + biber, culmus `David CLM`), with 0 overfull boxes and all citations resolved; a snapshot copy is committed at the repo root. Reproducing the PDF from scratch still requires a free TeX toolchain — lualatex+biber — with the culmus package; the default `--dry-run` path does not compile.
+
+### Recent hardening
+
+- **Skills attach to real agents.** `orchestration/skills.py::load_skills(agent_key)` discovers the `skills/*/SKILL.md` packs and returns activated `Skill` objects that `factory.create_agent` attaches per-agent to the real CrewAI `Agent` (course Method 1). The earlier leaf-dir string paths that were silently dropped are fixed.
+- **Gatekeeper thread-safe + richer limits.** `shared/gatekeeper.py` now uses `threading.Lock` + `Semaphore`, enforces per-minute **and** per-hour limits plus `concurrent_max`, and documents a synchronous block-until-reset overflow model with `BackpressureError` at `max_queue_depth`.
+- **models.json wired into real runs.** `config/models.json` drives per-agent model/temperature (factory builds the LLM) and carries a `pricing` block for `gpt-4o-mini`, `gpt-4o`, and `claude-sonnet-4-6`.
+- **SDK extension hooks.** `sdk/sdk.py` exposes `before_<stage>`/`after_<stage>` callables around `run_crew`/`generate_assets`/`build_document`, a `STAGES` registry (guideline 12), and `estimate_cost()` for a dry-run cost forecast.
+- **Parallel utilities + concurrent figures.** `shared/parallel.py` adds `parallel_map` (threads) and `cpu_parallel_map` (processes); the six sensitivity figures now render concurrently (guideline 15).
+- **Cost estimator + pricing.** `accounting.py::estimate_tokens`/`estimate_cost_usd` plus the `config/models.json` pricing block back `SDK.estimate_cost()`.
+- **setup.json versioned.** `config/setup.json` carries a top-level `"version": "1.00"` validated at runtime alongside the other configs.
+- **LaTeX headers/footers + Hebrew mono fix.** `templates/latex/main.tex.j2` defines Hebrew fonts (incl. `\setmonofont` + `\hebrewfonttt`) before `\setmainlanguage{hebrew}` (fixes a polyglossia Hebrew-monospace error), adds fancyhdr headers/footers, and fixes `\graphicspath`.
+- **Compiler error scanning.** `compiler.scan_log_issues` now flags any `! ... Error` line in the build log.
+- **Markdown intro/inline handling.** `latex/markdown_manuscript.py` preserves prose before the first chapter as an intro section and converts `**bold**`/`*italic*`/`- ` lists to LaTeX.
+- **Sixth (waterfall) figure + executed notebook.** `research/sensitivity.py` + `sensitivity_plots.py` now produce six figures with a colorblind-safe Okabe-Ito palette, labeled axes/legends, a finite-difference `partial_sensitivity()` index, and `compare_baselines()`; `notebooks/sensitivity_analysis.ipynb` is executed and committed with outputs.
 
 ## Milestone numbering
 
@@ -64,18 +78,18 @@ $env:PYTHONPATH="src"
 uv run --no-project --with pydantic --with pytest --with pytest-cov --with matplotlib --with jinja2 python -m pytest tests --cov=bookgen
 ```
 
-Known passing result (through Phase E):
+Known passing result:
 
 ```text
-109 passed, 2 skipped
+134 passed, 2 skipped, ~94% coverage
 ```
 
-Coverage: 91.96% (gate 85%, pyproject `fail_under=85`).
+Coverage: ~94% (gate 85%, pyproject `fail_under=85`).
 
 ## Current CLI
 
 ```powershell
-python -m bookgen.main --dry-run [--build-pdf] [--run-crew]
+uv run --no-project --with pydantic --with matplotlib --with jinja2 python -m bookgen.main --dry-run [--build-pdf] [--run-crew]
 ```
 
 Dry-run is the default and never calls the API; `--run-crew` needs `OPENAI_API_KEY`. A console script `bookgen` is also installed.

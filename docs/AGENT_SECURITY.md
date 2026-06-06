@@ -14,7 +14,7 @@ from the agents' ability to *plan and act*, not merely to generate prose.
 
 What reduces our exposure by design:
 
-- **Dry-run is the default.** `python -m bookgen.main` never calls the model
+- **Dry-run is the default.** `uv run --no-project --with pydantic --with matplotlib --with jinja2 python -m bookgen.main` never calls the model
   provider; it refreshes committed sample artifacts. The API path is opt-in only
   (`--run-crew`, and only with `OPENAI_API_KEY` set). No autonomous loop ships
   enabled.

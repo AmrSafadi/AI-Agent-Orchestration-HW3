@@ -2,7 +2,7 @@
 
 This document gives visual diagrams and explains every component.
 
-**Status:** 109 tests passing, 2 skipped, 91.96% coverage (gate 85%), ruff clean. Renderer and compiler are implemented and the deliverable PDF compiles end-to-end: `python -m bookgen.main --dry-run --build-pdf` produces an 18-page Hebrew-primary `final.pdf`, and a snapshot copy is committed at the repository root as `final.pdf`. Reproducing the PDF from scratch requires a free TeX toolchain (lualatex+biber) plus the culmus Hebrew font (David CLM).
+**Status:** 134 tests passing, 2 skipped, ~94% coverage (gate 85%), ruff clean. Renderer and compiler are implemented and the deliverable PDF compiles end-to-end: `uv run --no-project --with pydantic --with matplotlib --with jinja2 python -m bookgen.main --dry-run --build-pdf` produces an 18-page Hebrew-primary `final.pdf`, and a snapshot copy is committed at the repository root as `final.pdf`. Reproducing the PDF from scratch requires a free TeX toolchain (lualatex+biber) plus the culmus Hebrew font (David CLM).
 
 **Package layout:** `sdk/` (BookGenSDK facade), `shared/` (config, constants, gatekeeper, logging, version), `orchestration/` (agents, tasks, crew, dry_run, skills), `harness/` (citations, graph_generator, assets, evidence), `document/` (validators, schemas, report_schemas), `latex/` (renderer, compiler, escaping, build).
 
@@ -89,7 +89,7 @@ Located in `config/`. They define project metadata, model defaults, LaTeX settin
 
 ### `bookgen.main`
 
-Thin CLI entry point that delegates to the `BookGenSDK` facade (the single entry point holding all business logic). It loads config, prints output directories, and runs dry-run by default. Invocation: `python -m bookgen.main --dry-run [--build-pdf] [--run-crew]`. The `--build-pdf` flag renders `main.tex` and compiles the PDF when the TeX toolchain is present; `--run-crew` enables real CrewAI execution and requires `OPENAI_API_KEY`.
+Thin CLI entry point that delegates to the `BookGenSDK` facade (the single entry point holding all business logic). It loads config, prints output directories, and runs dry-run by default. Invocation: `uv run --no-project --with pydantic --with matplotlib --with jinja2 python -m bookgen.main --dry-run [--build-pdf] [--run-crew]`. The `--build-pdf` flag renders `main.tex` and compiles the PDF when the TeX toolchain is present; `--run-crew` enables real CrewAI execution and requires `OPENAI_API_KEY`.
 
 ### CrewAI Sequential Crew
 

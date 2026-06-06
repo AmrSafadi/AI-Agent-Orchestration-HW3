@@ -86,7 +86,7 @@ about predictable, assistive-technology-friendly terminal behavior.
 
 A new user wants to see the tool work without any setup, cost, or network.
 
-1. Runs `python -m bookgen.main` (or `python -m bookgen.main --dry-run`; the two
+1. Runs `uv run --no-project --with pydantic --with matplotlib --with jinja2 python -m bookgen.main` (or the same command with `--dry-run`; the two
    are equivalent because dry-run is the default).
 2. The SDK loads and validates configuration. If a config file is missing or a
    version is wrong, the user gets a single clear error line and exit code 1
@@ -107,7 +107,7 @@ first experience and the path exercised by the test suite.
 
 A user wants the finished, compiled document.
 
-1. Runs `python -m bookgen.main --build-pdf` (still dry-run; `--build-pdf` is an
+1. Runs `uv run --no-project --with pydantic --with matplotlib --with jinja2 python -m bookgen.main --build-pdf` (still dry-run; `--build-pdf` is an
    add-on, not a mode).
 2. Steps 2–4 of Journey A run identically, producing `main.tex`.
 3. `compile_pdf` checks for the toolchain:
@@ -127,7 +127,7 @@ case is a clearly explained "no PDF, here's why."
 An advanced user wants a genuine CrewAI execution against a model provider.
 
 1. Sets `OPENAI_API_KEY` in the environment and runs
-   `python -m bookgen.main --run-crew`.
+   `uv run python -m bookgen.main --run-crew`.
 2. If CrewAI is not installed or the key is unset, the pipeline raises a clear
    `RuntimeError` (see §1), the CLI logs it, and returns exit code 1 — no
    provider call is attempted.

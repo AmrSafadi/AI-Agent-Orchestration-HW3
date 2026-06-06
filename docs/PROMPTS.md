@@ -53,7 +53,42 @@ Tasks are chained by `context`, the reliable bridge between stages.
 - Keeping the Writer tool-free (context-only) matched the lecture and reduced
   uncontrolled web content.
 
-## 5. Real-Execution Note
+## 5. Example Outputs
+
+Per submission guideline 8.3 ("examples of the outputs received"), the prompts
+above produce schema-validated artifacts. Short trimmed excerpts follow; full
+committed examples live under `data/intermediate/sample_*`.
+
+**Plan task → `book_plan.json` (BookPlan schema, ~10-line excerpt):**
+
+```json
+{
+  "title": "תזמור סוכני בינה מלאכותית: מ-Prompting ל-Crews מוכנים לייצור",
+  "subtitle": "ארכיטקטורה, תזמור, והפקת מסמכים דטרמיניסטית",
+  "audience": "סטודנטים ומהנדסים בקורס תזמור סוכני בינה מלאכותית",
+  "chapters": [
+    {
+      "title": "מ-Prompts למערכות סוכנים (From Prompts to Agent Systems)",
+      "summary": "פרק זה מסביר מדוע 2026 מהווה נקודת מפנה ...",
+      "sections": [ { "title": "2026 כנקודת מפנה: מ-helper לשכבה תפעולית", "purpose": "..." } ]
+    }
+  ]
+}
+```
+
+**Write task → `manuscript.md` (3-line excerpt):**
+
+```markdown
+# AI Agent Orchestration: From Prompting to Production-Ready Crews
+
+CrewAI turns one large prompt into a coordinated team made of agents, tasks, a crew, and a process [@crewai_docs].
+```
+
+The document is Hebrew-primary; English appears inline only for technical terms,
+and citation markers like `[@crewai_docs]` are reconciled by the deterministic
+citation harness, not the model.
+
+## 6. Real-Execution Note
 
 These prompts are exercised against the model only under the opt-in
 `--run-crew` path (Milestone 5), which requires `OPENAI_API_KEY`. The default
