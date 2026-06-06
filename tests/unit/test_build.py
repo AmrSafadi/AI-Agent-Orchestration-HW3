@@ -43,8 +43,8 @@ def test_build_document_uses_quality_manuscript_file(
 
     result = build_document(tmp_path, META)
 
-    chapter = Path(result["main_tex"]).parent / "chapters/chapter_01.tex"
-    assert "Build manuscript point" in chapter.read_text(encoding="utf-8")
+    main_tex = Path(result["main_tex"]).read_text(encoding="utf-8")
+    assert "Build manuscript point" in main_tex
 
 
 def test_build_document_compile_is_graceful(

@@ -29,4 +29,14 @@ jobs:
         run: >-
           uv run --no-project
           --with pydantic --with pytest --with pytest-cov --with matplotlib --with jinja2
-          python -m pytest tests --cov --cov-report=term-missing --cov-fail-under=85
+          python -m pytest tests --cov --cov-report=term-missing
+          --cov-report=xml:reports/coverage.xml --junitxml=reports/junit.xml
+          --cov-fail-under=85
+
+      - name: Upload test & coverage reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports
+          path: reports/
+          if-no-files-found: ignore

@@ -19,8 +19,16 @@ def test_load_config_from_project_config_dir() -> None:
 
 def test_config_versions_match_expected() -> None:
     config = load_config(Path("config"))
+    assert config.setup.version == EXPECTED_CONFIG_VERSION
     assert config.models.version == EXPECTED_CONFIG_VERSION
     assert config.rate_limits.version == EXPECTED_CONFIG_VERSION
+
+
+def test_setup_version_mismatch_raises() -> None:
+    config = load_config(Path("config"))
+    config.setup.version = "9.99"
+    with pytest.raises(ValueError, match="version mismatch"):
+        _validate_config_versions(config)
 
 
 def test_config_version_mismatch_raises() -> None:

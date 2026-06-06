@@ -8,6 +8,14 @@ from pathlib import Path
 
 import pytest
 
+from bookgen.document.schemas import (
+    BookPlan,
+    LatexAsset,
+    LatexSpec,
+    PlannedChapter,
+    PlannedSection,
+)
+
 _DEFAULT_MANUSCRIPT = (
     "Introduction citing CrewAI [@crewai_docs]. "
     "מערכת סוכנים חכמה combined with English technical terms."
@@ -57,6 +65,59 @@ def default_latex_spec() -> dict:
 def default_manuscript() -> str:
     """Manuscript text with a citation marker plus Hebrew and Latin script."""
     return _DEFAULT_MANUSCRIPT
+
+
+@pytest.fixture
+def render_meta() -> dict:
+    """Document metadata used by the renderer tests."""
+    return {
+        "author": "Sharbel",
+        "course": "AI Agent Orchestration",
+        "lecturer": "Dr. Segal",
+        "date": "2026",
+    }
+
+
+@pytest.fixture
+def render_book_plan() -> Callable[..., BookPlan]:
+    """Return a factory building a single-chapter BookPlan for renderer tests."""
+
+    def _make(purpose: str = "Explain the basics.") -> BookPlan:
+        return BookPlan(
+            title="AI Agents",
+            subtitle="From Prompting to Production",
+            audience="Evaluator",
+            chapters=[
+                PlannedChapter(
+                    title="Foundations",
+                    summary="s",
+                    sections=[PlannedSection(title="CrewAI", purpose=purpose)],
+                )
+            ],
+            acceptance_checklist=["cover"],
+            estimated_pages=15,
+        )
+
+    return _make
+
+
+@pytest.fixture
+def render_latex_spec() -> LatexSpec:
+    """A LatexSpec listing all four required asset kinds for renderer tests."""
+    return LatexSpec(
+        title="AI Agents",
+        engine="lualatex",
+        main_template="main.tex.j2",
+        output_pdf="generated/pdf/final.pdf",
+        chapter_files=["chapters/chapter_01.tex"],
+        assets=[
+            LatexAsset(asset_id="img", kind="image", target_path="assets/img.png", caption="Img"),
+            LatexAsset(asset_id="g", kind="graph", target_path="assets/g.png", caption="Graph"),
+            LatexAsset(asset_id="t", kind="table", target_path="t.tex", caption="Roles"),
+            LatexAsset(asset_id="f", kind="formula", target_path="f.tex", caption="Q"),
+        ],
+        bibliography_file="data/references/references.bib",
+    )
 
 
 @pytest.fixture

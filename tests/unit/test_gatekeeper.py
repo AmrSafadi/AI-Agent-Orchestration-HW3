@@ -71,6 +71,18 @@ def test_retry_exhausted_raises() -> None:
         gatekeeper.execute(always_fail)
 
 
+def test_hourly_limit_triggers_wait() -> None:
+    sleeps: list[float] = []
+    gatekeeper = ApiGatekeeper(
+        _config(requests_per_minute=100, requests_per_hour=2, max_queue_depth=100),
+        time_fn=_Clock(),
+        sleep_fn=sleeps.append,
+    )
+    for _ in range(3):
+        gatekeeper.execute(lambda: "ok")
+    assert sleeps  # the 3rd call within the hour forced a wait
+
+
 def test_backpressure_when_queue_exceeds_depth() -> None:
     gatekeeper = ApiGatekeeper(
         _config(requests_per_minute=1, max_queue_depth=2),

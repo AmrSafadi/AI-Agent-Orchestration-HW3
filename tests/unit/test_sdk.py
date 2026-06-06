@@ -19,3 +19,23 @@ def test_sdk_generate_book_dry_run_renders_main_tex() -> None:
     result = sdk.generate_book(dry_run=True, build_pdf=False)
     assert Path(result["main_tex"]).exists()
     assert result["compiled"] is False
+
+
+def test_sdk_hooks_fire_around_stages() -> None:
+    events: list[str] = []
+    hooks = {
+        "before_run_crew": [lambda _sdk: events.append("before_run_crew")],
+        "after_run_crew": [lambda _sdk, _result: events.append("after_run_crew")],
+        "after_build_document": [lambda _sdk, _result: events.append("after_build_document")],
+    }
+    BookGenSDK(hooks=hooks).generate_book(dry_run=True, build_pdf=False)
+    assert events == ["before_run_crew", "after_run_crew", "after_build_document"]
+
+
+def test_sdk_estimate_cost_returns_forecast() -> None:
+    sdk = BookGenSDK()
+    sdk.generate_book(dry_run=True)
+    estimate = sdk.estimate_cost()
+    assert estimate["model"]
+    assert estimate["output_tokens"] > 0
+    assert estimate["estimated_usd"] is not None and estimate["estimated_usd"] >= 0
