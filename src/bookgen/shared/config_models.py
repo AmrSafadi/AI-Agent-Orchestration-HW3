@@ -54,9 +54,17 @@ class PathConfig(BaseModel):
 class SetupConfig(BaseModel):
     """Top-level setup configuration."""
 
+    version: str = Field(min_length=1)
     project: ProjectMetadata
     workflow: WorkflowConfig
     paths: PathConfig
+
+
+class ModelPrice(BaseModel):
+    """Per-million-token input/output price for a model (USD)."""
+
+    input_per_1m: float = Field(ge=0)
+    output_per_1m: float = Field(ge=0)
 
 
 class ModelsConfig(BaseModel):
@@ -67,6 +75,7 @@ class ModelsConfig(BaseModel):
     default_model: str = Field(min_length=1)
     temperature: float = Field(ge=0, le=2)
     agent_models: dict[str, str] = Field(min_length=1)
+    pricing: dict[str, ModelPrice] = Field(default_factory=dict)
 
     @field_validator("agent_models")
     @classmethod

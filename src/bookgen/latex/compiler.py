@@ -1,9 +1,7 @@
 """Deterministic LaTeX -> PDF compilation with graceful degradation.
 
-Runs the configured engine and bibliography backend over multiple passes
-(lualatex -> biber -> lualatex -> lualatex) so citations and cross-references
-resolve. When the toolchain is absent, it degrades gracefully instead of raising.
-A secondary engine (e.g. xelatex) is tried if the primary engine yields no PDF.
+Runs engine -> biber -> engine x2 so citations/refs resolve; falls back to a
+secondary engine, and degrades gracefully (no raise) when the toolchain is absent.
 """
 
 from __future__ import annotations
@@ -39,7 +37,7 @@ def toolchain_available(engine: str = "lualatex", bib_backend: str = "biber") ->
 
 
 def scan_log_issues(log_text: str) -> list[str]:
-    """Return human-readable warnings detected in a LaTeX build log."""
+    """Return human-readable warnings/errors detected in a LaTeX build log."""
     issues: list[str] = []
     if "There were undefined references" in log_text or re.search(
         r"Reference [`'][^']+' on page \d+ undefined", log_text
@@ -51,6 +49,10 @@ def scan_log_issues(log_text: str) -> list[str]:
         issues.append("undefined citations — rerun biber / add a pass")
     if "Overfull \\hbox" in log_text:
         issues.append("overfull horizontal box — content may exceed the page margin")
+    # TeX prefixes hard errors with "! " (polyglossia/LaTeX errors, undefined
+    # control sequences); never report these as a clean build.
+    for message in dict.fromkeys(re.findall(r"^!\s?.+", log_text, flags=re.MULTILINE)):
+        issues.append(f"LaTeX error: {message.strip()[:140]}")
     return issues
 
 
@@ -129,9 +131,7 @@ def compile_pdf(
     log_path.write_text(log_text, encoding="utf-8")
     success = pdf_path.exists()
 
-    # Scan the engine's own .log (the final pass only) rather than the concatenated
-    # multi-pass build.log, so early-pass "undefined citation/reference" notices
-    # that biber and later passes resolve are not reported as real issues.
+    # Scan the final engine .log only so transient early-pass notices are excluded.
     engine_log = work_dir / f"{tex.stem}.log"
     final_log = (
         engine_log.read_text(encoding="utf-8", errors="replace")

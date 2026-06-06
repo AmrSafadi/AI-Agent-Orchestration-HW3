@@ -15,6 +15,7 @@ from bookgen.shared.config_models import (
     BudgetsConfig,
     LanguageSupportConfig,
     LatexConfig,
+    ModelPrice,
     ModelsConfig,
     PathConfig,
     ProjectMetadata,
@@ -30,6 +31,7 @@ __all__ = [
     "BudgetsConfig",
     "LanguageSupportConfig",
     "LatexConfig",
+    "ModelPrice",
     "ModelsConfig",
     "PathConfig",
     "ProjectMetadata",
@@ -96,6 +98,7 @@ def load_config(config_dir: Path | None = None) -> AppConfig:
 def _validate_config_versions(config: AppConfig) -> None:
     """Fail if any versioned config file does not match the expected version."""
     actual = {
+        "setup": config.setup.version,
         "models": config.models.version,
         "latex": config.latex.version,
         "budgets": config.budgets.version,

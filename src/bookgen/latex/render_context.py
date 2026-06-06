@@ -71,6 +71,7 @@ def _asset(
     kind: str,
     path_overrides: dict[str, str] | None = None,
 ) -> tuple[str, str]:
+    """Return the (path, caption) for the first asset of ``kind`` (override-aware)."""
     for asset in latex_spec.assets:
         if asset.kind == kind:
             path = (
@@ -81,6 +82,7 @@ def _asset(
 
 
 def _chapters(book_plan: BookPlan) -> list[dict]:
+    """Build fallback chapter context from the book plan when no manuscript fits."""
     rendered = []
     for index, chapter in enumerate(book_plan.chapters):
         rendered.append(

@@ -5,8 +5,11 @@ from __future__ import annotations
 import re
 from typing import Any
 
+from bookgen.shared.text import strip_markdown_fence
+
 
 def collect(chapters: list[dict[str, Any]], key: str) -> list[Any]:
+    """Flatten ``key`` across every chapter into a single list."""
     collected = []
     for chapter in chapters:
         value = chapter.get(key, [])
@@ -15,6 +18,7 @@ def collect(chapters: list[dict[str, Any]], key: str) -> list[Any]:
 
 
 def merge_maps(chapters: list[dict[str, Any]], key: str) -> dict[str, str]:
+    """Merge the dict at ``key`` from every chapter into one string-valued map."""
     merged: dict[str, str] = {}
     for chapter in chapters:
         value = chapter.get(key, {})
@@ -24,6 +28,7 @@ def merge_maps(chapters: list[dict[str, Any]], key: str) -> dict[str, str]:
 
 
 def sources(items: list[Any]) -> list[dict[str, str | None]]:
+    """Build source-candidate records (id/title/url/notes) from raw items."""
     return [
         {
             "source_id": slug(item, index),
@@ -36,6 +41,7 @@ def sources(items: list[Any]) -> list[dict[str, str | None]]:
 
 
 def chapter_notes(chapters: list[dict[str, Any]]) -> dict[str, str]:
+    """Map each chapter title to its stringified chapter notes."""
     notes = {}
     for chapter in chapters:
         title = chapter.get("chapterTitle") or chapter.get("title") or "Untitled Chapter"
@@ -44,6 +50,7 @@ def chapter_notes(chapters: list[dict[str, Any]]) -> dict[str, str]:
 
 
 def assets(references: dict[str, Any]) -> list[dict[str, str]]:
+    """Derive image/graph asset specs from a references ``figures`` list."""
     figures = references.get("figures", []) if isinstance(references, dict) else []
     found = [asset("course_concept_image", "image", figures[0])] if figures else []
     if len(figures) > 1:
@@ -52,16 +59,19 @@ def assets(references: dict[str, Any]) -> list[dict[str, str]]:
 
 
 def asset(asset_id: str, kind: str, target_path: str) -> dict[str, str]:
+    """Return a single asset spec dict."""
     return {"asset_id": asset_id, "kind": kind, "target_path": target_path, "caption": kind}
 
 
 def string_map(value: Any) -> dict[str, str]:
+    """Coerce a value into a string-to-string map (empty if not a dict)."""
     if not isinstance(value, dict):
         return {}
     return {str(key): stringify(item) for key, item in value.items()}
 
 
 def flatten_values(value: Any) -> list[str]:
+    """Flatten a list/dict/scalar into a list of strings."""
     if isinstance(value, list):
         return [stringify(item) for item in value]
     if isinstance(value, dict):
@@ -70,6 +80,7 @@ def flatten_values(value: Any) -> list[str]:
 
 
 def stringify(value: Any) -> str:
+    """Render any nested value as a flat, human-readable string."""
     if isinstance(value, dict):
         return "; ".join(f"{key}: {stringify(item)}" for key, item in value.items())
     if isinstance(value, list):
@@ -78,6 +89,7 @@ def stringify(value: Any) -> str:
 
 
 def unique(values: list[Any]) -> list[str]:
+    """Return the stringified values, de-duplicated and order-preserving."""
     result = []
     for value in values:
         text = stringify(value)
@@ -87,14 +99,8 @@ def unique(values: list[Any]) -> list[str]:
 
 
 def extract_json_payload(text: str) -> str:
-    stripped = text.strip()
-    if stripped.startswith("```"):
-        lines = stripped.splitlines()
-        if lines and lines[0].lstrip().startswith("```"):
-            lines = lines[1:]
-        if lines and lines[-1].strip() == "```":
-            lines = lines[:-1]
-        stripped = "\n".join(lines).strip()
+    """Extract the outermost ``{...}`` JSON object from (possibly fenced) text."""
+    stripped = strip_markdown_fence(text)
     start = stripped.find("{")
     end = stripped.rfind("}")
     if start == -1 or end == -1 or end < start:
@@ -103,5 +109,6 @@ def extract_json_payload(text: str) -> str:
 
 
 def slug(value: Any, index: int) -> str:
+    """Make a filesystem/identifier-safe slug from a value, with an index fallback."""
     text = re.sub(r"[^a-zA-Z0-9]+", "_", stringify(value).lower()).strip("_")
     return text[:48] or f"source_{index}"

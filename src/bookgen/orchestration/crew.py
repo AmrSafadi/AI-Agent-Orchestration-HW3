@@ -54,9 +54,13 @@ class CrewRunResult:
     budget_alerts: list[str] | None = None
 
 
-def build_crew(use_real_crewai: bool = False, topic: str = "the configured topic") -> Any:
+def build_crew(
+    use_real_crewai: bool = False,
+    topic: str = "the configured topic",
+    models: Any | None = None,
+) -> Any:
     """Create the sequential CrewAI crew, or a dry-run-compatible crew object."""
-    agents_by_name = create_all_agents(use_real_crewai=use_real_crewai)
+    agents_by_name = create_all_agents(use_real_crewai=use_real_crewai, models=models)
     tasks = create_all_tasks(agents_by_name, use_real_crewai=use_real_crewai, topic=topic)
     agents = list(agents_by_name.values())
 
@@ -96,7 +100,7 @@ def run_crew(dry_run: bool = True, root_dir: Path | str | None = None) -> CrewRu
     app_config = load_config(root / "config")
     create_or_reuse_dry_run_artifacts(root)
     topic = app_config.setup.project.topic
-    crew = build_crew(use_real_crewai=True, topic=topic)
+    crew = build_crew(use_real_crewai=True, topic=topic, models=app_config.models)
     print(_describe_crew(crew))
 
     gatekeeper = ApiGatekeeper(app_config.rate_limits)

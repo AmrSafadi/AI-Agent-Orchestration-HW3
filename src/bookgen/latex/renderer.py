@@ -9,8 +9,6 @@ from __future__ import annotations
 import shutil
 from pathlib import Path
 
-import jinja2
-
 from bookgen.document.schemas import BookPlan, LatexSpec
 from bookgen.latex.render_context import (
     DEFAULT_TEMPLATES_DIR,
@@ -57,7 +55,6 @@ def render_main_tex(
 
     main_tex = out_dir / "main.tex"
     main_tex.write_text(environment.get_template("main.tex.j2").render(**context), encoding="utf-8")
-    _render_chapter_files(environment, context, latex_spec, out_dir)
 
     if references_bib and Path(references_bib).exists():
         shutil.copyfile(references_bib, out_dir / Path(latex_spec.bibliography_file).name)
@@ -83,21 +80,3 @@ def _copy_assets_to_build(
             shutil.copyfile(source, target)
         copied[asset.kind] = f"assets/{source.name}"
     return copied
-
-
-def _render_chapter_files(
-    environment: jinja2.Environment,
-    context: dict,
-    latex_spec: LatexSpec,
-    output_dir: Path,
-) -> None:
-    template = environment.get_template("chapter.tex.j2")
-    for index, chapter in enumerate(context["chapters"]):
-        relative_path = (
-            latex_spec.chapter_files[index]
-            if index < len(latex_spec.chapter_files)
-            else f"chapters/chapter_{index + 1:02d}.tex"
-        )
-        target = output_dir / relative_path
-        target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_text(template.render(**context, chapter=chapter), encoding="utf-8")

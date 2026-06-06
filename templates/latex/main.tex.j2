@@ -1,24 +1,35 @@
 \documentclass[11pt]{report}
 \usepackage{fontspec}
 \usepackage{polyglossia}
+% Define the Hebrew-capable fonts BEFORE activating the Hebrew main language so
+% polyglossia's Hebrew gloss finds \hebrewfont / \hebrewfonttt (and a Hebrew-capable
+% monospace font) at load time. Without this, polyglossia raises
+% "current main monospace font ... does not contain the Hebrew script" at
+% \printbibliography. Adjust the family to one installed on the build machine
+% (e.g. "David CLM" / "Frank Ruehl CLM" from the culmus package).
+\setmainfont{David CLM}
+\newfontfamily\hebrewfont{David CLM}
+\newfontfamily\hebrewfonttt{David CLM}
+\setmonofont{David CLM}
+\newfontfamily\englishfont{Latin Modern Roman}
 \setmainlanguage{hebrew}
 \setotherlanguage{english}
-% A Hebrew-capable main font is required under LuaLaTeX. Adjust to a font that is
-% installed on the build machine (e.g. "David CLM" / "Frank Ruehl CLM" from the
-% culmus package). English runs use a Latin font via \englishfont.
-\setmainfont{David CLM}
-\newfontfamily\hebrewfonttt{David CLM}
-\newfontfamily\englishfont{Latin Modern Roman}
 \usepackage{amsmath}
 \usepackage{graphicx}
-% Compilation runs inside generated/latex/, so graphics referenced by their
-% project-root-relative paths (generated/assets/...) are searched from two
-% levels up.
-\graphicspath{{../../}}
+% Compilation runs inside generated/latex/, where the renderer copies images into
+% generated/latex/assets/ and references them as assets/<name>; search from cwd.
+\graphicspath{{./}}
 \usepackage{booktabs}
 \usepackage[backend=biber]{biblatex}
 \addbibresource{\VAR{bib_resource}.bib}
 \usepackage{hyperref}
+% Deliberate headers/footers (assignment 13.1): running chapter title + page number.
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\nouppercase{\leftmark}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
 
 \title{\VAR{title}}
 \author{\VAR{author}}

@@ -5,7 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from bookgen.document.report_schemas import AssetSpec
-from bookgen.harness._mpl import plt
+from bookgen.harness._mpl import figure
 
 DEFAULT_IMAGE_PATH = Path("generated/assets/images/course_concept_image.png")
 
@@ -28,14 +28,14 @@ REQUIRED_ASSETS: tuple[AssetSpec, ...] = (
         asset_id="agent_roles_table",
         kind="table",
         source="latex",
-        output_path="generated/latex/tables/agent_roles_table.tex",
+        output_path="generated/latex/agent_roles_table.tex",
         caption="Responsibilities of each agent and deterministic component.",
     ),
     AssetSpec(
         asset_id="quality_score_formula",
         kind="formula",
         source="latex",
-        output_path="generated/latex/formulas/quality_score_formula.tex",
+        output_path="generated/latex/quality_score_formula.tex",
         caption="Example weighted document quality score.",
     ),
 )
@@ -49,22 +49,18 @@ def build_asset_specs() -> list[AssetSpec]:
 def generate_image_asset(output_path: Path | str = DEFAULT_IMAGE_PATH) -> Path:
     """Generate a simple deterministic image asset and return its path."""
     path = Path(output_path)
-    path.parent.mkdir(parents=True, exist_ok=True)
-
-    fig, ax = plt.subplots(figsize=(6, 3.2))
-    ax.axis("off")
-    ax.text(
-        0.5,
-        0.5,
-        "AI Agent Orchestration",
-        ha="center",
-        va="center",
-        fontsize=18,
-        fontweight="bold",
-        color="#2f5f9f",
-    )
-    fig.savefig(path, dpi=160, bbox_inches="tight")
-    plt.close(fig)
+    with figure(path, (6, 3.2), dpi=160) as ax:
+        ax.axis("off")
+        ax.text(
+            0.5,
+            0.5,
+            "AI Agent Orchestration",
+            ha="center",
+            va="center",
+            fontsize=18,
+            fontweight="bold",
+            color="#2f5f9f",
+        )
     return path
 
 

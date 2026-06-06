@@ -1,4 +1,5 @@
 {
+  "version": "1.00",
   "project": {
     "name": "AI Agent Orchestration HW3",
     "topic": "AI Agent Orchestration: From Prompting to Production-Ready Crews",

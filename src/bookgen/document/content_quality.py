@@ -10,6 +10,7 @@ import re
 from typing import Any
 
 from bookgen.document.schemas import BookPlan, LatexSpec, ReviewReport
+from bookgen.shared.text import strip_markdown_fence
 
 MIN_CHAPTERS = 5
 MIN_PAGES = 15
@@ -52,7 +53,7 @@ def artifact_quality_error(name: str, artifact: Any) -> str | None:
 
 def manuscript_quality_error(text: str) -> str | None:
     """Return why Markdown manuscript text is not ready for PDF rendering."""
-    stripped = _strip_markdown_fence(text)
+    stripped = strip_markdown_fence(text)
     lowered = stripped.lower()
     for pattern in PLACEHOLDER_PATTERNS:
         if pattern in lowered:
@@ -67,6 +68,7 @@ def manuscript_quality_error(text: str) -> str | None:
 
 
 def _book_plan_error(plan: BookPlan) -> str | None:
+    """Return why a book plan is too shallow (chapters/pages/features), else None."""
     if len(plan.chapters) < MIN_CHAPTERS:
         return f"book plan needs at least {MIN_CHAPTERS} chapters"
     if plan.estimated_pages < MIN_PAGES:
@@ -79,6 +81,7 @@ def _book_plan_error(plan: BookPlan) -> str | None:
 
 
 def _latex_spec_error(spec: LatexSpec) -> str | None:
+    """Return why a LaTeX spec is unfit (engine/bidi/asset kinds), else None."""
     if spec.engine != "lualatex":
         return "LaTeX spec must use lualatex for Hebrew/BiDi output"
     if not spec.bidi_required:
@@ -90,25 +93,16 @@ def _latex_spec_error(spec: LatexSpec) -> str | None:
     return None
 
 
-def _strip_markdown_fence(text: str) -> str:
-    stripped = text.strip()
-    if not stripped.startswith("```"):
-        return stripped
-    lines = stripped.splitlines()
-    if lines and lines[0].lstrip().startswith("```"):
-        lines = lines[1:]
-    if lines and lines[-1].strip() == "```":
-        lines = lines[:-1]
-    return "\n".join(lines).strip()
-
-
 def _markdown_chapter_count(text: str) -> int:
+    """Count ``## `` chapter headings in the manuscript."""
     return sum(1 for line in text.splitlines() if re.match(r"^##\s+\S", line))
 
 
 def _word_count(text: str) -> int:
+    """Count Latin/Hebrew word tokens in the manuscript."""
     return len(re.findall(r"[\w\u0590-\u05FF]+", text, flags=re.UNICODE))
 
 
 def _hebrew_char_count(text: str) -> int:
+    """Count Hebrew characters in the manuscript."""
     return len(re.findall(r"[\u0590-\u05FF]", text))
