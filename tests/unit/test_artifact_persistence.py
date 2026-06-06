@@ -8,23 +8,23 @@ from types import SimpleNamespace
 
 from bookgen.orchestration.artifact_persistence import persist_task_outputs
 
+FEATURES = {
+    "cover",
+    "toc",
+    "image",
+    "graph",
+    "table",
+    "formula",
+    "hebrew_english_section",
+    "citations",
+}
+
 
 def test_valid_fenced_json_replaces_canonical_artifact(tmp_path: Path) -> None:
+    payload = json.dumps(_strong_book_plan("Plan"))
     output = SimpleNamespace(
-        raw="""```json
-{
-  "title": "Plan",
-  "audience": "Reviewer",
-  "chapters": [
-    {
-      "title": "Intro",
-      "summary": "Summary",
-      "sections": [{"title": "Why", "purpose": "Explain why."}]
-    }
-  ],
-  "acceptance_checklist": ["cover"],
-  "estimated_pages": 1
-}
+        raw=f"""```json
+{payload}
 ```"""
     )
 
@@ -52,16 +52,39 @@ def test_invalid_json_schema_keeps_existing_canonical_artifact(tmp_path: Path) -
     assert artifact_path not in artifacts
 
 
-def test_common_real_output_variants_are_normalized(tmp_path: Path) -> None:
+def test_quality_gate_keeps_shallow_manuscript_out_of_canonical(tmp_path: Path) -> None:
+    outputs = [
+        SimpleNamespace(raw=json.dumps(_strong_book_plan())),
+        SimpleNamespace(raw=json.dumps(_research_pack())),
+        SimpleNamespace(raw="# Manuscript\n\nDraft with Citation Placeholder."),
+    ]
+
+    records, artifacts = persist_task_outputs(SimpleNamespace(tasks_output=outputs), tmp_path)
+
+    assert records[2]["valid"] is False
+    assert "placeholder" in records[2]["error"]
+    assert tmp_path / "generated/intermediate/manuscript.md" not in artifacts
+    assert (tmp_path / "generated/intermediate/real_raw/manuscript.md").exists()
+
+
+def test_common_real_output_variants_are_normalized_when_content_is_strong(
+    tmp_path: Path,
+) -> None:
     outputs = [
         SimpleNamespace(
             raw=json.dumps(
                 {
                     "title": "AI Agent Orchestration",
                     "audience": {"primary": "Students"},
-                    "chapterOutline": [{"chapterTitle": "Intro", "sections": ["Agents", "Tasks"]}],
-                    "requiredFeaturePlacement": {"callouts": ["Chapter 1"]},
-                    "acceptanceChecklist": ["cover"],
+                    "chapterOutline": [
+                        {
+                            "chapterTitle": f"Chapter {index}",
+                            "sections": ["Agents", "Tasks"],
+                        }
+                        for index in range(1, 6)
+                    ],
+                    "requiredFeaturePlacement": dict.fromkeys(FEATURES, "Chapter 1"),
+                    "acceptanceChecklist": sorted(FEATURES),
                     "estimatedPageCount": 16,
                 }
             )
@@ -83,11 +106,11 @@ def test_common_real_output_variants_are_normalized(tmp_path: Path) -> None:
                 }
             )
         ),
-        SimpleNamespace(raw="# Manuscript\n\nDraft."),
+        SimpleNamespace(raw=_strong_manuscript()),
         SimpleNamespace(
             raw=json.dumps(
                 {
-                    "approval_status": "pending",
+                    "approval_status": "approved",
                     "checklist_results": {"cover": True},
                     "notes": {"clarity": "Good"},
                     "required_fixes": {"citations": ["Add citations"]},
@@ -99,12 +122,12 @@ def test_common_real_output_variants_are_normalized(tmp_path: Path) -> None:
                 {
                     "template": "book_template.tex",
                     "chapter_files": ["chapters/chapter1.tex"],
-                    "asset_references": {
-                        "figures": [
-                            "generated/assets/images/course_concept_image.png",
-                            "generated/assets/graphs/agent_pipeline_graph.png",
-                        ]
-                    },
+                    "assets": [
+                        _asset("img", "image"),
+                        _asset("graph", "graph"),
+                        _asset("table", "table"),
+                        _asset("formula", "formula"),
+                    ],
                     "bibliography_file": "references.bib",
                     "output_pdf_path": "generated/pdf/final.pdf",
                     "engine": "pdflatex",
@@ -129,7 +152,56 @@ def test_common_real_output_variants_are_normalized(tmp_path: Path) -> None:
     latex_spec = json.loads(
         (tmp_path / "generated/intermediate/latex_spec.json").read_text(encoding="utf-8")
     )
-    assert book_plan["chapters"][0]["title"] == "Intro"
+    assert book_plan["chapters"][0]["title"] == "Chapter 1"
     assert research_pack["source_candidates"][0]["source_id"] == "crewai_docs"
     assert review_report["notes"] == ["clarity: Good"]
     assert latex_spec["engine"] == "lualatex"
+
+
+def _strong_book_plan(title: str = "AI Agent Orchestration") -> dict:
+    return {
+        "title": title,
+        "audience": "Course evaluator",
+        "chapters": [
+            {
+                "title": f"Chapter {index}",
+                "summary": "Submission-ready chapter.",
+                "sections": [{"title": "Section", "purpose": "Explain a concrete idea."}],
+            }
+            for index in range(1, 6)
+        ],
+        "required_feature_placement": dict.fromkeys(FEATURES, "Chapter 1"),
+        "acceptance_checklist": sorted(FEATURES),
+        "estimated_pages": 16,
+    }
+
+
+def _research_pack() -> dict:
+    return {
+        "topic": "AI Agent Orchestration",
+        "key_concepts": ["Agent"],
+        "source_candidates": [{"source_id": "crewai_docs", "title": "CrewAI", "notes": ""}],
+        "chapter_notes": {"Chapter 1": "Use CrewAI docs."},
+    }
+
+
+def _strong_manuscript() -> str:
+    hebrew_word = "\u05e1\u05d5\u05db\u05df"
+    chapters = []
+    for index in range(1, 6):
+        body = " ".join([hebrew_word] * 330)
+        chapters.append(
+            f"## Chapter {index}\n\n"
+            f"### Section {index}\n\n"
+            f"{body} Agent Task Crew Harness validation [@crewai_docs]."
+        )
+    return "# AI Agent Orchestration\n\n" + "\n\n".join(chapters)
+
+
+def _asset(asset_id: str, kind: str) -> dict:
+    return {
+        "asset_id": asset_id,
+        "kind": kind,
+        "target_path": f"generated/assets/{kind}.png",
+        "caption": kind,
+    }

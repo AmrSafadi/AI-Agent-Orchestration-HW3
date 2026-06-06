@@ -32,6 +32,10 @@ def build_document(
     latex_spec = LatexSpec.model_validate_json(
         (intermediate / "latex_spec.json").read_text(encoding="utf-8")
     )
+    manuscript_path = intermediate / "manuscript.md"
+    manuscript_markdown = (
+        manuscript_path.read_text(encoding="utf-8") if manuscript_path.exists() else None
+    )
 
     references_bib = root / "data/references/references.bib"
     registry = root / "data/input/source_registry.json"
@@ -45,6 +49,7 @@ def build_document(
         templates_dir=templates_dir,
         references_bib=references_bib if references_bib.exists() else None,
         root_dir=root,
+        manuscript_markdown=manuscript_markdown,
     )
 
     summary: dict = {

@@ -86,6 +86,22 @@ def unique(values: list[Any]) -> list[str]:
     return result
 
 
+def extract_json_payload(text: str) -> str:
+    stripped = text.strip()
+    if stripped.startswith("```"):
+        lines = stripped.splitlines()
+        if lines and lines[0].lstrip().startswith("```"):
+            lines = lines[1:]
+        if lines and lines[-1].strip() == "```":
+            lines = lines[:-1]
+        stripped = "\n".join(lines).strip()
+    start = stripped.find("{")
+    end = stripped.rfind("}")
+    if start == -1 or end == -1 or end < start:
+        raise ValueError("no JSON object found in output")
+    return stripped[start : end + 1]
+
+
 def slug(value: Any, index: int) -> str:
     text = re.sub(r"[^a-zA-Z0-9]+", "_", stringify(value).lower()).strip("_")
     return text[:48] or f"source_{index}"

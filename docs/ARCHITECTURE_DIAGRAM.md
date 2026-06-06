@@ -2,7 +2,7 @@
 
 This document gives visual diagrams and explains every component.
 
-**Status:** 105 tests passing, 2 skipped, 93.34% coverage (gate 85%), ruff clean. Renderer and compiler are implemented and the deliverable PDF compiles end-to-end: `python -m bookgen.main --dry-run --build-pdf` produces an 18-page Hebrew-primary `final.pdf`, and a snapshot copy is committed at the repository root as `final.pdf`. Reproducing the PDF from scratch requires a free TeX toolchain (lualatex+biber) plus the culmus Hebrew font (David CLM).
+**Status:** 109 tests passing, 2 skipped, 91.96% coverage (gate 85%), ruff clean. Renderer and compiler are implemented and the deliverable PDF compiles end-to-end: `python -m bookgen.main --dry-run --build-pdf` produces an 18-page Hebrew-primary `final.pdf`, and a snapshot copy is committed at the repository root as `final.pdf`. Reproducing the PDF from scratch requires a free TeX toolchain (lualatex+biber) plus the culmus Hebrew font (David CLM).
 
 **Package layout:** `sdk/` (BookGenSDK facade), `shared/` (config, constants, gatekeeper, logging, version), `orchestration/` (agents, tasks, crew, dry_run, skills), `harness/` (citations, graph_generator, assets, evidence), `document/` (validators, schemas, report_schemas), `latex/` (renderer, compiler, escaping, build).
 

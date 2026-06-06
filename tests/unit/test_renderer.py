@@ -117,3 +117,45 @@ def test_render_copies_image_and_graph_assets_into_build_dir(tmp_path: Path) -> 
     assert "\\includegraphics[width=0.6\\textwidth]{assets/img.png}" in out.read_text(
         encoding="utf-8"
     )
+
+
+def test_render_uses_quality_manuscript_when_available(tmp_path: Path) -> None:
+    out = render_main_tex(
+        _latex_spec(),
+        _book_plan(purpose="Fallback plan prose."),
+        metadata=META,
+        output_dir=tmp_path,
+        manuscript_markdown=_quality_manuscript(),
+    )
+
+    chapter = (out.parent / "chapters/chapter_01.tex").read_text(encoding="utf-8")
+    assert "Strong manuscript point" in chapter
+    assert "\\cite{crewai_docs}" in chapter
+    assert "Fallback plan prose" not in chapter
+
+
+def test_render_falls_back_when_manuscript_is_shallow(tmp_path: Path) -> None:
+    out = render_main_tex(
+        _latex_spec(),
+        _book_plan(purpose="Fallback plan prose."),
+        metadata=META,
+        output_dir=tmp_path,
+        manuscript_markdown="# Draft\n\n## One\n\nPlaceholder.",
+    )
+
+    chapter = (out.parent / "chapters/chapter_01.tex").read_text(encoding="utf-8")
+    assert "Fallback plan prose" in chapter
+    assert "Placeholder" not in chapter
+
+
+def _quality_manuscript() -> str:
+    hebrew_word = "\u05e1\u05d5\u05db\u05df"
+    chapters = []
+    for index in range(1, 6):
+        body = " ".join([hebrew_word] * 330)
+        chapters.append(
+            f"## Manuscript Chapter {index}\n\n"
+            f"### Manuscript Section {index}\n\n"
+            f"Strong manuscript point {index}. {body} [@crewai_docs]."
+        )
+    return "# AI Agent Orchestration\n\n" + "\n\n".join(chapters)

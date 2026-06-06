@@ -9,8 +9,10 @@ from typing import Any
 
 from pydantic import ValidationError
 
+from bookgen.document.content_quality import artifact_quality_error
 from bookgen.document.schemas import BookPlan, LatexSpec, ResearchPack, ReviewReport
 from bookgen.orchestration.artifact_normalization import normalize_artifact_payload
+from bookgen.orchestration.artifact_normalization_utils import extract_json_payload
 from bookgen.shared.constants import ARTIFACT_NAMES, GENERATED_ARTIFACTS
 
 SCHEMA_BY_ARTIFACT = {
@@ -117,6 +119,9 @@ def _write_valid_artifact(name: str, text: str, artifact_path: Path) -> str | No
     if name == "manuscript":
         if not text.strip():
             return "manuscript output is empty"
+        quality_error = artifact_quality_error(name, text)
+        if quality_error:
+            return quality_error
         artifact_path.write_text(text, encoding="utf-8")
         return None
 
@@ -124,27 +129,14 @@ def _write_valid_artifact(name: str, text: str, artifact_path: Path) -> str | No
     if schema is None:
         return f"no schema registered for {name}"
     try:
-        payload = json.loads(_extract_json_payload(text))
+        payload = json.loads(extract_json_payload(text))
         if not isinstance(payload, dict):
             raise ValueError("JSON artifact must be an object")
         model = schema.model_validate(normalize_artifact_payload(name, payload))
+        quality_error = artifact_quality_error(name, model)
+        if quality_error:
+            return quality_error
     except (ValidationError, ValueError) as exc:
         return str(exc).splitlines()[0]
     artifact_path.write_text(model.model_dump_json(indent=2) + "\n", encoding="utf-8")
     return None
-
-
-def _extract_json_payload(text: str) -> str:
-    stripped = text.strip()
-    if stripped.startswith("```"):
-        lines = stripped.splitlines()
-        if lines and lines[0].lstrip().startswith("```"):
-            lines = lines[1:]
-        if lines and lines[-1].strip() == "```":
-            lines = lines[:-1]
-        stripped = "\n".join(lines).strip()
-    start = stripped.find("{")
-    end = stripped.rfind("}")
-    if start == -1 or end == -1 or end < start:
-        raise ValueError("no JSON object found in output")
-    return stripped[start : end + 1]
