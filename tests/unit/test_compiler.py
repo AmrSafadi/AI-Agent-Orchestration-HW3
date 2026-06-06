@@ -5,6 +5,8 @@ from __future__ import annotations
 from pathlib import Path
 
 from bookgen.latex.compiler import (
+    REPRODUCIBLE_TEX_ENV,
+    _reproducible_env,
     compile_pdf,
     pdf_page_count,
     scan_log_issues,
@@ -53,3 +55,13 @@ def test_pdf_page_count_parses_output_line() -> None:
 
 def test_pdf_page_count_returns_none_when_absent() -> None:
     assert pdf_page_count("no page line here") is None
+
+
+def test_reproducible_env_sets_tex_timestamps(monkeypatch) -> None:
+    for key in REPRODUCIBLE_TEX_ENV:
+        monkeypatch.delenv(key, raising=False)
+
+    env = _reproducible_env()
+
+    assert env["SOURCE_DATE_EPOCH"] == "1767225600"
+    assert env["FORCE_SOURCE_DATE"] == "1"

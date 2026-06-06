@@ -16,6 +16,7 @@ except ImportError:  # pragma: no cover - the fallback is covered by tests.
 
 from bookgen.orchestration.agents import create_all_agents
 from bookgen.orchestration.dry_run import EXPECTED_ARTIFACTS, create_or_reuse_dry_run_artifacts
+from bookgen.orchestration.real_run import persist_real_run
 from bookgen.orchestration.tasks import create_all_tasks
 from bookgen.shared.config import load_config, project_root
 from bookgen.shared.gatekeeper import ApiGatekeeper
@@ -49,6 +50,8 @@ class CrewRunResult:
     message: str
     artifacts: list[Path]
     output: Any | None = None
+    token_usage: dict[str, int | float] | None = None
+    budget_alerts: list[str] | None = None
 
 
 def build_crew(use_real_crewai: bool = False, topic: str = "the configured topic") -> Any:
@@ -73,9 +76,9 @@ def create_document_generation_crew(use_real_crewai: bool = False) -> Any:
 def run_crew(dry_run: bool = True, root_dir: Path | str | None = None) -> CrewRunResult:
     """Run the crew safely.
 
-    Dry-run is the default and never calls ``kickoff``. It creates or reuses the
-    expected runtime artifacts so later deterministic milestones can be tested
-    without an API key.
+    Dry-run is the default and never calls ``kickoff``. It refreshes the
+    expected runtime artifacts from committed samples so later deterministic
+    milestones can be tested without an API key or stale generated state.
     """
     root = Path(root_dir) if root_dir else project_root()
 
@@ -96,13 +99,22 @@ def run_crew(dry_run: bool = True, root_dir: Path | str | None = None) -> CrewRu
     print(_describe_crew(crew))
 
     gatekeeper = ApiGatekeeper(app_config.rate_limits)
+    inputs = {"topic": topic}
     try:
-        result = gatekeeper.execute(crew.kickoff, inputs={"topic": topic})
+        result = gatekeeper.execute(crew.kickoff, inputs=inputs)
     except Exception as exc:
         raise RuntimeError(f"Real CrewAI execution failed: {exc}") from exc
+    persisted = persist_real_run(result, root, inputs=inputs, budgets=app_config.budgets)
     message = "Real CrewAI execution completed."
     print(message)
-    return CrewRunResult(dry_run=False, message=message, artifacts=[], output=result)
+    return CrewRunResult(
+        dry_run=False,
+        message=message,
+        artifacts=persisted.artifacts,
+        output=result,
+        token_usage=persisted.token_usage,
+        budget_alerts=persisted.budget_alerts,
+    )
 
 
 def _describe_crew(crew: Any) -> str:

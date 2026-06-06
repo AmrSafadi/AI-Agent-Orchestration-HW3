@@ -16,7 +16,8 @@ cd <path-to>\AI-Agent-Orchestration-HW3
 
 ## 2. Run The Local Startup Check
 
-This loads config, assembles the dry-run crew, and creates or reuses dry-run artifacts. It does not call any API.
+This loads config, assembles the dry-run crew, and refreshes dry-run artifacts
+from the committed `data/intermediate/sample_*` files. It does not call any API.
 
 ```powershell
 $env:PYTHONPATH="src"
@@ -48,10 +49,10 @@ uv run --no-project --with pydantic --with pytest --with matplotlib --with jinja
 Expected result:
 
 ```text
-89 passed
+101 passed, 2 skipped
 ```
 
-Coverage is 92.46% against an 85% gate, and ruff reports 0 violations.
+Coverage is 93.38% against an 85% gate, and ruff reports 0 violations.
 
 ## 4. Generate Deterministic Outputs
 

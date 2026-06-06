@@ -57,6 +57,22 @@ def test_english_only_manuscript_fails_bidi(
     assert any("feature:hebrew_english_section" in error for error in report.errors)
 
 
+def test_empty_manuscript_fails_size_check(
+    write_features, default_book_plan, default_latex_spec
+) -> None:
+    paths = write_features(default_book_plan, default_latex_spec, "")
+    report = validate_required_document_features(*paths)
+    assert any("feature:manuscript_size" in error for error in report.errors)
+
+
+def test_oversized_manuscript_fails_size_check(
+    write_features, default_book_plan, default_latex_spec
+) -> None:
+    paths = write_features(default_book_plan, default_latex_spec, "x" * 80_001)
+    report = validate_required_document_features(*paths)
+    assert any("feature:manuscript_size" in error for error in report.errors)
+
+
 def test_validate_project_returns_artifact_report_when_incomplete(tmp_path: Path) -> None:
     report = validate_project(tmp_path)
     assert not report.passed

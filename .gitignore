@@ -20,6 +20,9 @@ credentials.json
 
 # Generated outputs
 generated/
+graphify-out/
+_review/
+materials/
 # Ignore generated reference artifacts, but keep one committed copy of the
 # bibliography so a grader sees it on a fresh clone (T072).
 data/references/*

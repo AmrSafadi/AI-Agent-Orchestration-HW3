@@ -12,6 +12,7 @@ from pathlib import Path
 from bookgen.document.schemas import BookPlan, LatexSpec
 from bookgen.harness.citations import generate_references_bib
 from bookgen.latex.compiler import compile_pdf
+from bookgen.latex.preflight import validate_rendered_citations
 from bookgen.latex.renderer import DEFAULT_TEMPLATES_DIR, render_main_tex
 
 
@@ -43,6 +44,7 @@ def build_document(
         output_dir=root / "generated/latex",
         templates_dir=templates_dir,
         references_bib=references_bib if references_bib.exists() else None,
+        root_dir=root,
     )
 
     summary: dict = {
@@ -52,6 +54,17 @@ def build_document(
         "features": _features_present(main_tex.read_text(encoding="utf-8")),
     }
     if compile_after:
+        if registry.exists():
+            citations = validate_rendered_citations(main_tex, registry)
+            summary["citation_preflight"] = {
+                "passed": citations.passed,
+                "missing_keys": sorted(citations.missing_keys),
+            }
+            if not citations.passed:
+                missing = ", ".join(sorted(citations.missing_keys))
+                summary["message"] = f"Unresolved citation keys before compile: {missing}"
+                return summary
+
         config = latex_config or {}
         result = compile_pdf(
             main_tex,
@@ -68,8 +81,13 @@ def build_document(
         if result.success and result.pdf_path:
             final_pdf = root / config.get("output_pdf", "generated/pdf/final.pdf")
             final_pdf.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copyfile(result.pdf_path, final_pdf)
-            summary["final_pdf"] = str(final_pdf)
+            try:
+                shutil.copyfile(result.pdf_path, final_pdf)
+                summary["final_pdf"] = str(final_pdf)
+            except OSError as exc:
+                warning = f"final PDF copy failed: {exc}"
+                summary["warnings"] = [*result.warnings, warning]
+                summary["message"] = f"{result.message} {warning}"
     return summary
 
 

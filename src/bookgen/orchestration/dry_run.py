@@ -1,8 +1,9 @@
-"""Dry-run artifact synthesis: create or reuse intermediate artifacts.
+"""Dry-run artifact synthesis: refresh intermediate artifacts.
 
-The dry-run path copies committed ``sample_*`` artifacts into the generated
-runtime directory (or writes minimal placeholders) so the deterministic pipeline
-runs end-to-end without an API key.
+The dry-run path refreshes committed ``sample_*`` artifacts into the generated
+runtime directory on every run (or writes minimal placeholders) so the
+deterministic pipeline runs end-to-end without an API key and without stale
+runtime state from previous experiments.
 """
 
 from __future__ import annotations
@@ -18,15 +19,14 @@ from bookgen.shared.constants import SAMPLE_ARTIFACTS
 
 
 def create_or_reuse_dry_run_artifacts(root_dir: Path | str) -> list[Path]:
-    """Create or reuse the expected generated artifacts for dry-run mode."""
+    """Refresh the expected generated artifacts for dry-run mode."""
     root = Path(root_dir)
     (root / "generated/intermediate").mkdir(parents=True, exist_ok=True)
 
     created_or_existing: list[Path] = []
     for artifact_name, relative_path in EXPECTED_ARTIFACTS.items():
         target = root / relative_path
-        if not target.exists():
-            _create_dry_run_artifact(root, artifact_name, target)
+        _create_dry_run_artifact(root, artifact_name, target)
         created_or_existing.append(target)
     return created_or_existing
 

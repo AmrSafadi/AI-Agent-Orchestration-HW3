@@ -75,6 +75,7 @@ def test_render_main_tex_contains_required_features(tmp_path: Path) -> None:
     # LaTeX spec's declared asset paths exist (validate_latex_spec_files).
     assert "\\begin{tabular}" in (out.parent / "t.tex").read_text(encoding="utf-8")
     assert "\\begin{equation}" in (out.parent / "f.tex").read_text(encoding="utf-8")
+    assert (out.parent / "chapters/chapter_01.tex").exists()
 
 
 def test_render_escapes_special_characters(tmp_path: Path) -> None:
@@ -94,3 +95,25 @@ def test_render_copies_bibliography(tmp_path: Path) -> None:
         _latex_spec(), _book_plan(), metadata=META, output_dir=out_dir, references_bib=bib
     )
     assert (out_dir / "references.bib").exists()
+
+
+def test_render_copies_image_and_graph_assets_into_build_dir(tmp_path: Path) -> None:
+    root = tmp_path / "root"
+    (root / "assets").mkdir(parents=True)
+    (root / "assets/img.png").write_bytes(b"image")
+    (root / "assets/g.png").write_bytes(b"graph")
+    out_dir = root / "generated/latex"
+
+    out = render_main_tex(
+        _latex_spec(),
+        _book_plan(),
+        metadata=META,
+        output_dir=out_dir,
+        root_dir=root,
+    )
+
+    assert (out_dir / "assets/img.png").read_bytes() == b"image"
+    assert (out_dir / "assets/g.png").read_bytes() == b"graph"
+    assert "\\includegraphics[width=0.6\\textwidth]{assets/img.png}" in out.read_text(
+        encoding="utf-8"
+    )

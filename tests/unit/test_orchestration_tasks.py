@@ -1,3 +1,6 @@
+import pytest
+
+import bookgen.orchestration.factory as factory
 from bookgen.orchestration.agents import create_all_agents
 from bookgen.orchestration.tasks import (
     create_all_tasks,
@@ -40,3 +43,19 @@ def test_topic_is_injected_into_the_planning_task_description() -> None:
     tasks = create_all_tasks(create_all_agents(), topic="AI Agent Orchestration in Production")
 
     assert "AI Agent Orchestration in Production" in tasks[0].description
+
+
+def test_create_all_tasks_rejects_missing_required_agent() -> None:
+    agents = create_all_agents()
+    agents.pop("latex")
+
+    with pytest.raises(KeyError):
+        create_all_tasks(agents)
+
+
+def test_real_task_construction_requires_crewai(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(factory, "CrewAITask", None)
+    agents = create_all_agents()
+
+    with pytest.raises(RuntimeError, match="CrewAI is not installed"):
+        create_planning_task(agents["planner"], use_real_crewai=True)

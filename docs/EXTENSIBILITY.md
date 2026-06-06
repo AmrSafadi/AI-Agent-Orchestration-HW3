@@ -37,7 +37,7 @@ run_crew()  ->  generate_assets()  ->  build_document()  ->  (compile)
 
 | Stage | SDK method | Input contract | Output contract |
 | :--- | :--- | :--- | :--- |
-| Authoring (crew) | `run_crew(dry_run=True)` | config `root_dir`; dry-run reuses committed sample artifacts, real run needs `OPENAI_API_KEY` | intermediate artifacts under `generated/intermediate/` (`book_plan.json`, `latex_spec.json`, …) + `CrewRunResult` |
+| Authoring (crew) | `run_crew(dry_run=True)` | config `root_dir`; dry-run refreshes committed sample artifacts, real run needs `OPENAI_API_KEY` | intermediate artifacts under `generated/intermediate/` (`book_plan.json`, `latex_spec.json`, …) + `CrewRunResult` |
 | Asset generation | `generate_assets()` | — | image + graph PNGs under `generated/assets/`; returns `{"graph": path, "image": path}` |
 | Document build | `build_document(compile_after=False)` | `book_plan.json` + `latex_spec.json` + metadata | rendered `generated/latex/main.tex`; summary dict |
 | Compilation | `build_document(compile_after=True)` | `main.tex` + `latex_config` | `generated/pdf/final.pdf` (degrades gracefully with no TeX toolchain) |
@@ -136,7 +136,7 @@ not abstract base classes.
 
 - **Contract:** a function with the `renderer.py::render_main_tex` shape —
   `(latex_spec, book_plan, metadata, output_dir=..., templates_dir=...,
-  references_bib=...) -> Path`. All agent-authored text must be passed through
+  references_bib=..., root_dir=...) -> Path`. All agent-authored text must be passed through
   `latex/escaping.py::escape_latex` first (injection-safety is part of the
   contract).
 - **Wire it:** `build.py::build_document` calls the renderer; swap the import or

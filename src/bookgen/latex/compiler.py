@@ -8,11 +8,14 @@ A secondary engine (e.g. xelatex) is tried if the primary engine yields no PDF.
 
 from __future__ import annotations
 
+import os
 import re
 import shutil
 import subprocess
 from dataclasses import dataclass, field
 from pathlib import Path
+
+REPRODUCIBLE_TEX_ENV = {"SOURCE_DATE_EPOCH": "1767225600", "FORCE_SOURCE_DATE": "1"}
 
 
 @dataclass
@@ -68,6 +71,7 @@ def _run_sequence(commands: list[list[str]], work_dir: Path) -> str:
         completed = subprocess.run(
             command,
             cwd=work_dir,
+            env=_reproducible_env(),
             capture_output=True,
             encoding="utf-8",
             errors="replace",
@@ -75,6 +79,13 @@ def _run_sequence(commands: list[list[str]], work_dir: Path) -> str:
         )
         chunks.append(f"$ {' '.join(command)}\n{completed.stdout}\n{completed.stderr}")
     return "\n".join(chunks)
+
+
+def _reproducible_env() -> dict[str, str]:
+    env = os.environ.copy()
+    for key, value in REPRODUCIBLE_TEX_ENV.items():
+        env.setdefault(key, value)
+    return env
 
 
 def compile_pdf(
