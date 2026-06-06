@@ -52,11 +52,11 @@ paid CrewAI path is implemented as an optional, API-key guarded workflow.
 - **Quality tooling:** Ruff lint (0 violations) + `ruff format`; a shared pre-commit
   hook; GitHub Actions CI enforcing an 85% coverage gate.
 - **Build skill:** a Claude Code `/build-bookgen` skill that encodes our build workflow.
-- **Tests:** 104 passing, 2 skipped, **93.37%** coverage.
+- **Tests:** 105 passing, 2 skipped, **93.34%** coverage.
 
 **Verified**
 - `ruff check` → 0 violations; `ruff format` → clean; every code file ≤ 150 lines.
-- `pytest tests --cov=bookgen` -> 104 passed, 2 skipped; coverage 93.37% (gate 85%).
+- `pytest tests --cov=bookgen` -> 105 passed, 2 skipped; coverage 93.34% (gate 85%).
 - The dry-run pipeline produces all five intermediate artifacts, assets, and
   `generated/latex/main.tex` with no API call.
 - `--dry-run --build-pdf` compiles the final PDF when a TeX toolchain is

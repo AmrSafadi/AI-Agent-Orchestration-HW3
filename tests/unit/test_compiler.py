@@ -6,6 +6,8 @@ from pathlib import Path
 
 from bookgen.latex.compiler import (
     REPRODUCIBLE_TEX_ENV,
+    STALE_LATEX_EXTENSIONS,
+    _clean_latex_state,
     _reproducible_env,
     compile_pdf,
     pdf_page_count,
@@ -65,3 +67,18 @@ def test_reproducible_env_sets_tex_timestamps(monkeypatch) -> None:
 
     assert env["SOURCE_DATE_EPOCH"] == "1767225600"
     assert env["FORCE_SOURCE_DATE"] == "1"
+
+
+def test_clean_latex_state_removes_auxiliary_files(tmp_path: Path) -> None:
+    tex = tmp_path / "main.tex"
+    pdf = tmp_path / "main.pdf"
+    tex.write_text("source", encoding="utf-8")
+    pdf.write_text("pdf", encoding="utf-8")
+    for extension in STALE_LATEX_EXTENSIONS:
+        (tmp_path / f"main{extension}").write_text("stale", encoding="utf-8")
+
+    _clean_latex_state(tmp_path, "main")
+
+    assert tex.exists()
+    assert pdf.exists()
+    assert not any((tmp_path / f"main{extension}").exists() for extension in STALE_LATEX_EXTENSIONS)

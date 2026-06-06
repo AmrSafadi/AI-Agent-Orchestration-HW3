@@ -12,10 +12,12 @@ import os
 import re
 import shutil
 import subprocess
+from contextlib import suppress
 from dataclasses import dataclass, field
 from pathlib import Path
 
 REPRODUCIBLE_TEX_ENV = {"SOURCE_DATE_EPOCH": "1767225600", "FORCE_SOURCE_DATE": "1"}
+STALE_LATEX_EXTENSIONS = (".aux", ".bbl", ".bcf", ".blg", ".log", ".out", ".run.xml", ".toc")
 
 
 @dataclass
@@ -88,6 +90,13 @@ def _reproducible_env() -> dict[str, str]:
     return env
 
 
+def _clean_latex_state(work_dir: Path, stem: str) -> None:
+    for extension in STALE_LATEX_EXTENSIONS:
+        path = work_dir / f"{stem}{extension}"
+        with suppress(FileNotFoundError):
+            path.unlink()
+
+
 def compile_pdf(
     tex_path: Path | str,
     engine: str = "lualatex",
@@ -109,6 +118,7 @@ def compile_pdf(
         return CompileResult(False, None, log_path, message)
 
     commands = _command_sequence(engine, bib_backend, tex.stem, passes)
+    _clean_latex_state(work_dir, tex.stem)
     log_text = _run_sequence(commands, work_dir)
 
     if not pdf_path.exists() and fallback_engine and shutil.which(fallback_engine):
