@@ -81,8 +81,13 @@ def build_document(
         if result.success and result.pdf_path:
             final_pdf = root / config.get("output_pdf", "generated/pdf/final.pdf")
             final_pdf.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copyfile(result.pdf_path, final_pdf)
-            summary["final_pdf"] = str(final_pdf)
+            try:
+                shutil.copyfile(result.pdf_path, final_pdf)
+                summary["final_pdf"] = str(final_pdf)
+            except OSError as exc:
+                warning = f"final PDF copy failed: {exc}"
+                summary["warnings"] = [*result.warnings, warning]
+                summary["message"] = f"{result.message} {warning}"
     return summary
 
 

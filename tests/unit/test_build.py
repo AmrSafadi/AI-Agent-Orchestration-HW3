@@ -5,7 +5,10 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
+
 from bookgen.latex.build import build_document
+from bookgen.latex.compiler import CompileResult
 
 META = {
     "author": "Sharbel",
@@ -68,3 +71,34 @@ def test_build_document_stops_before_compile_on_unresolved_citation(
     assert result["compiled"] is False
     assert result["citation_preflight"]["missing_keys"] == ["crewai_docs"]
     assert "Unresolved citation keys" in result["message"]
+
+
+def test_build_document_reports_final_pdf_copy_error(
+    tmp_path, default_book_plan, default_latex_spec, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _setup(tmp_path, default_book_plan, default_latex_spec)
+    compiled_pdf = tmp_path / "generated/latex/main.pdf"
+    compiled_pdf.parent.mkdir(parents=True)
+    compiled_pdf.write_bytes(b"%PDF")
+
+    monkeypatch.setattr(
+        "bookgen.latex.build.compile_pdf",
+        lambda *args, **kwargs: CompileResult(
+            success=True,
+            pdf_path=compiled_pdf,
+            log_path=None,
+            message="PDF compiled.",
+            warnings=[],
+            pages=1,
+        ),
+    )
+    monkeypatch.setattr(
+        "bookgen.latex.build.shutil.copyfile",
+        lambda *args, **kwargs: (_ for _ in ()).throw(PermissionError("locked")),
+    )
+
+    result = build_document(tmp_path, META, compile_after=True)
+
+    assert result["compiled"] is True
+    assert "final PDF copy failed" in result["message"]
+    assert "locked" in result["warnings"][0]
