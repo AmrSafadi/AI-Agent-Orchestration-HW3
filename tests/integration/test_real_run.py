@@ -15,8 +15,11 @@ from bookgen.orchestration.crew import run_crew
 
 
 @pytest.mark.skipif(
-    not os.getenv("OPENAI_API_KEY"),
-    reason="requires a paid OpenAI API key; the real run is opt-in (Milestone 5)",
+    not (os.getenv("OPENAI_API_KEY") and os.getenv("BOOKGEN_RUN_REAL_INTEGRATION") == "1"),
+    reason=(
+        "requires OPENAI_API_KEY and BOOKGEN_RUN_REAL_INTEGRATION=1; "
+        "real integration tests are paid and opt-in"
+    ),
 )
 def test_real_run_executes_and_returns_output() -> None:
     result = run_crew(dry_run=False)

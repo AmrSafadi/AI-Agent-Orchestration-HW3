@@ -40,7 +40,7 @@ $env:PYTHONPATH="src"
 uv run --no-project --with pydantic --with pytest --with matplotlib --with jinja2 python -m pytest tests
 ```
 
-Run the full suite (`python -m pytest tests`). The project currently has 101 passing tests, 2 skipped integration tests, and 93.38% coverage (gate 85%). To enforce the coverage gate, add `--cov=bookgen --cov-fail-under=85` (also configured via `fail_under=85` in `pyproject.toml`).
+Run the full suite (`python -m pytest tests`). The project currently has 104 passing tests, 2 skipped integration tests, and 93.37% coverage (gate 85%). To enforce the coverage gate, add `--cov=bookgen --cov-fail-under=85` (also configured via `fail_under=85` in `pyproject.toml`).
 
 ## Documentation Rules
 

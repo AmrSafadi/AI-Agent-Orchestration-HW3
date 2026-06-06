@@ -16,7 +16,7 @@ This document maps course concepts to concrete project components.
 | LaTeX production | Turning content into professional PDF output. | `templates/latex/main.tex.j2`, implemented `src/bookgen/latex/renderer.py`, `compiler.py`, `escaping.py`, `build.py`, generated `.bib` and assets. |
 | Language | The primary language and script direction of the document. | The document is primarily Hebrew (RTL) via `\setmainlanguage{hebrew}` / `\setmainfont{David CLM}`, ~3,260 Hebrew words across 6 chapters, with English kept inline only for technical terms; the `hebrew_english_section` is an explicit `\begin{english}` BiDi demo block, not the document's primary language. |
 
-Quality and entry point: 101 tests pass, 2 skip, coverage 93.38% (gate 85%), ruff 0 violations. The CLI is `python -m bookgen.main --dry-run [--build-pdf] [--run-crew]`. Running `--build-pdf` produces an 18-page Hebrew-primary `final.pdf`, and a snapshot copy is committed at the repository root so a grader sees it on clone.
+Quality and entry point: 104 tests pass, 2 skip, coverage 93.37% (gate 85%), ruff 0 violations. The CLI is `python -m bookgen.main --dry-run [--build-pdf] [--run-crew]`. Running `--build-pdf` produces an 18-page Hebrew-primary `final.pdf`, and a snapshot copy is committed at the repository root so a grader sees it on clone.
 
 ## Specific Demonstrations
 

@@ -29,6 +29,11 @@ def test_tasks_can_be_constructed_with_expected_outputs() -> None:
     assert writing_task.context == [planning_task, research_task]
     assert review_task.context == [writing_task]
     assert latex_task.context == [review_task]
+    assert '"chapters"' in planning_task.expected_output
+    assert "chapterOutline" in planning_task.expected_output
+    assert '"source_candidates"' in research_task.expected_output
+    assert '"approved"' in review_task.expected_output
+    assert '"main_template"' in latex_task.expected_output
 
 
 def test_create_all_tasks_preserves_sequential_order() -> None:

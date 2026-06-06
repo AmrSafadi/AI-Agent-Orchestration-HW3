@@ -33,11 +33,50 @@ def test_extract_token_usage_from_crewai_like_result() -> None:
 
 def test_persist_real_run_writes_task_outputs_and_budget_trace(tmp_path: Path) -> None:
     outputs = [
-        SimpleNamespace(raw='{"title": "plan"}'),
-        SimpleNamespace(raw='{"topic": "research"}'),
+        SimpleNamespace(
+            raw="""```json
+{
+  "title": "Plan",
+  "audience": "Reviewer",
+  "chapters": [
+    {
+      "title": "Intro",
+      "summary": "Summary",
+      "sections": [{"title": "Why", "purpose": "Explain why."}]
+    }
+  ],
+  "acceptance_checklist": ["cover"],
+  "estimated_pages": 1
+}
+```"""
+        ),
+        SimpleNamespace(
+            raw="""```json
+{
+  "topic": "Research",
+  "key_concepts": ["Agent"],
+  "terminology": {},
+  "source_candidates": [],
+  "chapter_notes": {},
+  "unsupported_claim_warnings": []
+}
+```"""
+        ),
         SimpleNamespace(raw="# Manuscript"),
-        SimpleNamespace(raw='{"approved": true}'),
-        SimpleNamespace(raw='{"engine": "lualatex"}'),
+        SimpleNamespace(raw='```json\n{"approved": true}\n```'),
+        SimpleNamespace(
+            raw="""```json
+{
+  "title": "Spec",
+  "engine": "lualatex",
+  "main_template": "main.tex.j2",
+  "output_pdf": "generated/pdf/final.pdf",
+  "chapter_files": ["chapters/chapter_01.tex"],
+  "assets": [],
+  "bibliography_file": "data/references/references.bib"
+}
+```"""
+        ),
     ]
     result = SimpleNamespace(tasks_output=outputs, token_usage={"total_tokens": 12})
 
