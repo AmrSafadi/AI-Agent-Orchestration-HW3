@@ -94,6 +94,7 @@ def run_crew(dry_run: bool = True, root_dir: Path | str | None = None) -> CrewRu
         raise RuntimeError("OPENAI_API_KEY is required for real CrewAI execution.")
 
     app_config = load_config(root / "config")
+    create_or_reuse_dry_run_artifacts(root)
     topic = app_config.setup.project.topic
     crew = build_crew(use_real_crewai=True, topic=topic)
     print(_describe_crew(crew))

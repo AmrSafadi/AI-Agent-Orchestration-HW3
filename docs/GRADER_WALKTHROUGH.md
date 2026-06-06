@@ -47,11 +47,14 @@ Expected (abridged):
 
 ```text
 BookGen configuration loaded successfully.
-Execution mode: DRY-RUN (default). CrewAI kickoff will not be called.
+Project title: AI Agent Orchestration HW3
+Topic: AI Agent Orchestration: From Prompting to Production-Ready Crews
+Output directory: ...\generated
+Execution mode: DRY-RUN (default).
 Crew assembled: 5 agents, 5 tasks, process=sequential.
 Dry-run completed. CrewAI kickoff was not called.
 Rendered LaTeX project: ...\generated\latex\main.tex
-LaTeX render status: OK (PDF compile skipped; run with --build-pdf ...).
+Rendered main.tex (LaTeX compilation not requested).
 ```
 
 Dry-run artifacts land in `generated/intermediate/` (`book_plan.json`,
@@ -91,7 +94,7 @@ $env:PYTHONPATH="src"
 uv run --no-project --with pydantic --with pytest --with pytest-cov --with matplotlib --with jinja2 python -m pytest tests --cov=bookgen
 ```
 
-Expected: **101 passed, 2 skipped**, coverage **93.38%** against an 85% gate
+Expected: **104 passed, 2 skipped**, coverage **93.37%** against an 85% gate
 (`pyproject.toml` `fail_under=85`). Lint is clean:
 
 ```powershell

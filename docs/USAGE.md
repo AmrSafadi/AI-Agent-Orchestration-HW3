@@ -32,8 +32,7 @@ BookGen configuration loaded successfully.
 Project title: AI Agent Orchestration HW3
 Topic: AI Agent Orchestration: From Prompting to Production-Ready Crews
 Output directory: ...\generated
-Artifact output directory: ...\generated\intermediate
-Execution mode: DRY-RUN (default). CrewAI kickoff will not be called.
+Execution mode: DRY-RUN (default).
 Crew assembled: 5 agents, 5 tasks, process=sequential.
 Dry-run completed. CrewAI kickoff was not called.
 Rendered LaTeX project: <root>\generated\latex\main.tex
@@ -64,11 +63,11 @@ The generated document is primarily Hebrew (RTL), using English only for
 technical terms (Agent, Task, Crew, Harness, validation), and includes an
 explicit Hebrew↔English BiDi block to demonstrate the RTL↔LTR transition.
 
-## 6. Planned
+## 6. Visual Evidence
 
-Screenshots of representative runs and a fuller Nielsen-heuristics review are
-tracked in TODO. The LaTeX pipeline has landed: `main.tex` is rendered on every
-run, and `--build-pdf` compiles the final PDF end-to-end. The compiled,
+Screenshots of representative PDF pages are committed under `docs/screenshots/`.
+The LaTeX pipeline has landed: `main.tex` is rendered on every run, and
+`--build-pdf` compiles the final PDF end-to-end. The compiled,
 18-page `final.pdf` is committed (a snapshot at the repo root, plus
 `generated/pdf/final.pdf`) and serves as the primary visual deliverable.
 Reproducing it from scratch requires a free TeX toolchain (lualatex + biber)

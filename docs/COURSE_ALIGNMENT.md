@@ -12,11 +12,11 @@ This document maps course concepts to concrete project components.
 | Harness | The software system around the model. | `src/bookgen/shared`, `src/bookgen/document`, `src/bookgen/harness`, `src/bookgen/latex`, `src/bookgen/sdk` (BookGenSDK facade), and `src/bookgen/research` (`sensitivity.py`). |
 | Tools/Skills | Reliable capabilities that support agents. | Deterministic CitationManager (`src/bookgen/harness/citations.py`), GraphGenerator (`src/bookgen/harness/graph_generator.py`), Validator (`src/bookgen/document/validators.py`), and the implemented LaTeX Renderer and PDFCompiler (`src/bookgen/latex/renderer.py`, `compiler.py`, `escaping.py`, `build.py`). |
 | Validation | Guardrails that check correctness before later steps. | `src/bookgen/document/validators.py` and `ValidationReport` schema. |
-| Observability | Visibility into what happened and why. | Intermediate artifacts, generated graph, validation reports, bibliography, test outputs, future logs. |
+| Observability | Visibility into what happened and why. | Intermediate artifacts, generated graph, validation reports, bibliography, test outputs, and `generated/intermediate/real_run_trace.json` for opt-in real runs. |
 | LaTeX production | Turning content into professional PDF output. | `templates/latex/main.tex.j2`, implemented `src/bookgen/latex/renderer.py`, `compiler.py`, `escaping.py`, `build.py`, generated `.bib` and assets. |
 | Language | The primary language and script direction of the document. | The document is primarily Hebrew (RTL) via `\setmainlanguage{hebrew}` / `\setmainfont{David CLM}`, ~3,260 Hebrew words across 6 chapters, with English kept inline only for technical terms; the `hebrew_english_section` is an explicit `\begin{english}` BiDi demo block, not the document's primary language. |
 
-Quality and entry point: 101 tests pass, 2 skip, coverage 93.38% (gate 85%), ruff 0 violations. The CLI is `python -m bookgen.main --dry-run [--build-pdf] [--run-crew]`. Running `--build-pdf` produces an 18-page Hebrew-primary `final.pdf`, and a snapshot copy is committed at the repository root so a grader sees it on clone.
+Quality and entry point: 104 tests pass, 2 skip, coverage 93.37% (gate 85%), ruff 0 violations. The CLI is `python -m bookgen.main --dry-run [--build-pdf] [--run-crew]`. Running `--build-pdf` produces an 18-page Hebrew-primary `final.pdf`, and a snapshot copy is committed at the repository root so a grader sees it on clone.
 
 ## Specific Demonstrations
 
@@ -102,7 +102,7 @@ The project is designed so a grader can inspect:
 - generated bibliography,
 - validation reports,
 - tests,
-- future CrewAI verbose logs.
+- `generated/intermediate/real_run_trace.json` and `real_run_summary.json` for opt-in real runs.
 
 ### LaTeX Production
 

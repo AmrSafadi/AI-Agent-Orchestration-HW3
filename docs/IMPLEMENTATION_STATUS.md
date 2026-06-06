@@ -12,7 +12,7 @@ This document tracks what is complete, what is in progress, and what remains.
 | 3. Deterministic Harness | Complete | `graph_generator.py`, `citations.py` + `citation_report.py`, `validators.py` (+ latex-spec file checks), `assets.py`, `evidence.py`; headless Agg backend (`_mpl.py`); sample data, tests. (Phase C complete; a committed `references.bib` copy is now tracked for grader visibility.) |
 | Documentation | Complete | `docs/PROJECT_BLUEPRINT.md`, `COURSE_ALIGNMENT.md`, `IMPLEMENTATION_STATUS.md`, `ARCHITECTURE_DIAGRAM.md`, `QUICK_START.md`, `CONTRIBUTING.md`. |
 | 4. CrewAI Definitions | Complete | `agents.py`, `tasks.py`, `build_crew()`, `run_crew()`, CLI dry-run mode, generated intermediate artifacts, orchestration tests. |
-| Guideline Compliance (docs + quality config) | Complete | `docs/PRD.md`, `PLAN.md`, `TODO.md`, `PROMPTS.md`, `PRD_latex_pipeline.md`, `PRD_citation_management.md`; `pyproject.toml` ruff + coverage config; `shared/version.py`; `.env-example`. `ruff check` passes (0 violations); 101 tests pass, 2 skip; coverage 93.38% (gate 85%, pyproject fail_under=85) with `--cov`; `ruff format` clean; pre-commit hook (`scripts/hooks/pre-commit`) + CI (`.github/workflows/ci.yml`) added; README expanded (install/usage/config/license); `uv.lock` committed; all audit gap-closure items in `docs/TODO.md` are complete. |
+| Guideline Compliance (docs + quality config) | Complete | `docs/PRD.md`, `PLAN.md`, `TODO.md`, `PROMPTS.md`, `PRD_latex_pipeline.md`, `PRD_citation_management.md`; `pyproject.toml` ruff + coverage config; `shared/version.py`; `.env-example`. `ruff check` passes (0 violations); 104 tests pass, 2 skip; coverage 93.37% (gate 85%, pyproject fail_under=85) with `--cov`; `ruff format` clean; pre-commit hook (`scripts/hooks/pre-commit`) + CI (`.github/workflows/ci.yml`) added; README expanded (install/usage/config/license); `uv.lock` committed; all audit gap-closure items in `docs/TODO.md` are complete. |
 | Real Execution Support (Milestone 5) | Complete | Real runs remain opt-in and API-key guarded (`--run-crew` + `OPENAI_API_KEY`). When enabled, `crew.kickoff()` runs through `ApiGatekeeper`, task outputs persist to `generated/intermediate/`, `real_run_trace.json` logs task inputs/outputs, token usage is extracted when CrewAI exposes it, and config-driven budget alerts come from `config/budgets.json`. |
 | CrewAI Skills + build-skill | Complete | 3 `SKILL.md` knowledge packs under `skills/`, `orchestration/skills.py` discovery/assignment loader wired into agents (real-crew mode), unit tests; plus a Claude Code build skill at `.claude/skills/build-bookgen/`. |
 | LaTeX Renderer + Compiler (Phase E) | Complete | `latex/escaping.py`, 5 Jinja templates, `latex/renderer.py` (Hebrew-primary `main.tex` plus `generated/latex/chapters/*.tex` — with cover/TOC/figures/table/formula/BiDi/bibliography), `latex/compiler.py` (multi-pass, graceful, UTF-8 log capture), `latex/build.py` wired into `main.py` (`--build-pdf`, renders **and compiles** end-to-end; emits `generated/pdf/final.pdf`). Build assets are copied into `generated/latex/assets/`, rendered citations are preflighted before compile, and the cover carries reconciled author/course/lecturer/date metadata. **Verified:** `--build-pdf` compiles an 18-page `final.pdf` (lualatex + biber, culmus `David CLM`). |
@@ -24,7 +24,7 @@ This document tracks what is complete, what is in progress, and what remains.
 
 ## Current State
 
-Phase A through Phase M are complete. The remaining operational choice is whether to spend money on a real API-backed CrewAI run; the delivered and tested default path remains deterministic and free.
+Phase A through Phase M are complete. The optional operational choice is whether to spend money on a fresh API-backed CrewAI run; the delivered and tested default path remains deterministic and free.
 
 LaTeX rendering is complete (`src/bookgen/latex/renderer.py` renders the full Hebrew-primary `main.tex`; `build.py` wires it into the CLI). PDF compilation is also COMPLETE: `--build-pdf` compiles a verified 18-page Hebrew-primary `final.pdf` end-to-end (lualatex + biber, culmus `David CLM`), with 0 overfull boxes and all citations resolved; a snapshot copy is committed at the repo root. Reproducing the PDF from scratch still requires a free TeX toolchain — lualatex+biber — with the culmus package; the default `--dry-run` path does not compile.
 
@@ -33,11 +33,11 @@ LaTeX rendering is complete (`src/bookgen/latex/renderer.py` renders the full He
 Two milestone numbering schemes exist in the docs and they diverge after milestone 4 (T474). This note records the **canonical mapping** so neither file is renumbered wholesale:
 
 - `docs/PROJECT_BLUEPRINT.md` §9 is the **canonical roadmap** and uses a 9-step scale (0–8): 5 = Sequential crew execution, 6 = LaTeX rendering, 7 = PDF compilation, 8 = Polish/tests/submission.
-- This file's **Future Milestones** table splits the Blueprint's milestone 5 into two rows — 5 (Sequential Crew Execution) and 6 (Artifact Generation) — which shifts the later numbers by one: LaTeX rendering = 7, PDF compilation = 8, Submission polish = 9.
+- This file's roadmap table splits the Blueprint's milestone 5 into two rows — 5 (Sequential Crew Execution) and 6 (Artifact Generation) — which shifts the later numbers by one: LaTeX rendering = 7, PDF compilation = 8, Submission polish = 9.
 
-Canonical mapping (Blueprint ↔ this file's Future table):
+Canonical mapping (Blueprint ↔ this file's roadmap table):
 
-| Topic | Blueprint §9 | This file's Future table |
+| Topic | Blueprint §9 | This file's roadmap table |
 |---|---|---|
 | Sequential crew execution + artifact persistence | 5 | 5 + 6 |
 | LaTeX rendering | 6 | 7 |
@@ -46,7 +46,7 @@ Canonical mapping (Blueprint ↔ this file's Future table):
 
 When citing a milestone number across documents, prefer the **Blueprint §9** numbering. The completed milestones 0–4 are identical in both files.
 
-## Future Milestones
+## Completed Roadmap Milestones
 
 | Milestone | Goal | Notes |
 |---|---|---|
@@ -66,10 +66,10 @@ uv run --no-project --with pydantic --with pytest --with pytest-cov --with matpl
 Known passing result (through Phase E):
 
 ```text
-101 passed, 2 skipped
+104 passed, 2 skipped
 ```
 
-Coverage: 93.38% (gate 85%, pyproject `fail_under=85`).
+Coverage: 93.37% (gate 85%, pyproject `fail_under=85`).
 
 ## Current CLI
 
@@ -102,7 +102,7 @@ A committed `references.bib` copy is tracked for grader visibility; other `data/
 
 ## Status Rules
 
-When future milestones are completed:
+When later milestones or scope changes are completed:
 
 1. Update this file.
 2. Update `docs/PROJECT_BLUEPRINT.md` if the project vision changes.
