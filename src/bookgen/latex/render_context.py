@@ -8,6 +8,7 @@ import jinja2
 
 from bookgen.document.schemas import BookPlan, LatexSpec
 from bookgen.latex.escaping import escape_latex
+from bookgen.latex.markdown_manuscript import chapters_from_markdown
 
 DEFAULT_TEMPLATES_DIR = Path("templates/latex")
 
@@ -38,6 +39,7 @@ def build_context(
     metadata: dict[str, str],
     cite_key: str,
     asset_paths: dict[str, str] | None = None,
+    manuscript_markdown: str | None = None,
 ) -> dict:
     """Build the Jinja render context from artifacts and run metadata."""
     image_path, image_caption = _asset(latex_spec, "image", asset_paths)
@@ -60,7 +62,7 @@ def build_context(
         "table_caption": table_caption,
         "table_file": Path(table_path).name,
         "formula_file": Path(formula_path).name,
-        "chapters": _chapters(book_plan),
+        "chapters": chapters_from_markdown(manuscript_markdown or "") or _chapters(book_plan),
     }
 
 

@@ -30,6 +30,7 @@ def render_main_tex(
     cite_key: str = "crewai_docs",
     references_bib: Path | str | None = None,
     root_dir: Path | str | None = None,
+    manuscript_markdown: str | None = None,
 ) -> Path:
     """Render ``main.tex`` from the LaTeX spec and book plan; return its path."""
     out_dir = Path(output_dir)
@@ -37,7 +38,14 @@ def render_main_tex(
 
     environment = create_environment(Path(templates_dir))
     asset_paths = _copy_assets_to_build(latex_spec, out_dir, Path(root_dir) if root_dir else None)
-    context = build_context(latex_spec, book_plan, metadata, cite_key, asset_paths)
+    context = build_context(
+        latex_spec,
+        book_plan,
+        metadata,
+        cite_key,
+        asset_paths,
+        manuscript_markdown=manuscript_markdown,
+    )
 
     for template_name, filename in (
         ("table.tex.j2", context["table_file"]),

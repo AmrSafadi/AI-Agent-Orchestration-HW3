@@ -12,7 +12,7 @@ This document tracks what is complete, what is in progress, and what remains.
 | 3. Deterministic Harness | Complete | `graph_generator.py`, `citations.py` + `citation_report.py`, `validators.py` (+ latex-spec file checks), `assets.py`, `evidence.py`; headless Agg backend (`_mpl.py`); sample data, tests. (Phase C complete; a committed `references.bib` copy is now tracked for grader visibility.) |
 | Documentation | Complete | `docs/PROJECT_BLUEPRINT.md`, `COURSE_ALIGNMENT.md`, `IMPLEMENTATION_STATUS.md`, `ARCHITECTURE_DIAGRAM.md`, `QUICK_START.md`, `CONTRIBUTING.md`. |
 | 4. CrewAI Definitions | Complete | `agents.py`, `tasks.py`, `build_crew()`, `run_crew()`, CLI dry-run mode, generated intermediate artifacts, orchestration tests. |
-| Guideline Compliance (docs + quality config) | Complete | `docs/PRD.md`, `PLAN.md`, `TODO.md`, `PROMPTS.md`, `PRD_latex_pipeline.md`, `PRD_citation_management.md`; `pyproject.toml` ruff + coverage config; `shared/version.py`; `.env-example`. `ruff check` passes (0 violations); 105 tests pass, 2 skip; coverage 93.34% (gate 85%, pyproject fail_under=85) with `--cov`; `ruff format` clean; pre-commit hook (`scripts/hooks/pre-commit`) + CI (`.github/workflows/ci.yml`) added; README expanded (install/usage/config/license); `uv.lock` committed; all audit gap-closure items in `docs/TODO.md` are complete. |
+| Guideline Compliance (docs + quality config) | Complete | `docs/PRD.md`, `PLAN.md`, `TODO.md`, `PROMPTS.md`, `PRD_latex_pipeline.md`, `PRD_citation_management.md`; `pyproject.toml` ruff + coverage config; `shared/version.py`; `.env-example`. `ruff check` passes (0 violations); 109 tests pass, 2 skip; coverage 91.96% (gate 85%, pyproject fail_under=85) with `--cov`; `ruff format` clean; pre-commit hook (`scripts/hooks/pre-commit`) + CI (`.github/workflows/ci.yml`) added; README expanded (install/usage/config/license); `uv.lock` committed; all audit gap-closure items in `docs/TODO.md` are complete. |
 | Real Execution Support (Milestone 5) | Complete | Real runs remain opt-in and API-key guarded (`--run-crew` + `OPENAI_API_KEY`). When enabled, `crew.kickoff()` runs through `ApiGatekeeper`, task outputs persist to `generated/intermediate/`, `real_run_trace.json` logs task inputs/outputs, token usage is extracted when CrewAI exposes it, and config-driven budget alerts come from `config/budgets.json`. |
 | CrewAI Skills + build-skill | Complete | 3 `SKILL.md` knowledge packs under `skills/`, `orchestration/skills.py` discovery/assignment loader wired into agents (real-crew mode), unit tests; plus a Claude Code build skill at `.claude/skills/build-bookgen/`. |
 | LaTeX Renderer + Compiler (Phase E) | Complete | `latex/escaping.py`, 5 Jinja templates, `latex/renderer.py` (Hebrew-primary `main.tex` plus `generated/latex/chapters/*.tex` — with cover/TOC/figures/table/formula/BiDi/bibliography), `latex/compiler.py` (multi-pass, graceful, UTF-8 log capture), `latex/build.py` wired into `main.py` (`--build-pdf`, renders **and compiles** end-to-end; emits `generated/pdf/final.pdf`). Build assets are copied into `generated/latex/assets/`, rendered citations are preflighted before compile, and the cover carries reconciled author/course/lecturer/date metadata. **Verified:** `--build-pdf` compiles an 18-page `final.pdf` (lualatex + biber, culmus `David CLM`). |
@@ -21,6 +21,7 @@ This document tracks what is complete, what is in progress, and what remains.
 | Research & Analysis (Phase L) | Complete | `research/sensitivity.py` (OAT page-count sensitivity) + `notebooks/sensitivity_analysis.ipynb` (LaTeX model + references); generates line/bar/scatter/box/heatmap figures (guideline 9.1-9.3). |
 | Compliance hardening (guideline 7.3, 8.1, 13) | Complete | Runtime config-version validation (`load_config` fails on mismatch); `config/logging_config.json` wired via `logging.config.dictConfig`; `docs/ISO_25010.md` maps all 8 ISO/IEC 25010 quality characteristics. |
 | Content (Phase G) | Complete | Deterministically authored **Hebrew-primary** 6-chapter manuscript (~3,260 Hebrew words, with English kept inline for technical terms — Agent, Task, Crew, Harness, validation…) in `data/intermediate/sample_book_plan.json`; renders to a full Hebrew-primary `main.tex` (Hebrew cover/TOC/chapter & section titles/captions, 6 chapters, figures, table, formula, and an explicit `\begin{english}` LTR block demonstrating the RTL↔LTR transition); the build generates `references.bib` (3 sources, included via `\nocite{*}`), and every chapter now renders an inline `\cite` (8 markers across 3 sources). **Verified in the compiled 18-page PDF:** cover, TOC, image, Python graph, table, formula, Hebrew-English BiDi, and the bibliography all render correctly — 0 overfull boxes, all citations resolve. |
+| Real-run content path | Complete | Real CrewAI outputs now pass both schema validation and content-depth gates before replacing canonical artifacts. Shallow book plans, placeholder manuscripts, unapproved review reports, and incomplete LaTeX specs remain preserved under `generated/intermediate/real_raw/` for inspection while the deterministic canonical artifacts stay intact. A strong Markdown manuscript can drive rendered chapter prose; otherwise the renderer falls back to the curated BookPlan content. |
 
 ## Current State
 
@@ -66,10 +67,10 @@ uv run --no-project --with pydantic --with pytest --with pytest-cov --with matpl
 Known passing result (through Phase E):
 
 ```text
-105 passed, 2 skipped
+109 passed, 2 skipped
 ```
 
-Coverage: 93.34% (gate 85%, pyproject `fail_under=85`).
+Coverage: 91.96% (gate 85%, pyproject `fail_under=85`).
 
 ## Current CLI
 

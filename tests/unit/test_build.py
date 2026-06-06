@@ -32,6 +32,21 @@ def test_build_document_renders_main_tex(tmp_path, default_book_plan, default_la
     assert result["compiled"] is False
 
 
+def test_build_document_uses_quality_manuscript_file(
+    tmp_path, default_book_plan, default_latex_spec
+) -> None:
+    _setup(tmp_path, default_book_plan, default_latex_spec)
+    (tmp_path / "generated/intermediate/manuscript.md").write_text(
+        _quality_manuscript(),
+        encoding="utf-8",
+    )
+
+    result = build_document(tmp_path, META)
+
+    chapter = Path(result["main_tex"]).parent / "chapters/chapter_01.tex"
+    assert "Build manuscript point" in chapter.read_text(encoding="utf-8")
+
+
 def test_build_document_compile_is_graceful(
     tmp_path, default_book_plan, default_latex_spec
 ) -> None:
@@ -102,3 +117,16 @@ def test_build_document_reports_final_pdf_copy_error(
     assert result["compiled"] is True
     assert "final PDF copy failed" in result["message"]
     assert "locked" in result["warnings"][0]
+
+
+def _quality_manuscript() -> str:
+    hebrew_word = "\u05e1\u05d5\u05db\u05df"
+    chapters = []
+    for index in range(1, 6):
+        body = " ".join([hebrew_word] * 330)
+        chapters.append(
+            f"## Chapter {index}\n\n"
+            f"### Section {index}\n\n"
+            f"Build manuscript point {index}. {body} [@crewai_docs]."
+        )
+    return "# AI Agent Orchestration\n\n" + "\n\n".join(chapters)

@@ -137,7 +137,7 @@ config/
   -> final.pdf
 ```
 
-Committed example files use the `sample_` prefix under `data/intermediate/`. Dry-run refreshes those examples into `generated/intermediate/` on each run and never calls `crew.kickoff()`. A real CrewAI run (`--run-crew`) is implemented as an opt-in, API-key-guarded path: it writes task outputs to the same generated runtime directory, records `real_run_trace.json`, captures token usage when CrewAI exposes it, and emits budget alerts from `config/budgets.json`. The delivered manuscript content remains authored deterministically so the default path costs nothing.
+Committed example files use the `sample_` prefix under `data/intermediate/`. Dry-run refreshes those examples into `generated/intermediate/` on each run and never calls `crew.kickoff()`. A real CrewAI run (`--run-crew`) is implemented as an opt-in, API-key-guarded path: it writes task outputs to the same generated runtime directory, records `real_run_trace.json`, captures token usage when CrewAI exposes it, and emits budget alerts from `config/budgets.json`. Real outputs must pass content-depth gates before replacing canonical artifacts; shallow output is preserved under `generated/intermediate/real_raw/`. The delivered manuscript content remains authored deterministically so the default path costs nothing.
 
 ## 8. Folder Structure
 

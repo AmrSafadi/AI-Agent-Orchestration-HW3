@@ -12,6 +12,7 @@ from bookgen.orchestration.factory import create_task, crewai_available
 from bookgen.orchestration.schema_contracts import (
     BOOK_PLAN_CONTRACT,
     LATEX_SPEC_CONTRACT,
+    MANUSCRIPT_CONTRACT,
     RESEARCH_PACK_CONTRACT,
     REVIEW_REPORT_CONTRACT,
 )
@@ -76,7 +77,10 @@ def create_writing_task(
             "Include citation markers and placeholders for image, graph, table, formula, and a "
             "Hebrew-English mixed section."
         ),
-        expected_output="Markdown manuscript suitable for generated/intermediate/manuscript.md.",
+        expected_output=(
+            "Markdown manuscript suitable for generated/intermediate/manuscript.md.\n"
+            + MANUSCRIPT_CONTRACT
+        ),
         agent=agent,
         context=[planning_task, research_task],
         use_real_crewai=use_real_crewai,

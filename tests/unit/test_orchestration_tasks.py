@@ -32,8 +32,12 @@ def test_tasks_can_be_constructed_with_expected_outputs() -> None:
     assert '"chapters"' in planning_task.expected_output
     assert "chapterOutline" in planning_task.expected_output
     assert '"source_candidates"' in research_task.expected_output
+    assert "Hebrew-primary" in writing_task.expected_output
+    assert "no placeholder" in writing_task.expected_output.lower()
     assert '"approved"' in review_task.expected_output
     assert '"main_template"' in latex_task.expected_output
+    assert '"kind": "table"' in latex_task.expected_output
+    assert '"kind": "formula"' in latex_task.expected_output
 
 
 def test_create_all_tasks_preserves_sequential_order() -> None:
