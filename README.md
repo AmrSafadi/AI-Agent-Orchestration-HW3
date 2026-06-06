@@ -26,9 +26,9 @@ opt-in path and is not required for grading. Live status:
 
 ## Report
 
-A running summary of what we have built. The project is in submission-polish
-mode: the deterministic dry-run and PDF deliverable are complete, while the
-real paid CrewAI path remains optional.
+A running summary of what we have built. The project is in submission-ready
+mode: the deterministic dry-run and PDF deliverable are complete, and the real
+paid CrewAI path is implemented as an optional, API-key guarded workflow.
 
 **Delivered so far (verified working)**
 - **Documentation:** `PRD`, `PLAN` (architecture, ADRs, extensibility, components),
@@ -62,14 +62,14 @@ real paid CrewAI path remains optional.
 - `--dry-run --build-pdf` compiles the final PDF when a TeX toolchain is
   installed; a verified snapshot is committed at `final.pdf`.
 
-**In progress / next**
-- Submission polish: keep README/status docs aligned, keep generated folders out
-  of git, and optionally improve the real paid CrewAI run path.
-- Remaining work is tracked in [docs/TODO.md](docs/TODO.md).
-
-**Not yet implemented**
-- Persisting and token-accounting real paid CrewAI task outputs. The default
-  deterministic dry-run and final PDF deliverable are complete.
+**Submission notes**
+- Push the final branch so GitHub has the latest real-run hardening and
+  documentation evidence.
+- Reproducing the PDF from scratch requires a local TeX toolchain; grading can
+  use the committed `final.pdf` snapshot directly.
+- Real paid CrewAI execution is optional. When used, raw task outputs,
+  validated artifacts, token usage, and budget alerts are written under
+  `generated/intermediate/`.
 
 ## Installation
 
@@ -115,7 +115,10 @@ uv run python -m bookgen.main --run-crew
 **Example (dry-run output)**
 ```text
 BookGen configuration loaded successfully.
-Execution mode: DRY-RUN (default). CrewAI kickoff will not be called.
+Project title: AI Agent Orchestration HW3
+Topic: AI Agent Orchestration: From Prompting to Production-Ready Crews
+Output directory: ...\generated
+Execution mode: DRY-RUN (default).
 Crew assembled: 5 agents, 5 tasks, process=sequential.
 Dry-run completed. CrewAI kickoff was not called.
 Rendered LaTeX project: ...\generated\latex\main.tex

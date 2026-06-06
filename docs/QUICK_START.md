@@ -31,12 +31,11 @@ BookGen configuration loaded successfully.
 Project title: AI Agent Orchestration HW3
 Topic: AI Agent Orchestration: From Prompting to Production-Ready Crews
 Output directory: ...\generated
-Artifact output directory: ...\generated\intermediate
-Execution mode: DRY-RUN (default). CrewAI kickoff will not be called.
+Execution mode: DRY-RUN (default).
 Crew assembled: 5 agents, 5 tasks, process=sequential.
 Dry-run completed. CrewAI kickoff was not called.
 Rendered LaTeX project: ...\generated\latex\main.tex
-LaTeX render status: OK (PDF compile skipped; run with --build-pdf when a TeX toolchain is installed).
+Rendered main.tex (LaTeX compilation not requested).
 ```
 
 ## 3. Run Tests
@@ -93,7 +92,7 @@ toolchain is absent. The document is primarily Hebrew (RTL), with English used o
 technical terms (Agent, Task, Crew, Harness, validation, ...); reproducing the final PDF requires
 a free TeX toolchain (lualatex + biber) and the culmus David CLM Hebrew font.
 
-## 6. Sample Output
+## 6. Sample Output And Visual Evidence
 
 The **final compiled PDF** is done: `--build-pdf` produces an 18-page, Hebrew-primary
 `generated/pdf/final.pdf`, and a snapshot copy is committed at the repository root as `final.pdf`
@@ -102,6 +101,10 @@ so a grader sees it immediately on clone. It was verified by compiling locally w
 contents, an embedded image, a Python-generated graph, a table, a mathematical formula,
 Hebrew-English BiDi text, and a bibliography with 3 resolved citations; 0 overfull boxes and no
 undefined references.
+
+Screenshots of representative pages are committed under `docs/screenshots/`
+for quick visual inspection: cover, chapter prose, feature page, table, and
+bibliography.
 
 Everything also works in the default dry-run, which never calls any LLM provider: the deterministic
 manuscript content already exists (~3,260 Hebrew words across 6 chapters) and the dry-run renders

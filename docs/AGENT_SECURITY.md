@@ -49,7 +49,7 @@ Each is a *defensive* test of our own pipeline:
    render literally.
 3. **Oversized / empty manuscript** — feed an empty and a 10k-section plan;
    confirm validators reject it with a clear message rather than crashing or
-   producing a degenerate PDF (see TODO §A boundary tasks).
+   producing a degenerate PDF (covered by the edge-case tasks T517-T524 in `docs/TODO.md`).
 4. **Tool-surface review** — grep the agent definitions for any tool granting
    file-write, shell, or network write access; confirm there are none on the
    Writer/Reviewer/LaTeX agents.

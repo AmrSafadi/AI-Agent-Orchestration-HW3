@@ -24,7 +24,7 @@ This document tracks what is complete, what is in progress, and what remains.
 
 ## Current State
 
-Phase A through Phase M are complete. The remaining operational choice is whether to spend money on a real API-backed CrewAI run; the delivered and tested default path remains deterministic and free.
+Phase A through Phase M are complete. The optional operational choice is whether to spend money on a fresh API-backed CrewAI run; the delivered and tested default path remains deterministic and free.
 
 LaTeX rendering is complete (`src/bookgen/latex/renderer.py` renders the full Hebrew-primary `main.tex`; `build.py` wires it into the CLI). PDF compilation is also COMPLETE: `--build-pdf` compiles a verified 18-page Hebrew-primary `final.pdf` end-to-end (lualatex + biber, culmus `David CLM`), with 0 overfull boxes and all citations resolved; a snapshot copy is committed at the repo root. Reproducing the PDF from scratch still requires a free TeX toolchain — lualatex+biber — with the culmus package; the default `--dry-run` path does not compile.
 
@@ -33,11 +33,11 @@ LaTeX rendering is complete (`src/bookgen/latex/renderer.py` renders the full He
 Two milestone numbering schemes exist in the docs and they diverge after milestone 4 (T474). This note records the **canonical mapping** so neither file is renumbered wholesale:
 
 - `docs/PROJECT_BLUEPRINT.md` §9 is the **canonical roadmap** and uses a 9-step scale (0–8): 5 = Sequential crew execution, 6 = LaTeX rendering, 7 = PDF compilation, 8 = Polish/tests/submission.
-- This file's **Future Milestones** table splits the Blueprint's milestone 5 into two rows — 5 (Sequential Crew Execution) and 6 (Artifact Generation) — which shifts the later numbers by one: LaTeX rendering = 7, PDF compilation = 8, Submission polish = 9.
+- This file's roadmap table splits the Blueprint's milestone 5 into two rows — 5 (Sequential Crew Execution) and 6 (Artifact Generation) — which shifts the later numbers by one: LaTeX rendering = 7, PDF compilation = 8, Submission polish = 9.
 
-Canonical mapping (Blueprint ↔ this file's Future table):
+Canonical mapping (Blueprint ↔ this file's roadmap table):
 
-| Topic | Blueprint §9 | This file's Future table |
+| Topic | Blueprint §9 | This file's roadmap table |
 |---|---|---|
 | Sequential crew execution + artifact persistence | 5 | 5 + 6 |
 | LaTeX rendering | 6 | 7 |
@@ -46,7 +46,7 @@ Canonical mapping (Blueprint ↔ this file's Future table):
 
 When citing a milestone number across documents, prefer the **Blueprint §9** numbering. The completed milestones 0–4 are identical in both files.
 
-## Future Milestones
+## Completed Roadmap Milestones
 
 | Milestone | Goal | Notes |
 |---|---|---|
@@ -102,7 +102,7 @@ A committed `references.bib` copy is tracked for grader visibility; other `data/
 
 ## Status Rules
 
-When future milestones are completed:
+When later milestones or scope changes are completed:
 
 1. Update this file.
 2. Update `docs/PROJECT_BLUEPRINT.md` if the project vision changes.

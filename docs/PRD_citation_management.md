@@ -35,8 +35,8 @@ the document is compiled.
 
 > Naming note: the canonical report name is standardized in code as
 > `citation_report.json` (`src/bookgen/harness/citation_report.py` →
-> `generated/reports/citation_report.json`). The remaining
-> `citation_registry.json` is only a stale reference in the legacy root
+> `generated/reports/citation_report.json`). The legacy
+> `citation_registry.json` name is only a stale reference in the root
 > `ARCHITECTURE.md`, not an open decision.
 
 ## 3. Requirements and Performance Metrics
