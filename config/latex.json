@@ -4,7 +4,7 @@
   "fallback_engine": "xelatex",
   "bibliography_backend": "biber",
   "main_template": "main.tex.j2",
-  "output_pdf": "generated/pdf/final.pdf",
+  "output_pdf": "final.pdf",
   "passes": 4,
   "language_support": {
     "primary": "hebrew",

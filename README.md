@@ -52,11 +52,11 @@ paid CrewAI path is implemented as an optional, API-key guarded workflow.
 - **Quality tooling:** Ruff lint (0 violations) + `ruff format`; a shared pre-commit
   hook; GitHub Actions CI enforcing an 85% coverage gate.
 - **Build skill:** a Claude Code `/build-bookgen` skill that encodes our build workflow.
-- **Tests:** 109 passing, 2 skipped, **91.96%** coverage.
+- **Tests:** 134 passed, 2 skipped, **~94%** coverage.
 
 **Verified**
 - `ruff check` → 0 violations; `ruff format` → clean; every code file ≤ 150 lines.
-- `pytest tests --cov=bookgen` -> 109 passed, 2 skipped; coverage 91.96% (gate 85%).
+- `pytest tests --cov=bookgen` -> 134 passed, 2 skipped; coverage ~94% (gate 85%).
 - The dry-run pipeline produces all five intermediate artifacts, assets, and
   `generated/latex/main.tex` with no API call.
 - `--dry-run --build-pdf` compiles the final PDF when a TeX toolchain is
@@ -125,6 +125,19 @@ Rendered LaTeX project: ...\generated\latex\main.tex
 Rendered main.tex (LaTeX compilation not requested).
 ```
 
+The committed `final.pdf` at the repository root is the deliverable; running
+`--dry-run` regenerates `generated/latex/main.tex`, and `--dry-run --build-pdf`
+recompiles the PDF (and refreshes the committed `final.pdf` snapshot) when a TeX
+toolchain is present.
+
+**Sample pages (from the compiled `final.pdf`)**
+
+![Cover page](docs/screenshots/cover.png)
+![Chapter prose](docs/screenshots/chapter1.png)
+![Document features](docs/screenshots/features.png)
+![Typeset table](docs/screenshots/table.png)
+![Bibliography](docs/screenshots/bibliography.png)
+
 ## Configuration Guide
 
 Versioned JSON under `config/` (no hardcoded values in code):
@@ -174,6 +187,9 @@ See [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md). In short: keep the dry-run
 default, don't add agents beyond the approved five, keep deterministic components
 deterministic, and update `docs/IMPLEMENTATION_STATUS.md` after each milestone.
 Use feature branches and pull requests, and install the pre-commit hook above.
+
+Code standards: see [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md) (ruff 0
+violations, `ruff format`, ≤ 150 lines/file, docstrings, 85% coverage).
 
 ## License & Credits
 

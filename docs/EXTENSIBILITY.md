@@ -53,9 +53,54 @@ you can:
   callback/event bus; composition at the SDK boundary is the supported hook
   mechanism, and it keeps the pipeline order explicit and testable.
 
-The natural place to formalize pre/post hooks (if ever wanted) is inside
-`BookGenSDK.generate_book()`, which is the only code that owns the full stage
-ordering. See §6 for the registry/hook seam.
+### 2.1 Implemented SDK extension hooks (guideline 12)
+
+The pre/post hook mechanism is **implemented**, not just a seam. `BookGenSDK`
+exposes a `STAGES` registry and fires `before_<stage>`/`after_<stage>` callables
+around each pipeline stage:
+
+```python
+STAGES = ("run_crew", "generate_assets", "build_document")
+```
+
+Pass a `hooks` mapping when constructing the SDK; `generate_book()` runs every
+stage through `_run_stage`, which invokes the registered callables in order:
+
+```python
+sdk = BookGenSDK(hooks={
+    "before_run_crew": [lambda sdk: log("starting crew")],
+    "after_build_document": [lambda sdk, result: log(f"built {result}")],
+})
+sdk.generate_book(dry_run=True, build_pdf=False)
+```
+
+- `before_<stage>` callables receive the SDK instance.
+- `after_<stage>` callables receive the SDK instance **and** the stage result.
+- Stage names come from `STAGES`, so new stages add their own hook keys
+  automatically and existing hooks keep working.
+
+`BookGenSDK.estimate_cost()` is the cost-forecasting extension on the dry-run
+path: it estimates token usage and USD cost from the manuscript and the
+`config/models.json` pricing block without calling any provider.
+
+The natural place to extend stage ordering further is still inside
+`BookGenSDK.generate_book()`, which owns the full stage sequence; the hook
+registry above is the supported way to attach behavior around each stage.
+
+### 2.2 Parallel utilities (guideline 15)
+
+`shared/parallel.py` provides two order-preserving primitives for adding
+concurrency without touching the deterministic contracts:
+
+- `parallel_map(func, items, max_workers=None)` — thread pool, correct for
+  I/O-bound work (file writes, figure rendering via the thread-safe OO matplotlib
+  API, gatekeeper-guarded calls).
+- `cpu_parallel_map(func, items, max_workers=None)` — process pool, correct for
+  CPU-bound work otherwise serialized by the GIL.
+
+The six sensitivity figures now render concurrently through `parallel_map`. The
+`ApiGatekeeper` supplies the thread-safety mechanism (`threading.Lock` +
+`Semaphore`) for any parallel work that fans out provider calls.
 
 ## 3. Middleware: the gatekeeper choke point (T540)
 
@@ -125,9 +170,12 @@ not abstract base classes.
   `expected_output`, `agent`, and an explicit `context=[...]` list naming the
   upstream tasks it depends on. Register it in `create_all_tasks`, preserving the
   sequential `context` chain.
-- **Skills:** attach knowledge packs by adding an entry to `SKILL_ASSIGNMENTS` in
-  `orchestration/skills.py` (agent key → skill directory names under `skills/`);
-  `assigned_skill_paths` injects only the packs that actually exist on disk.
+- **Skills:** attach knowledge packs by adding a `SKILL.md` pack under `skills/`
+  and an assignment in `orchestration/skills.py` (agent key → skill directory
+  names). `load_skills(agent_key)` discovers the packs and returns **activated
+  `Skill` objects** that `factory.create_agent` attaches to the real CrewAI
+  `Agent` (per-agent, course Method 1). This is no longer just a documented seam:
+  the packs are loaded and bound to live agents in real-crew mode.
 - **Dry-run parity:** add the new artifact to the dry-run synthesizer and the
   shared artifact map (`shared/constants.py` / `orchestration/dry_run.py`) so the
   no-API path and the validators stay aligned and never drift.

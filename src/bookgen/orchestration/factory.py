@@ -3,12 +3,18 @@
 Agent and task factories share the same shape: build kwargs, return a lightweight
 dry-run dataclass by default, or the real CrewAI object when ``use_real_crewai``
 is set. Centralizing it keeps ``agents.py`` and ``tasks.py`` small and DRY.
+
+For real agents, the assigned CrewAI Skill objects (course Method 1) and the
+configured model/temperature (``config/models.json``) are attached here so that
+``agents.py`` stays focused on the role definitions.
 """
 
 from __future__ import annotations
 
 from dataclasses import dataclass, field
 from typing import Any
+
+from bookgen.orchestration.skills import assigned_skill_names, load_skills
 
 try:  # pragma: no cover - exercised only when CrewAI is installed locally.
     from crewai import Agent as CrewAIAgent
@@ -27,6 +33,8 @@ class DryRunAgent:
     backstory: str
     allow_delegation: bool = False
     verbose: bool = True
+    skill_names: list[str] = field(default_factory=list)
+    model: str | None = None
 
 
 @dataclass
@@ -44,15 +52,25 @@ def crewai_available() -> bool:
     return CrewAIAgent is not None and CrewAITask is not None
 
 
+def _build_llm(model: str, temperature: float) -> Any:
+    """Build a CrewAI LLM for the configured model (real runs only)."""
+    from crewai import LLM  # local import: only needed on the real-crew path.
+
+    return LLM(model=model, temperature=temperature)
+
+
 def create_agent(
     role: str,
     goal: str,
     backstory: str,
     use_real_crewai: bool = False,
-    skill_paths: list[str] | None = None,
+    agent_key: str | None = None,
+    model: str | None = None,
+    temperature: float = 0.0,
 ) -> Any:
     """Create a dry-run or real CrewAI Agent from the given fields."""
-    agent_kwargs = {
+    skill_names = assigned_skill_names(agent_key) if agent_key else []
+    agent_kwargs: dict[str, Any] = {
         "role": role,
         "goal": goal,
         "backstory": backstory,
@@ -60,11 +78,14 @@ def create_agent(
         "verbose": True,
     }
     if not use_real_crewai:
-        return DryRunAgent(**agent_kwargs)
+        return DryRunAgent(skill_names=skill_names, model=model, **agent_kwargs)
     if CrewAIAgent is None:
         raise RuntimeError("CrewAI is not installed; real agent construction is unavailable.")
-    if skill_paths:
-        agent_kwargs["skills"] = skill_paths
+    skills = load_skills(agent_key) if agent_key else []
+    if skills:
+        agent_kwargs["skills"] = skills
+    if model:
+        agent_kwargs["llm"] = _build_llm(model, temperature)
     return CrewAIAgent(**agent_kwargs)
 
 

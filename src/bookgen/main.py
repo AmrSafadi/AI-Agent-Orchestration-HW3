@@ -57,7 +57,7 @@ def main(argv: list[str] | None = None) -> int:
 
     try:
         result = sdk.generate_book(dry_run=dry_run, build_pdf=args.build_pdf)
-    except RuntimeError as exc:
+    except (RuntimeError, FileNotFoundError) as exc:
         logger.error("%s", exc)
         return 1
 

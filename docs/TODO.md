@@ -8,6 +8,57 @@ higher-level plan in `docs/PROJECT_BLUEPRINT.md`.
 Status legend: `[x]` Completed · `[ ]` Not started / in progress. Each task
 has a stable id `T###` for cross-referencing in commits and reviews.
 
+## Priorities, Ownership & Definition of Done
+
+Current quality baseline: **134 passed, 2 skipped, ~94% coverage** (gate 85%),
+ruff 0 violations.
+
+### Priority legend
+
+- **P0 — critical:** blocks the deliverable or a guideline (config/schemas,
+  crew, LaTeX render+compile, dry-run safety, coverage gate). Must be done
+  before submission.
+- **P1 — important:** strengthens the submission (real-run hardening, gatekeeper,
+  SDK facade, cost accounting, sensitivity study, docs alignment). Done unless
+  explicitly deferred.
+- **P2 — nice-to-have:** polish that does not affect grading (extra figures,
+  refactors below the line limit, editorial passes, additional examples).
+
+### Ownership
+
+**Amr Safadi** and **Sharbel Maroun** co-own the project; each phase below is
+led by one owner (the other reviews):
+
+| Phase | Lead | Reviewer |
+|---|---|---|
+| A — Foundations (repo, tooling, config) | Amr Safadi | Sharbel Maroun |
+| B — Schemas (Pydantic artifact contracts) | Sharbel Maroun | Amr Safadi |
+| C — Deterministic harness (citations, graph, validators, assets) | Amr Safadi | Sharbel Maroun |
+| D — CrewAI orchestration (agents, tasks, crew, skills) | Sharbel Maroun | Amr Safadi |
+| E — LaTeX pipeline (renderer, compiler, templates) | Amr Safadi | Sharbel Maroun |
+| I/M — SDK facade, gatekeeper, real-run, cost accounting | Sharbel Maroun | Amr Safadi |
+| L — Research & sensitivity analysis | Amr Safadi | Sharbel Maroun |
+| Docs & submission polish | Sharbel Maroun | Amr Safadi |
+
+### Definition of Done (per phase)
+
+A phase is **done** only when every item below holds:
+
+| Phase | Definition of Done |
+|---|---|
+| A — Foundations | Config loads/validates with a `version` on each file; `uv` is the only runner; `.env-example` present; package layout in place; tests pass; ruff clean; docs updated. |
+| B — Schemas | Every artifact has a Pydantic model with validators, a documented example, and a round-trip test; tests pass; ruff clean; docs updated. |
+| C — Harness | Citations/graph/validators/assets land deterministically with unit tests against `tmp_path`; headless matplotlib; tests pass; ruff clean; docs updated. |
+| D — Orchestration | Five agents + five context-linked tasks build; dry-run default works with no API; activated Skill objects attach to real agents; tests pass; ruff clean; docs updated. |
+| E — LaTeX | `main.tex` renders from artifacts and `--build-pdf` compiles the committed `final.pdf`; tests pass; ruff clean; docs updated. |
+| I/M — SDK & controls | `BookGenSDK` is the only assembly point (`main.py` holds no logic); gatekeeper enforces rate/concurrency limits; real-run/accounting paths persist evidence; tests pass; ruff clean; docs updated. |
+| L — Research | Sensitivity figures render (colorblind-safe, labeled); the notebook is executed and committed with outputs; tests pass; ruff clean; docs updated. |
+| Docs & submission | All `docs/` files aligned to the guidelines summary and to current metrics; screenshots/PDF snapshot committed; tests pass; ruff clean. |
+
+General DoD shorthand for any phase: **code lands, tests pass, ruff clean
+(0 violations) + `ruff format` clean, every file ≤ 150 lines, docstrings
+present, and all affected docs updated.**
+
 ## Phase A — Foundations
 
 ### A. Repository & Tooling

@@ -11,12 +11,13 @@ This document maps course concepts to concrete project components.
 | Context | Output from one task passed to later tasks. | The dry-run pipeline already passes and persists structured artifacts under `generated/intermediate/` (`book_plan.json`, `research_pack.json`, `manuscript.md`, `review_report.json`, `latex_spec.json`) via `src/bookgen/orchestration/dry_run.py` and `crew.py`. |
 | Harness | The software system around the model. | `src/bookgen/shared`, `src/bookgen/document`, `src/bookgen/harness`, `src/bookgen/latex`, `src/bookgen/sdk` (BookGenSDK facade), and `src/bookgen/research` (`sensitivity.py`). |
 | Tools/Skills | Reliable capabilities that support agents. | Deterministic CitationManager (`src/bookgen/harness/citations.py`), GraphGenerator (`src/bookgen/harness/graph_generator.py`), Validator (`src/bookgen/document/validators.py`), and the implemented LaTeX Renderer and PDFCompiler (`src/bookgen/latex/renderer.py`, `compiler.py`, `escaping.py`, `build.py`). |
+| CrewAI Skills (Appendix A) | Reusable knowledge packs attached to agents (course Skill concept, Method 1 — per agent). | `skills/*/SKILL.md` knowledge packs + `src/bookgen/orchestration/skills.py`: `load_skills(agent_key)` discovers the packs under the parent `skills/` directory and returns **activated `Skill` objects** that `factory.create_agent` attaches to each real CrewAI `Agent` (per-agent attachment, course Method 1). |
 | Validation | Guardrails that check correctness before later steps. | `src/bookgen/document/validators.py` and `ValidationReport` schema. |
 | Observability | Visibility into what happened and why. | Intermediate artifacts, generated graph, validation reports, bibliography, test outputs, and `generated/intermediate/real_run_trace.json` for opt-in real runs. |
 | LaTeX production | Turning content into professional PDF output. | `templates/latex/main.tex.j2`, implemented `src/bookgen/latex/renderer.py`, `compiler.py`, `escaping.py`, `build.py`, generated `.bib` and assets. |
 | Language | The primary language and script direction of the document. | The document is primarily Hebrew (RTL) via `\setmainlanguage{hebrew}` / `\setmainfont{David CLM}`, ~3,260 Hebrew words across 6 chapters, with English kept inline only for technical terms; the `hebrew_english_section` is an explicit `\begin{english}` BiDi demo block, not the document's primary language. |
 
-Quality and entry point: 109 tests pass, 2 skip, coverage 91.96% (gate 85%), ruff 0 violations. The CLI is `python -m bookgen.main --dry-run [--build-pdf] [--run-crew]`. Running `--build-pdf` produces an 18-page Hebrew-primary `final.pdf`, and a snapshot copy is committed at the repository root so a grader sees it on clone.
+Quality and entry point: 134 tests pass, 2 skip, coverage ~94% (gate 85%), ruff 0 violations. The CLI is `uv run --no-project --with pydantic --with matplotlib --with jinja2 python -m bookgen.main --dry-run [--build-pdf] [--run-crew]`. Running `--build-pdf` produces an 18-page Hebrew-primary `final.pdf`, and a snapshot copy is committed at the repository root so a grader sees it on clone.
 
 ## Specific Demonstrations
 
@@ -76,6 +77,8 @@ The harness protects the project from fragile model output. It owns:
 ### Tools/Skills
 
 The course distinguishes model reasoning from reliable executable capabilities. This project follows that idea by keeping graph creation, citation handling, validation, LaTeX rendering, and PDF compilation in deterministic Python (`src/bookgen/latex/renderer.py`, `compiler.py`, `escaping.py`, `build.py`).
+
+It also implements the CrewAI **Skills** concept directly (Appendix A, Method 1 — per agent): `skills/*/SKILL.md` define reusable knowledge packs, and `orchestration/skills.py::load_skills(agent_key)` discovers them and returns activated `Skill` objects that `factory.create_agent` attaches to each real CrewAI `Agent`. The packs cover LaTeX style, citation discipline, and course alignment.
 
 ### Validation
 

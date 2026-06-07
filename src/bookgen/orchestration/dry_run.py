@@ -51,7 +51,13 @@ def _create_dry_run_artifact(root: Path, artifact_name: str, target: Path) -> No
             "# Dry Run Manuscript\n\nNo real CrewAI execution has happened.\n", encoding="utf-8"
         )
     else:
-        target.write_text("{}", encoding="utf-8")
+        # book_plan / latex_spec have no safe minimal placeholder (they would fail
+        # schema validation downstream). Fail loudly with a clear, catchable error
+        # instead of writing "{}" that crashes the build with a ValidationError.
+        raise FileNotFoundError(
+            f"Required sample artifact for '{artifact_name}' is missing; expected at "
+            f"{SAMPLE_ARTIFACTS.get(artifact_name)} under the project root."
+        )
 
 
 def _sample_research_pack() -> dict[str, Any]:

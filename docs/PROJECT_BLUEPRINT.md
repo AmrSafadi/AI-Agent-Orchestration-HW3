@@ -235,7 +235,7 @@ Possible post-v1 improvements:
 
 ## 12. How To Run The Project
 
-The CLI entry point is `python -m bookgen.main --dry-run [--build-pdf] [--run-crew]`, also exposed as the `bookgen` console script. Dry-run is the default and never calls the API; `--run-crew` requires `OPENAI_API_KEY`, routes through the gatekeeper, and persists real-run evidence when deliberately enabled.
+The CLI entry point is `uv run --no-project --with pydantic --with matplotlib --with jinja2 python -m bookgen.main --dry-run [--build-pdf] [--run-crew]`, also exposed as the `bookgen` console script. Dry-run is the default and never calls the API; `--run-crew` requires `OPENAI_API_KEY`, routes through the gatekeeper, and persists real-run evidence when deliberately enabled.
 
 ```powershell
 bookgen --dry-run

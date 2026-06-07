@@ -4,7 +4,23 @@ from __future__ import annotations
 
 from typing import Any
 
-from bookgen.shared.config import BudgetsConfig
+from bookgen.shared.config import BudgetsConfig, ModelPrice
+
+# Rough chars-per-token ratio for offline cost forecasting (no tokenizer needed).
+_CHARS_PER_TOKEN = 4
+
+
+def estimate_tokens(text: str) -> int:
+    """Estimate token count from text length (~4 chars/token) for forecasting."""
+    return max(1, len(text) // _CHARS_PER_TOKEN)
+
+
+def estimate_cost_usd(input_tokens: int, output_tokens: int, price: ModelPrice) -> float:
+    """Estimate USD cost from token counts and per-million-token prices."""
+    return (
+        input_tokens / 1_000_000 * price.input_per_1m
+        + output_tokens / 1_000_000 * price.output_per_1m
+    )
 
 
 def extract_token_usage(result: Any) -> dict[str, int | float]:
@@ -39,6 +55,7 @@ def budget_alerts(usage: dict[str, int | float], budgets: BudgetsConfig) -> list
 
 
 def _usage_candidates(result: Any) -> list[Any]:
+    """Return the result plus any nested usage objects it might expose."""
     candidates = [result]
     candidates.extend(
         getattr(result, name, None) for name in ("token_usage", "usage_metrics", "usage")
@@ -47,6 +64,7 @@ def _usage_candidates(result: Any) -> list[Any]:
 
 
 def _to_plain(value: Any) -> Any:
+    """Coerce a usage object into a plain dict/scalar for inspection."""
     if isinstance(value, (str, int, float, bool)) or value is None:
         return value
     if isinstance(value, dict):
@@ -61,6 +79,7 @@ def _to_plain(value: Any) -> Any:
 def _collect_numbers(
     source: dict[str, Any], usage: dict[str, int | float], prefix: str = ""
 ) -> None:
+    """Recursively collect token/cost numeric fields into ``usage`` (dotted keys)."""
     for key, value in source.items():
         full_key = f"{prefix}.{key}" if prefix else str(key)
         if isinstance(value, dict):
@@ -72,6 +91,7 @@ def _collect_numbers(
 
 
 def _total_tokens(usage: dict[str, int | float]) -> float:
+    """Return total tokens, preferring an explicit total over summed *_tokens."""
     direct = _first_present(
         usage, ("total_tokens", "token_usage.total_tokens", "usage.total_tokens")
     )
@@ -81,6 +101,7 @@ def _total_tokens(usage: dict[str, int | float]) -> float:
 
 
 def _first_present(usage: dict[str, int | float], keys: tuple[str, ...]) -> float | None:
+    """Return the first numeric value among ``keys`` present in ``usage``."""
     for key in keys:
         value = usage.get(key)
         if isinstance(value, int | float):

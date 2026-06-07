@@ -9,5 +9,10 @@
     "writer": "gpt-4o-mini",
     "reviewer": "gpt-4o-mini",
     "latex": "gpt-4o-mini"
+  },
+  "pricing": {
+    "gpt-4o-mini": { "input_per_1m": 0.15, "output_per_1m": 0.6 },
+    "gpt-4o": { "input_per_1m": 2.5, "output_per_1m": 10.0 },
+    "claude-sonnet-4-6": { "input_per_1m": 3.0, "output_per_1m": 15.0 }
   }
 }

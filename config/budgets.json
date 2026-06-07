@@ -3,5 +3,5 @@
   "max_total_usd": 2.0,
   "max_total_tokens": 100000,
   "warn_at_percent": 80,
-  "notes": "Milestone 1 does not call any API. These values are placeholders for later cost awareness."
+  "notes": "Caps for opt-in real CrewAI runs. orchestration.accounting.budget_alerts enforces the warn/over-budget thresholds and SDK.estimate_cost forecasts cost from config/models.json pricing on the dry-run path."
 }

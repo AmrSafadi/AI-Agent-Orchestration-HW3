@@ -35,7 +35,7 @@ for the work that must be exact. Agents decide *intent*; Python executes
 | Demonstrate CrewAI orchestration | Five specialized agents, five context-linked tasks, `Process.sequential`. |
 | Produce a professional PDF | A compiled PDF containing every required feature (see §3). |
 | Keep the system safe to run | Dry-run is the default; no API call or spend without explicit `--run-crew` + key. |
-| Meet engineering standards | Ruff 0 violations; test coverage >= 85% (currently 91.96%, gate 85%, across 109 passing tests and 2 skipped integration tests); files <= 150 code lines; `uv` only. |
+| Meet engineering standards | Ruff 0 violations; test coverage >= 85% (currently ~94%, gate 85%, across 134 passing tests and 2 skipped integration tests); files <= 150 code lines; `uv` only. |
 | Reproducibility & observability | Structured intermediate artifacts, validation report, build log. |
 
 ## 3. Functional Requirements
@@ -91,7 +91,7 @@ for the work that must be exact. Agents decide *intent*; Python executes
 ## 6. Assumptions, Dependencies, Out of Scope
 
 **Assumptions.** All code is implemented and the final compiled `final.pdf` is
-**done**: `python -m bookgen.main --dry-run --build-pdf` produces an 18-page
+**done**: `uv run --no-project --with pydantic --with matplotlib --with jinja2 python -m bookgen.main --dry-run --build-pdf` produces an 18-page
 Hebrew-primary PDF, and a snapshot copy is committed at the repository root as
 `final.pdf` so a grader sees it on clone. It was verified by compiling locally
 with LuaLaTeX + biber and the culmus Hebrew font "David CLM" (18 pages; cover,
@@ -116,7 +116,7 @@ summary: planning, config/schemas, the deterministic harness, the CrewAI dry-run
 orchestration, LaTeX rendering, the SDK facade single entry point, the API
 gatekeeper, and the final compiled PDF are all **complete**. The 18-page
 Hebrew-primary `final.pdf` is committed at the repository root, verified end-to-end
-(18 pages, 0 overfull boxes, 109 tests passing, 2 skipped, 91.96% coverage with an 85% gate).
+(18 pages, 0 overfull boxes, 134 tests passing, 2 skipped, ~94% coverage with an 85% gate).
 Reproducing the PDF from scratch requires a free TeX toolchain (LuaLaTeX + biber)
 with the Hebrew font David CLM (culmus) — not any missing code.
 

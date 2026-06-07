@@ -89,7 +89,7 @@ pdfLaTeX cannot provide reliably.
 ## 6. Success Criteria and Test Scenarios
 
 **Success criteria — met and verified.** `final.pdf` compiles end-to-end and is
-committed: `python -m bookgen.main --dry-run --build-pdf` produces an 18-page
+committed: `uv run --no-project --with pydantic --with matplotlib --with jinja2 python -m bookgen.main --dry-run --build-pdf` produces an 18-page
 Hebrew-primary `final.pdf` (`generated/pdf/final.pdf`), and a snapshot copy is
 committed at the repository root as `final.pdf` so a grader sees it on clone. A
 local compile with MiKTeX (LuaHBTeX / lualatex + biber) and the culmus

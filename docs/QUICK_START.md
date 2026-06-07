@@ -42,16 +42,16 @@ Rendered main.tex (LaTeX compilation not requested).
 
 ```powershell
 $env:PYTHONPATH="src"
-uv run --no-project --with pydantic --with pytest --with matplotlib --with jinja2 python -m pytest tests
+uv run --no-project --with pydantic --with pytest --with pytest-cov --with matplotlib --with jinja2 python -m pytest tests --cov=bookgen
 ```
 
 Expected result:
 
 ```text
-109 passed, 2 skipped
+134 passed, 2 skipped, ~94% coverage
 ```
 
-Coverage is 91.96% against an 85% gate, and ruff reports 0 violations.
+Coverage is ~94% against an 85% gate, and ruff reports 0 violations.
 
 ## 4. Generate Deterministic Outputs
 

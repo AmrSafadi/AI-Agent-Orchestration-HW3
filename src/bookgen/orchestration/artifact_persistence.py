@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import logging
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -21,6 +22,8 @@ SCHEMA_BY_ARTIFACT = {
     "review_report": ReviewReport,
     "latex_spec": LatexSpec,
 }
+
+_logger = logging.getLogger("bookgen.real_run")
 
 
 @dataclass(frozen=True)
@@ -52,6 +55,9 @@ def persist_task_outputs(result: Any, root: Path) -> tuple[list[dict[str, Any]],
     if not task_outputs:
         return _persist_single_output(result, root)
 
+    if len(task_outputs) != len(ARTIFACT_NAMES):
+        _logger.warning("expected %d task outputs, got %d", len(ARTIFACT_NAMES), len(task_outputs))
+
     records: list[dict[str, Any]] = []
     artifacts: list[Path] = []
     for name, output in zip(ARTIFACT_NAMES, task_outputs, strict=False):
@@ -64,11 +70,13 @@ def persist_task_outputs(result: Any, root: Path) -> tuple[list[dict[str, Any]],
 
 
 def output_text(output: Any) -> str:
+    """Return the raw text of a CrewAI task output (or its ``str``)."""
     raw = getattr(output, "raw", None)
     return raw if isinstance(raw, str) else str(output)
 
 
 def preview(output: Any, limit: int = 240) -> str:
+    """Return a single-line, length-capped preview of a task output."""
     return output_text(output).replace("\n", " ")[:limit]
 
 
