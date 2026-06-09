@@ -130,13 +130,8 @@ The committed `final.pdf` at the repository root is the deliverable; running
 recompiles the PDF (and refreshes the committed `final.pdf` snapshot) when a TeX
 toolchain is present.
 
-**Sample pages (from the compiled `final.pdf`)**
-
-![Cover page](docs/screenshots/cover.png)
-![Chapter prose](docs/screenshots/chapter1.png)
-![Document features](docs/screenshots/features.png)
-![Typeset table](docs/screenshots/table.png)
-![Bibliography](docs/screenshots/bibliography.png)
+For visual evidence, see the compiled PDF snapshot at `final.pdf` and the
+supporting screenshots in `docs/screenshots/`.
 
 ## Configuration Guide
 
