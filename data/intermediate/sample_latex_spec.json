@@ -1,5 +1,5 @@
 {
-  "title": "תזמור סוכני בינה מלאכותית להפקת מסמכי LaTeX מקצועיים",
+  "title": "ניתוח כדורגל מבוסס נתונים: מ-xG לאסטרטגיית משחק",
   "engine": "lualatex",
   "main_template": "main.tex.j2",
   "output_pdf": "generated/pdf/final.pdf",
@@ -11,25 +11,25 @@
       "asset_id": "course_concept_image",
       "kind": "image",
       "target_path": "generated/assets/images/course_concept_image.png",
-      "caption": "המחשה רעיונית של תזמור סוכנים (agent orchestration)."
+      "caption": "מבט רעיוני על מגרש כדורגל המחולק לאזורי שליטה ויצירת מצבים."
     },
     {
       "asset_id": "agent_pipeline_graph",
       "kind": "graph",
       "target_path": "generated/assets/graphs/agent_pipeline_graph.png",
-      "caption": "צינור סוכנים סדרתי עם Harness דטרמיניסטי."
+      "caption": "זרימת החלטה טקטית: מאיסוף אירועים ועד המלצה למאמן."
     },
     {
       "asset_id": "agent_roles_table",
       "kind": "table",
       "target_path": "generated/latex/agent_roles_table.tex",
-      "caption": "תחומי האחריות של כל Agent ורכיב דטרמיניסטי."
+      "caption": "השוואה בין מדדים מרכזיים בניתוח כדורגל."
     },
     {
       "asset_id": "quality_score_formula",
       "kind": "formula",
       "target_path": "generated/latex/quality_score_formula.tex",
-      "caption": "ציון איכות מסמך משוקלל לדוגמה."
+      "caption": "נוסחת xG פשוטה המבוססת על מאפייני בעיטה."
     }
   ],
   "bibliography_file": "data/references/references.bib",
