@@ -1,5 +1,5 @@
 {
-  "title": "תזמור סוכני בינה מלאכותית: מ-Prompting ל-Crews מוכנים לייצור",
+  "title": "תזמור סוכני בינה מלאכותית להפקת מסמכי LaTeX מקצועיים",
   "engine": "lualatex",
   "main_template": "main.tex.j2",
   "output_pdf": "generated/pdf/final.pdf",
