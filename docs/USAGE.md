@@ -21,7 +21,7 @@ bookgen.main` below).
 |---|---|---|
 | Startup check (default) | `uv run --no-project --with pydantic --with matplotlib --with jinja2 python -m bookgen.main` | No |
 | Explicit dry-run | `… python -m bookgen.main --dry-run` | No |
-| Render + build PDF | `… python -m bookgen.main --build-pdf` (renders `main.tex`, then compiles the PDF; needs a TeX toolchain) — verified to produce an 18-page `final.pdf` (lualatex + biber, culmus David CLM); a committed snapshot is at the repo root | No |
+| Render + build PDF | `… python -m bookgen.main --build-pdf` (renders `main.tex`, then compiles the PDF; needs a TeX toolchain) — verified to produce a 19-page `final.pdf` (lualatex + biber, culmus David CLM); a committed snapshot is at the repo root | No |
 | Real crew run | `… python -m bookgen.main --run-crew` (needs `OPENAI_API_KEY`) | Yes |
 | Run tests | `uv run --no-project --with pydantic --with pytest --with pytest-cov --with matplotlib --with jinja2 python -m pytest tests --cov=bookgen` | No |
 
@@ -34,7 +34,7 @@ The installed `bookgen` console script is an equivalent alternative to
 ```text
 BookGen configuration loaded successfully.
 Project title: AI Agent Orchestration HW3
-Topic: AI Agent Orchestration: From Prompting to Production-Ready Crews
+Topic: Football Analytics and AI-Based Match Strategy
 Output directory: ...\generated
 Execution mode: DRY-RUN (default).
 Crew assembled: 5 agents, 5 tasks, process=sequential.
@@ -87,7 +87,7 @@ All ten heuristics, each mapped to the CLI:
 $ uv run --no-project --with pydantic --with matplotlib --with jinja2 python -m bookgen.main
 BookGen configuration loaded successfully.
 Project title: AI Agent Orchestration HW3
-Topic: AI Agent Orchestration: From Prompting to Production-Ready Crews
+Topic: Football Analytics and AI-Based Match Strategy
 Output directory: ...\generated
 Execution mode: DRY-RUN (default).
 Crew assembled: 5 agents, 5 tasks, process=sequential.
@@ -137,7 +137,7 @@ explicit Hebrew↔English BiDi block to demonstrate the RTL↔LTR transition.
 Screenshots of representative PDF pages are committed under `docs/screenshots/`.
 The LaTeX pipeline has landed: `main.tex` is rendered on every run, and
 `--build-pdf` compiles the final PDF end-to-end. The compiled,
-18-page `final.pdf` is committed (a snapshot at the repo root, plus
+19-page `final.pdf` is committed (a snapshot at the repo root, plus
 `generated/pdf/final.pdf`) and serves as the primary visual deliverable.
 Reproducing it from scratch requires a free TeX toolchain (lualatex + biber)
 and the Hebrew font David CLM (culmus).

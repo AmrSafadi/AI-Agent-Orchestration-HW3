@@ -3,7 +3,7 @@
 A concise, step-by-step guide for evaluating this project. It covers install,
 the safe dry-run, rendering and compiling the PDF, where the final PDF lives,
 how to run the tests, and a checklist mapping every assignment requirement to
-where it appears in the committed 18-page PDF.
+where it appears in the committed 19-page PDF.
 
 > TL;DR — nothing needs to be built to grade the deliverable: the final PDF is
 > **already committed at the repository root as `final.pdf`** (a copy of
@@ -48,7 +48,7 @@ Expected (abridged):
 ```text
 BookGen configuration loaded successfully.
 Project title: AI Agent Orchestration HW3
-Topic: AI Agent Orchestration: From Prompting to Production-Ready Crews
+Topic: Football Analytics and AI-Based Match Strategy
 Output directory: ...\generated
 Execution mode: DRY-RUN (default).
 Crew assembled: 5 agents, 5 tasks, process=sequential.
@@ -83,9 +83,9 @@ Successful compilation writes `generated/pdf/final.pdf` and a build log to
 - **`final.pdf`** — committed snapshot at the **repository root** (open this to grade).
 - `generated/pdf/final.pdf` — the build output the root copy is taken from.
 
-It is an 18-page, Hebrew-primary PDF, verified to compile end-to-end with
-`lualatex` + `biber` and the culmus `David CLM` font: 0 overfull boxes, no
-undefined references, all citations resolved.
+It is a 19-page, Hebrew-primary PDF on football analytics, verified to compile
+end-to-end with `lualatex` + `biber` and the culmus `David CLM` font. The cover,
+TOC, figures, table, formula, BiDi section, and bibliography all render.
 
 ## 5. Run The Tests
 
@@ -94,7 +94,7 @@ $env:PYTHONPATH="src"
 uv run --no-project --with pydantic --with pytest --with pytest-cov --with matplotlib --with jinja2 python -m pytest tests --cov=bookgen
 ```
 
-Expected: **134 passed, 2 skipped**, coverage **~94%** against an 85% gate
+Expected: **135 passed, 1 skipped**, coverage **95.22%** against an 85% gate
 (`pyproject.toml` `fail_under=85`). Lint is clean:
 
 ```powershell
@@ -103,7 +103,7 @@ uv run --no-project --with ruff ruff check .
 
 Expected: **0 violations** (and `ruff format .` reports no changes).
 
-## 6. Assignment Requirement Checklist (mapping to the 18-page PDF)
+## 6. Assignment Requirement Checklist (mapping to the 19-page PDF)
 
 Every required feature is present in the committed `final.pdf`. The PDF is
 Hebrew-primary, so headings/captions are in Hebrew; English appears inline only
@@ -113,10 +113,10 @@ for technical terms and in the explicit BiDi demo block.
 |---|---|---|---|
 | 1 | Multiple specialized agents | Reflected in the pipeline graph and chapter content | `src/bookgen/orchestration/agents.py` (5 agents) |
 | 2 | CrewAI orchestration | Sequential crew assembled in the dry-run | `src/bookgen/orchestration/crew.py`, `dry_run.py` |
-| 3 | Professional PDF generation | The whole 18-page document | `src/bookgen/latex/renderer.py`, `compiler.py` |
+| 3 | Professional PDF generation | The whole 19-page document | `src/bookgen/latex/renderer.py`, `compiler.py` |
 | 4 | Cover page | Page 1 — title, author, course, lecturer, date | `templates/latex/main.tex.j2` (cover block) |
 | 5 | Table of contents | Page 2 (after the cover) | `\tableofcontents` in `main.tex.j2` |
-| 6 | At least ~15 pages | 18 pages total | 6 chapters in `data/intermediate/sample_book_plan.json` |
+| 6 | At least ~15 pages | 19 pages total | 7 chapters in `data/intermediate/sample_book_plan.json` |
 | 7 | Image | Embedded figure in the body | `templates/latex/chapter.tex.j2` (figure), `harness/assets.py` |
 | 8 | Python-generated graph | `agent_pipeline_graph.png` figure | `src/bookgen/harness/graph_generator.py` (matplotlib) |
 | 9 | Table | Rendered table inside a chapter | `templates/latex/chapter.tex.j2` (table block) |

@@ -1,17 +1,17 @@
-# AI Agent Orchestration: From Prompting to Production-Ready Crews
+# Football Analytics and AI-Based Match Strategy
 
-CrewAI turns one large prompt into a coordinated team made of agents, tasks, a crew, and a process [@crewai_docs].
+Football analytics turns match events, tracking data, and video review into evidence that can support coaching decisions [@statsbomb_xg].
 
-The deterministic harness around the agents is responsible for validation, citations, assets, and final rendering. This mirrors the course idea that model reasoning should be supported by reliable software components [@langchain_docs].
+The deterministic harness around the agents is responsible for validation, citations, assets, and final rendering. In the final PDF, that harness produces the football pitch image, Python-generated graph, table, formula, BiDi section, and bibliography.
 
 ## Hebrew-English Mixed Section
 
-מערכת סוכנים טובה צריכה לשלב תכנון ברור עם validation deterministic so the final document is reliable.
+ניתוח כדורגל טוב משלב מדדים כמו xG ו-PPDA עם coaching intuition so the final decision stays connected to the match.
 
 ## Formula Placeholder
 
-The final document will include a rendered mathematical formula for document quality.
+The final document includes a rendered mathematical formula for a simplified expected-goals score.
 
 ## Table Placeholder
 
-The final document will include a table comparing agent responsibilities.
+The final document includes a table explaining football analytics metrics and tactical meaning.

@@ -79,7 +79,7 @@ committed examples live under `data/intermediate/sample_*`.
 **Write task → `manuscript.md` (3-line excerpt):**
 
 ```markdown
-# AI Agent Orchestration: From Prompting to Production-Ready Crews
+# Football Analytics and AI-Based Match Strategy
 
 CrewAI turns one large prompt into a coordinated team made of agents, tasks, a crew, and a process [@crewai_docs].
 ```

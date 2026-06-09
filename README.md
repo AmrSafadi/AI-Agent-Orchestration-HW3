@@ -32,7 +32,7 @@ paid CrewAI path is implemented as an optional, API-key guarded workflow.
 
 **Delivered so far (verified working)**
 - **Documentation:** `PRD`, `PLAN` (architecture, ADRs, extensibility, components),
-  `TODO` (603 granular tasks), `PROMPTS` (prompt log), per-mechanism PRDs
+  `TODO` (604 granular tasks), `PROMPTS` (prompt log), per-mechanism PRDs
   (`PRD_latex_pipeline`, `PRD_citation_management`), `COSTS`, `USAGE`, plus the
   blueprint/status/quick-start.
 - **Foundation (Phase A):** versioned config — every `config/*.json` carries a
@@ -47,16 +47,16 @@ paid CrewAI path is implemented as an optional, API-key guarded workflow.
   citation-discipline, course-alignment) with a discovery/assignment loader wired
   into the agents in real-crew mode — the course Skill concept.
 - **LaTeX PDF pipeline:** Jinja2 templates, LaTeX escaping, LuaLaTeX/biber
-  compiler integration, generated bibliography, and a verified 18-page
-  Hebrew-primary PDF.
+  compiler integration, generated bibliography, and a verified 19-page
+  Hebrew-primary PDF on football analytics.
 - **Quality tooling:** Ruff lint (0 violations) + `ruff format`; a shared pre-commit
   hook; GitHub Actions CI enforcing an 85% coverage gate.
 - **Build skill:** a Claude Code `/build-bookgen` skill that encodes our build workflow.
-- **Tests:** 134 passed, 2 skipped, **~94%** coverage.
+- **Tests:** 135 passed, 1 skipped, **95.22%** coverage.
 
 **Verified**
 - `ruff check` → 0 violations; `ruff format` → clean; every code file ≤ 150 lines.
-- `pytest tests --cov=bookgen` -> 134 passed, 2 skipped; coverage ~94% (gate 85%).
+- `pytest tests --cov=bookgen` -> 135 passed, 1 skipped; coverage 95.22% (gate 85%).
 - The dry-run pipeline produces all five intermediate artifacts, assets, and
   `generated/latex/main.tex` with no API call.
 - `--dry-run --build-pdf` compiles the final PDF when a TeX toolchain is
@@ -116,7 +116,7 @@ uv run python -m bookgen.main --run-crew
 ```text
 BookGen configuration loaded successfully.
 Project title: AI Agent Orchestration HW3
-Topic: AI Agent Orchestration: From Prompting to Production-Ready Crews
+Topic: Football Analytics and AI-Based Match Strategy
 Output directory: ...\generated
 Execution mode: DRY-RUN (default).
 Crew assembled: 5 agents, 5 tasks, process=sequential.

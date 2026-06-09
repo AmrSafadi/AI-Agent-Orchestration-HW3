@@ -62,21 +62,23 @@ def _create_dry_run_artifact(root: Path, artifact_name: str, target: Path) -> No
 
 def _sample_research_pack() -> dict[str, Any]:
     return {
-        "topic": "AI Agent Orchestration: From Prompting to Production-Ready Crews",
-        "key_concepts": ["Agent", "Task", "Crew", "Process", "Context", "Harness"],
+        "topic": "Football Analytics and AI-Based Match Strategy",
+        "key_concepts": ["xG", "event data", "tracking data", "PPDA", "pass networks"],
         "terminology": {
-            "CrewAI": "Framework for role-based agent teams.",
-            "Harness": "Deterministic software wrapper around model reasoning.",
+            "xG": "Expected-goals estimate for shot quality.",
+            "PPDA": "Passes allowed per defensive action, used as a pressing proxy.",
         },
         "source_candidates": [
             {
-                "source_id": "crewai_docs",
-                "title": "CrewAI Documentation",
-                "url": "https://docs.crewai.com/",
-                "notes": "Reference source for CrewAI concepts.",
+                "source_id": "statsbomb_xg",
+                "title": "StatsBomb: Introduction to Expected Goals",
+                "url": "https://statsbomb.com/soccer-metrics/expected-goals-xg-explained/",
+                "notes": "Reference source for expected-goals concepts.",
             }
         ],
-        "chapter_notes": {"From Prompt To Crew": "Explain why specialized agents improve clarity."},
+        "chapter_notes": {
+            "From Coaching Intuition To Data": "Explain how football analytics supports tactical decisions."
+        },
         "unsupported_claim_warnings": [],
     }
 
