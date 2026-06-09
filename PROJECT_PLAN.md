@@ -59,9 +59,9 @@ The project must demonstrate the course philosophy: transform a single broad pro
 
 Recommended topic for v1:
 
-`AI Agent Orchestration: From Prompting to Production-Ready Crews`
+`Football Analytics and AI-Based Match Strategy`
 
-This topic aligns naturally with the lectures. It allows the generated book to discuss CrewAI, LangChain, LangGraph, harnesses, RAG, tools, observability, security, and production trade-offs while also satisfying the required PDF features.
+This topic gives the PDF an independent subject while the codebase still demonstrates the lecture requirements: CrewAI orchestration, deterministic harnessing, validation, LaTeX production, observability, and submission-grade engineering hygiene.
 
 ### Agent Set
 

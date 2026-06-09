@@ -61,7 +61,7 @@ uv run --no-project --with pydantic --with pytest --with pytest-cov --with matpl
 ```
 
 Run the full suite (`uv run pytest`). The project currently has **134 passing
-tests, 2 skipped** integration tests, and **~94% coverage** (gate 85%). The
+tests, 1 skipped** integration test, and **95.22% coverage** (gate 85%). The
 coverage gate is enforced via `--cov=bookgen --cov-fail-under=85` (also
 configured via `fail_under=85` in `pyproject.toml`).
 

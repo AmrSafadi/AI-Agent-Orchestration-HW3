@@ -113,7 +113,7 @@ A user wants the finished, compiled document.
 3. `compile_pdf` checks for the toolchain:
    - **With** `lualatex` + `biber` on `PATH`: it runs the multi-pass sequence,
      writes `build.log`, and on success reports "PDF compiled." with the PDF
-     path. (Verified end-to-end as an 18-page `final.pdf`.)
+     path. (Verified end-to-end as a 19-page `final.pdf`.)
    - **Without** the toolchain: it degrades gracefully — writes the reason to
      `build.log`, reports that compilation was skipped, and still exits 0 because
      `main.tex` was rendered successfully. The user is told exactly what was

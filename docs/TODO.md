@@ -10,7 +10,7 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 ## Priorities, Ownership & Definition of Done
 
-Current quality baseline: **134 passed, 2 skipped, ~94% coverage** (gate 85%),
+Current quality baseline: **135 passed, 1 skipped, 95.22% coverage** (gate 85%),
 ruff 0 violations.
 
 ### Priority legend
@@ -835,5 +835,11 @@ present, and all affected docs updated.**
 
 ---
 
-**Total tasks: 603** (603 completed, 0 remaining).
+### AV. Final Submission Documentation Cleanup
+
+- [x] **T604** Reconcile Markdown and README files with the football topic, 19-page PDF, and current quality results.
+
+---
+
+**Total tasks: 604** (604 completed, 0 remaining).
 

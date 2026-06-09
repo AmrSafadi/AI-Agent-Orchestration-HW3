@@ -20,8 +20,8 @@ for technical terms (Agent, Task, Crew, Harness, validation, …). The LaTeX
 template (`templates/latex/main.tex.j2`) sets `\setmainlanguage{hebrew}`,
 `\setotherlanguage{english}`, and `\setmainfont{David CLM}`, and
 `templates/latex/chapter.tex.j2` includes an explicit `\begin{english}` LTR block
-demonstrating the RTL↔LTR BiDi transition. The manuscript spans ~3,260 Hebrew
-words across 6 chapters.
+demonstrating the RTL↔LTR BiDi transition. The current submission manuscript is
+a football analytics document with 7 chapters and a 19-page compiled PDF.
 
 ```text
 Config (config/*.json)
@@ -132,7 +132,7 @@ sequenceDiagram
 | Dry-run | `orchestration/dry_run.py` | Deterministic artifact synthesis with no API calls (default mode). | Implemented |
 | CrewAI Skills | `orchestration/skills.py` + `skills/*/SKILL.md` | Knowledge packs injected into agents in real-crew mode: `load_skills(agent_key)` discovers the packs and returns **activated `Skill` objects** that `factory.create_agent` attaches to the real CrewAI `Agent` (per-agent, course Method 1). | Implemented |
 | Renderer | `latex/renderer.py` + `latex/escaping.py` + `templates/latex/*` | Render `main.tex` (cover, TOC, figures, table, formula, BiDi, bibliography) from artifacts. | Implemented |
-| PDFCompiler | `latex/compiler.py` | Multi-pass LuaLaTeX/biber compile; graceful without a toolchain. | Implemented; PDF compiled & verified (18-page Hebrew-primary `final.pdf`, committed at repo root). Reproducing it needs a TeX toolchain (lualatex+biber) with culmus (David CLM). |
+| PDFCompiler | `latex/compiler.py` | Multi-pass LuaLaTeX/biber compile; graceful without a toolchain. | Implemented; PDF compiled & verified (19-page Hebrew-primary football analytics `final.pdf`, committed at repo root). Reproducing it needs a TeX toolchain (lualatex+biber) with culmus (David CLM). |
 | Build wiring | `latex/build.py` + `main.py --build-pdf` | Render `main.tex` then optionally compile; end-to-end from the CLI. | Implemented |
 | SDK facade | `sdk/sdk.py` | Single entry point all consumers call (guideline 4.1); CLI delegates to it. | Implemented |
 | API Gatekeeper | `shared/gatekeeper.py` | Central rate-limited, retrying, monitored LLM entry point (guideline 5); real kickoff routes through it. | Implemented |
@@ -171,7 +171,7 @@ go to the git-ignored `generated/` tree.
 - Document language: primarily Hebrew (RTL) via `\setmainlanguage{hebrew}` /
   `\setotherlanguage{english}` / `\setmainfont{David CLM}`, with an explicit
   `\begin{english}` BiDi block; English inline only for technical terms
-  (~3,260 Hebrew words across 6 chapters).
+  (football analytics manuscript, 7 chapters, 19-page compiled PDF).
 - Quality: Ruff (lint), pytest + pytest-cov (tests/coverage).
 
 ## 7. Risks and Mitigations
@@ -212,11 +212,11 @@ synchronous block-until-reset overflow model that raises `BackpressureError` at
 | Tool | Purpose | Status |
 |---|---|---|
 | Ruff | Lint (guideline rule set), ruff 0 violations | Configured & passing |
-| pytest + pytest-cov | Tests + 85% coverage gate; 134 passed, 2 skipped, ~94% coverage (gate 85%) | Configured & passing |
+| pytest + pytest-cov | Tests + 85% coverage gate; 135 passed, 1 skipped, 95.22% coverage (gate 85%) | Configured & passing |
 | Formatter (`ruff format` / black) | Consistent style | Configured |
 | pre-commit hooks | Lint/format/tests before commit | Configured (`scripts/hooks/pre-commit`) |
 | CI (GitHub Actions) | Ruff + tests on each PR | Configured (`.github/workflows/ci.yml`) |
 
-Automated gates replace manual review: 134 tests pass, 2 skip, at ~94% coverage
+Automated gates replace manual review: 135 tests pass, 1 skip, at 95.22% coverage
 (gate 85%) with ruff 0 violations, and pre-commit plus CI enforce quality rather
 than assume it.

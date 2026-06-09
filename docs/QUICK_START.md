@@ -29,7 +29,7 @@ Expected output:
 ```text
 BookGen configuration loaded successfully.
 Project title: AI Agent Orchestration HW3
-Topic: AI Agent Orchestration: From Prompting to Production-Ready Crews
+Topic: Football Analytics and AI-Based Match Strategy
 Output directory: ...\generated
 Execution mode: DRY-RUN (default).
 Crew assembled: 5 agents, 5 tasks, process=sequential.
@@ -48,10 +48,10 @@ uv run --no-project --with pydantic --with pytest --with pytest-cov --with matpl
 Expected result:
 
 ```text
-134 passed, 2 skipped, ~94% coverage
+135 passed, 1 skipped, 95.22% coverage
 ```
 
-Coverage is ~94% against an 85% gate, and ruff reports 0 violations.
+Coverage is 95.22% against an 85% gate, and ruff reports 0 violations.
 
 ## 4. Generate Deterministic Outputs
 
@@ -94,20 +94,19 @@ a free TeX toolchain (lualatex + biber) and the culmus David CLM Hebrew font.
 
 ## 6. Sample Output And Visual Evidence
 
-The **final compiled PDF** is done: `--build-pdf` produces an 18-page, Hebrew-primary
+The **final compiled PDF** is done: `--build-pdf` produces a 19-page, Hebrew-primary
 `generated/pdf/final.pdf`, and a snapshot copy is committed at the repository root as `final.pdf`
 so a grader sees it immediately on clone. It was verified by compiling locally with a TeX toolchain
-(lualatex + biber) and the culmus "David CLM" Hebrew font: 18 pages covering the cover, table of
+(lualatex + biber) and the culmus "David CLM" Hebrew font: 19 pages covering the cover, table of
 contents, an embedded image, a Python-generated graph, a table, a mathematical formula,
-Hebrew-English BiDi text, and a bibliography with 3 resolved citations; 0 overfull boxes and no
-undefined references.
+Hebrew-English BiDi text, and a bibliography with 3 resolved sources.
 
 Screenshots of representative pages are committed under `docs/screenshots/`
 for quick visual inspection: cover, chapter prose, feature page, table, and
 bibliography.
 
 Everything also works in the default dry-run, which never calls any LLM provider: the deterministic
-manuscript content already exists (~3,260 Hebrew words across 6 chapters) and the dry-run renders
+football analytics manuscript content already exists and the dry-run renders
 the complete LaTeX project to `generated/latex/main.tex`. The default `--dry-run` path does not
 compile; reproducing the PDF from scratch requires a free TeX toolchain (lualatex + biber) plus the
 culmus David CLM Hebrew font, after which `--build-pdf` compiles the project into the final PDF.

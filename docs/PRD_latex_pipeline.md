@@ -89,15 +89,14 @@ pdfLaTeX cannot provide reliably.
 ## 6. Success Criteria and Test Scenarios
 
 **Success criteria — met and verified.** `final.pdf` compiles end-to-end and is
-committed: `uv run --no-project --with pydantic --with matplotlib --with jinja2 python -m bookgen.main --dry-run --build-pdf` produces an 18-page
+committed: `uv run --no-project --with pydantic --with matplotlib --with jinja2 python -m bookgen.main --dry-run --build-pdf` produces a 19-page
 Hebrew-primary `final.pdf` (`generated/pdf/final.pdf`), and a snapshot copy is
 committed at the repository root as `final.pdf` so a grader sees it on clone. A
 local compile with MiKTeX (LuaHBTeX / lualatex + biber) and the culmus
-"David CLM" Hebrew font confirmed 18 pages with cover, TOC, embedded image,
+"David CLM" Hebrew font confirmed 19 pages with cover, TOC, embedded image,
 Python-generated graph, typeset table, mathematical formula, Hebrew–English BiDi
 (including an explicit `\begin{english}` block), and a bibliography with 3
-citations; biber resolved the bibliography, there are 0 overfull boxes (no margin
-overflow), and no undefined references. Reproducing the PDF from scratch requires
+sources; biber resolved the bibliography. Reproducing the PDF from scratch requires
 a TeX toolchain (lualatex + biber) with the culmus package (David CLM); the
 default `--dry-run` path renders the `.tex` artifacts but does not compile. The
 document is primarily Hebrew (RTL):
@@ -127,5 +126,5 @@ the first chapter. Every chapter additionally emits an inline `\cite`.
   the spec references exists on disk; green because the table and formula are
   materialized as standalone files rather than inlined.
 - *Manual acceptance check (performed)*: the committed `final.pdf` was verified to
-  have 18 pages, clickable/resolved citations (3), rendered math/table, embedded
-  image and Python graph, correct Hebrew–English BiDi, and 0 overfull boxes.
+  have 19 pages, clickable/resolved citations (3 sources), rendered math/table,
+  embedded image and Python graph, and correct Hebrew–English BiDi.
