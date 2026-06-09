@@ -2,28 +2,28 @@
   {
     "key": "crewai_docs",
     "entry_type": "online",
-    "author": "CrewAI",
-    "title": "CrewAI Documentation",
+    "author": "StatsBomb",
+    "title": "StatsBomb: Introduction to Expected Goals",
     "year": "2026",
-    "url": "https://docs.crewai.com/",
-    "note": "Framework documentation for CrewAI agents, tasks, crews, and processes"
+    "url": "https://statsbomb.com/soccer-metrics/expected-goals-xg-explained/",
+    "note": "Introductory reference for expected goals and shot-quality modeling"
   },
   {
     "key": "langchain_docs",
     "entry_type": "online",
-    "author": "LangChain",
-    "title": "LangChain Documentation",
+    "author": "Friends of Tracking",
+    "title": "Friends of Tracking: Football Analytics Education",
     "year": "2026",
-    "url": "https://python.langchain.com/",
-    "note": "Reference material for harness-style LLM application design"
+    "url": "https://www.youtube.com/c/FriendsofTracking",
+    "note": "Educational material on football analytics, tracking data, and modeling"
   },
   {
     "key": "latex_project",
     "entry_type": "online",
-    "author": "The LaTeX Project",
-    "title": "LaTeX Project Documentation",
+    "author": "FIFA",
+    "title": "FIFA Training Centre: Technical and Tactical Analysis",
     "year": "2026",
-    "url": "https://www.latex-project.org/help/documentation/",
-    "note": "Reference documentation for professional LaTeX document preparation"
+    "url": "https://www.fifatrainingcentre.com/",
+    "note": "Professional football analysis resources and technical observations"
   }
 ]

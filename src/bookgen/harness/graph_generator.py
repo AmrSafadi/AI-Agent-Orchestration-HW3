@@ -9,14 +9,12 @@ from bookgen.harness._mpl import figure
 DEFAULT_GRAPH_PATH = Path("generated/assets/graphs/agent_pipeline_graph.png")
 
 PIPELINE_NODES = [
-    "Planner",
-    "Research",
-    "Writer",
-    "Reviewer",
-    "LaTeX",
-    "CitationManager",
-    "Validator",
-    "PDFCompiler",
+    "Event Data",
+    "Video Tags",
+    "xG Model",
+    "Pass Network",
+    "Tactical Review",
+    "Training Plan",
 ]
 
 
@@ -51,6 +49,6 @@ def generate_agent_pipeline_graph(output_path: Path | str = DEFAULT_GRAPH_PATH) 
                 )
         ax.set_xlim(-0.6, len(PIPELINE_NODES) - 0.4)
         ax.set_ylim(-0.9, 0.9)
-        ax.set_title("BookGen Sequential Agent and Harness Pipeline", fontsize=14, pad=18)
+        ax.set_title("Football Analytics Workflow: Data to Match Strategy", fontsize=14, pad=18)
 
     return resolved_output_path
