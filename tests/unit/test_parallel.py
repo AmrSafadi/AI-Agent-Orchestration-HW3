@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import threading
+import time
 
 from bookgen.shared.parallel import parallel_map
 
@@ -20,6 +21,7 @@ def test_parallel_map_runs_concurrently() -> None:
     lock = threading.Lock()
 
     def record(value: int) -> int:
+        time.sleep(0.02)
         with lock:
             seen_threads.add(threading.get_ident())
         return value
