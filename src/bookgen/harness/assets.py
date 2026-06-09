@@ -65,8 +65,18 @@ def generate_image_asset(output_path: Path | str = DEFAULT_IMAGE_PATH) -> Path:
         ax.add_patch(plt.Rectangle((0, 24.84), 5.5, 18.32, fill=False, **line))
         ax.add_patch(plt.Rectangle((99.5, 24.84), 5.5, 18.32, fill=False, **line))
         ax.scatter([82, 90, 74, 64], [34, 44, 24, 36], s=[260, 180, 130, 90], color="#ffd166")
-        ax.annotate("", xy=(90, 44), xytext=(82, 34), arrowprops={"arrowstyle": "->", "lw": 2.2, "color": "#073b4c"})
-        ax.annotate("", xy=(74, 24), xytext=(82, 34), arrowprops={"arrowstyle": "->", "lw": 2.2, "color": "#073b4c"})
+        ax.annotate(
+            "",
+            xy=(90, 44),
+            xytext=(82, 34),
+            arrowprops={"arrowstyle": "->", "lw": 2.2, "color": "#073b4c"},
+        )
+        ax.annotate(
+            "",
+            xy=(74, 24),
+            xytext=(82, 34),
+            arrowprops={"arrowstyle": "->", "lw": 2.2, "color": "#073b4c"},
+        )
         ax.text(
             0.5,
             0.08,
