@@ -2,26 +2,13 @@
 
 from __future__ import annotations
 
-import json
 import logging
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-from pydantic import ValidationError
-
-from bookgen.document.content_quality import artifact_quality_error
-from bookgen.document.schemas import BookPlan, LatexSpec, ResearchPack, ReviewReport
-from bookgen.orchestration.artifact_normalization import normalize_artifact_payload
-from bookgen.orchestration.artifact_normalization_utils import extract_json_payload
+from bookgen.orchestration.artifact_validation import write_valid_artifact
 from bookgen.shared.constants import ARTIFACT_NAMES, GENERATED_ARTIFACTS
-
-SCHEMA_BY_ARTIFACT = {
-    "book_plan": BookPlan,
-    "research_pack": ResearchPack,
-    "review_report": ReviewReport,
-    "latex_spec": LatexSpec,
-}
 
 _logger = logging.getLogger("bookgen.real_run")
 
@@ -106,7 +93,7 @@ def _persist_named_output(name: str, output: Any, root: Path) -> PersistedOutput
     raw_path.write_text(text, encoding="utf-8")
 
     artifact_path = root / GENERATED_ARTIFACTS[name]
-    error = _write_valid_artifact(name, text, artifact_path)
+    error = write_valid_artifact(name, text, artifact_path)
     return PersistedOutput(
         task=name,
         raw_path=raw_path,
@@ -120,31 +107,3 @@ def _persist_named_output(name: str, output: Any, root: Path) -> PersistedOutput
 def _raw_output_path(root: Path, name: str) -> Path:
     suffix = ".md" if name == "manuscript" else ".txt"
     return root / "generated/intermediate/real_raw" / f"{name}{suffix}"
-
-
-def _write_valid_artifact(name: str, text: str, artifact_path: Path) -> str | None:
-    artifact_path.parent.mkdir(parents=True, exist_ok=True)
-    if name == "manuscript":
-        if not text.strip():
-            return "manuscript output is empty"
-        quality_error = artifact_quality_error(name, text)
-        if quality_error:
-            return quality_error
-        artifact_path.write_text(text, encoding="utf-8")
-        return None
-
-    schema = SCHEMA_BY_ARTIFACT.get(name)
-    if schema is None:
-        return f"no schema registered for {name}"
-    try:
-        payload = json.loads(extract_json_payload(text))
-        if not isinstance(payload, dict):
-            raise ValueError("JSON artifact must be an object")
-        model = schema.model_validate(normalize_artifact_payload(name, payload))
-        quality_error = artifact_quality_error(name, model)
-        if quality_error:
-            return quality_error
-    except (ValidationError, ValueError) as exc:
-        return str(exc).splitlines()[0]
-    artifact_path.write_text(model.model_dump_json(indent=2) + "\n", encoding="utf-8")
-    return None

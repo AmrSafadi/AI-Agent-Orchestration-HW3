@@ -284,11 +284,11 @@ synchronous block-until-reset overflow model that raises `BackpressureError` at
 | Tool | Purpose | Status |
 |---|---|---|
 | Ruff | Lint (guideline rule set), ruff 0 violations | Configured & passing |
-| pytest + pytest-cov | Tests + 85% coverage gate; 139 passed, 2 skipped, 94.05% coverage (gate 85%) | Configured & passing |
+| pytest + pytest-cov | Tests + 85% coverage gate; 145 passed, 2 skipped, 94.31% coverage (gate 85%) | Configured & passing |
 | Formatter (`ruff format` / black) | Consistent style | Configured |
 | pre-commit hooks | Lint/format/tests before commit | Configured (`scripts/hooks/pre-commit`) |
 | CI (GitHub Actions) | Ruff + tests on each PR | Configured (`.github/workflows/ci.yml`) |
 
-Automated gates replace manual review: 139 tests pass, 2 skips, at 94.05% coverage
+Automated gates replace manual review: 145 tests pass, 2 skips, at 94.31% coverage
 (gate 85%) with ruff 0 violations, and pre-commit plus CI enforce quality rather
 than assume it.

@@ -35,7 +35,7 @@ for the work that must be exact. Agents decide *intent*; Python executes
 | Demonstrate CrewAI orchestration | Five specialized agents, five context-linked tasks, `Process.sequential`. |
 | Produce a professional PDF | A compiled PDF containing every required feature (see §3). |
 | Keep the system safe to run | Dry-run is the default; no API call or spend without explicit `--run-crew` + key. |
-| Meet engineering standards | Ruff 0 violations; test coverage >= 85% (currently 94.05%, gate 85%, across 139 passing tests and 2 skipped integration tests — real-run and PDF-build); files <= 150 code lines; `uv` only. |
+| Meet engineering standards | Ruff 0 violations; test coverage >= 85% (currently 94.31%, gate 85%, across 145 passing tests and 2 skipped integration tests — real-run and PDF-build); files <= 150 code lines; `uv` only. |
 | Reproducibility & observability | Structured intermediate artifacts, validation report, build log. |
 
 ## 3. Functional Requirements
@@ -116,7 +116,7 @@ summary: planning, config/schemas, the deterministic harness, the CrewAI dry-run
 orchestration, LaTeX rendering, the SDK facade single entry point, the API
 gatekeeper, and the final compiled PDF are all **complete**. The 19-page
 Hebrew-primary football analytics `final.pdf` is committed at the repository
-root, verified end-to-end (19 pages, 139 tests passing, 2 skipped, 94.05%
+root, verified end-to-end (19 pages, 145 tests passing, 2 skipped, 94.31%
 coverage with an 85% gate).
 Reproducing the PDF from scratch requires a free TeX toolchain (LuaLaTeX + biber)
 with the Hebrew font David CLM (culmus) — not any missing code.

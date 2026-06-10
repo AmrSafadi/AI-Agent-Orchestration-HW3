@@ -7,12 +7,13 @@ secondary engine, and degrades gracefully (no raise) when the toolchain is absen
 from __future__ import annotations
 
 import os
-import re
 import shutil
 import subprocess
 from contextlib import suppress
 from dataclasses import dataclass, field
 from pathlib import Path
+
+from bookgen.latex.compiler_log import pdf_page_count, scan_log_issues
 
 REPRODUCIBLE_TEX_ENV = {"SOURCE_DATE_EPOCH": "1767225600", "FORCE_SOURCE_DATE": "1"}
 STALE_LATEX_EXTENSIONS = (".aux", ".bbl", ".bcf", ".blg", ".log", ".out", ".run.xml", ".toc")
@@ -34,32 +35,6 @@ class CompileResult:
 def toolchain_available(engine: str = "lualatex", bib_backend: str = "biber") -> bool:
     """Return whether the LaTeX engine and bibliography backend are on PATH."""
     return shutil.which(engine) is not None and shutil.which(bib_backend) is not None
-
-
-def scan_log_issues(log_text: str) -> list[str]:
-    """Return human-readable warnings/errors detected in a LaTeX build log."""
-    issues: list[str] = []
-    if "There were undefined references" in log_text or re.search(
-        r"Reference [`'][^']+' on page \d+ undefined", log_text
-    ):
-        issues.append("unresolved references (??) — a compiler pass is missing")
-    if "There were undefined citations" in log_text or re.search(
-        r"Citation [`'][^']+'[^\n]*undefined", log_text
-    ):
-        issues.append("undefined citations — rerun biber / add a pass")
-    if "Overfull \\hbox" in log_text:
-        issues.append("overfull horizontal box — content may exceed the page margin")
-    # TeX prefixes hard errors with "! " (polyglossia/LaTeX errors, undefined
-    # control sequences); never report these as a clean build.
-    for message in dict.fromkeys(re.findall(r"^!\s?.+", log_text, flags=re.MULTILINE)):
-        issues.append(f"LaTeX error: {message.strip()[:140]}")
-    return issues
-
-
-def pdf_page_count(log_text: str) -> int | None:
-    """Extract the page count reported by the engine, if present."""
-    match = re.search(r"Output written on \S+\.pdf \((\d+) page", log_text)
-    return int(match.group(1)) if match else None
 
 
 def _command_sequence(engine: str, bib_backend: str, stem: str, passes: int) -> list[list[str]]:

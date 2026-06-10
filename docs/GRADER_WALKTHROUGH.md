@@ -94,7 +94,7 @@ $env:PYTHONPATH="src"
 uv run --no-project --with pydantic --with pytest --with pytest-cov --with matplotlib --with jinja2 python -m pytest tests --cov=bookgen
 ```
 
-Expected: **139 passed, 2 skipped**, coverage **94.05%** against an 85% gate
+Expected: **145 passed, 2 skipped**, coverage **94.31%** against an 85% gate
 (`pyproject.toml` `fail_under=85`). Lint is clean:
 
 ```powershell

@@ -48,10 +48,10 @@ uv run --no-project --with pydantic --with pytest --with pytest-cov --with matpl
 Expected result:
 
 ```text
-139 passed, 2 skipped, 94.05% coverage
+145 passed, 2 skipped, 94.31% coverage
 ```
 
-Coverage is 94.05% against an 85% gate, and ruff reports 0 violations.
+Coverage is 94.31% against an 85% gate, and ruff reports 0 violations.
 
 ## 4. Generate Deterministic Outputs
 

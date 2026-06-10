@@ -10,7 +10,7 @@ has a stable id `T###` for cross-referencing in commits and reviews.
 
 ## Priorities, Ownership & Definition of Done
 
-Current quality baseline: **139 passed, 2 skipped, 94.05% coverage** (gate 85%),
+Current quality baseline: **145 passed, 2 skipped, 94.31% coverage** (gate 85%),
 ruff 0 violations.
 
 ### Priority legend
