@@ -253,10 +253,12 @@ The codebase enforces a strict split between **deciding** and **doing**:
 
 ## 7. What does not exist yet: the registry seam
 
-There is **no formal plugin registry, entry-point discovery, or hook/event bus**
-today, and that is intentional for a deterministic, gradeable pipeline. Extension
-is by composition + dependency injection, reviewed as normal code. If a future
-version needs dynamic, third-party extensions, the seams are already isolated:
+There is **no formal plugin registry or entry-point discovery** today (the
+lifecycle pre/post hooks described in §2.1 **are** implemented and tested — they
+are not a future seam), and that is intentional for a deterministic, gradeable
+pipeline. Extension is by composition + dependency injection, reviewed as normal
+code. If a future version needs dynamic, third-party extensions, the seams are
+already isolated:
 
 - **A plugin/extension registry** would live alongside `BookGenSDK` in
   `src/bookgen/sdk/`, registering implementations of the four contracts in §4
@@ -264,10 +266,12 @@ version needs dynamic, third-party extensions, the seams are already isolated:
   resolve them instead of importing concrete functions directly. The SDK methods
   already centralize each assembly point, so only the wiring inside the SDK would
   change.
-- **Lifecycle pre/post hooks** would be added inside
-  `BookGenSDK.generate_book()`, the single owner of stage ordering — a list of
-  callables invoked around each `run_crew`/`generate_assets`/`build_document`
-  call. No stage internals would need to change.
+- **Lifecycle pre/post hooks** already exist (see §2.1): `BookGenSDK` accepts a
+  `hooks` mapping and `_run_stage` fires `before_<stage>`/`after_<stage>`
+  callables around each `run_crew`/`generate_assets`/`build_document` call, with
+  the firing order verified in `tests/unit/test_sdk.py`. A future richer
+  **event bus** (dynamic subscription, wildcard events) would extend this same
+  seam without touching stage internals.
 - **Provider-call middleware** is already pluggable today by wrapping or
   subclassing `ApiGatekeeper.execute`; a middleware chain (list of wrappers)
   would slot in there without touching agents.

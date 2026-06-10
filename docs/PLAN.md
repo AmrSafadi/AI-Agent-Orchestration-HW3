@@ -86,6 +86,39 @@ C4Container
     Rel(doc, shared, "Reads config")
 ```
 
+### C4 Level 3 — Components (inside the SDK boundary)
+
+```mermaid
+C4Component
+    title Component Diagram — BookGen internals
+    Container_Boundary(sdkb, "SDK (sdk/sdk.py)") {
+        Component(book, "generate_book", "Runs stages through before_/after_ hooks")
+        Component(cost, "estimate_cost", "Config-driven token/USD forecast")
+        Component(sens, "run_sensitivity_analysis / generate_sensitivity_figures", "Research deliverable (guideline 9)")
+    }
+    Container_Boundary(orchb, "orchestration/") {
+        Component(crew, "crew / dry_run", "build_crew / run_crew; deterministic default")
+        Component(factory, "factory", "Agent/Task template-method builder")
+        Component(acct, "accounting", "Token sizing, pricing, budget alerts")
+    }
+    Container_Boundary(latexb, "latex/") {
+        Component(render, "renderer / render_context", "main.tex from artifacts")
+        Component(compile, "compiler", "Multi-pass lualatex + biber")
+    }
+    Container_Boundary(sharedb, "shared/") {
+        Component(cfg, "config / config_models", "Versioned config load + validate")
+        Component(gate, "gatekeeper", "Rate limit / retry / backpressure")
+        Component(par, "parallel", "Thread + process maps")
+    }
+    Rel(cost, acct, "sizes + prices via")
+    Rel(sens, par, "renders figures via")
+    Rel(book, crew, "run_crew()")
+    Rel(book, render, "build_document()")
+    Rel(crew, factory, "builds agents/tasks")
+    Rel(crew, gate, "routes provider calls (opt-in)")
+    Rel(render, cfg, "reads")
+```
+
 ### UML — Pipeline sequence
 
 The following Mermaid **UML** sequence diagram shows the runtime interaction
@@ -112,6 +145,26 @@ sequenceDiagram
     CLI-->>User: printed status lines + exit code
 ```
 
+### Deployment view
+
+The system runs entirely on one host; the only network/external dependencies are
+opt-in. The LLM provider is contacted **only** on `--run-crew`, and the TeX
+toolchain is invoked **only** on `--build-pdf`.
+
+```mermaid
+flowchart TB
+    subgraph host["Developer / grader machine"]
+        subgraph rt["Python 3.10+ runtime (managed by uv)"]
+            cli["bookgen.main (CLI)"] --> sdk["BookGenSDK"]
+            sdk --> pkg["bookgen package + config/*.json"]
+        end
+        tex["TeX toolchain<br/>lualatex + biber + culmus (David CLM)"]
+    end
+    provider["LLM provider API<br/>(OpenAI-compatible)"]
+    sdk -. "--build-pdf (local, opt-in)" .-> tex
+    sdk -. "--run-crew via ApiGatekeeper<br/>(opt-in, network, needs OPENAI_API_KEY)" .-> provider
+```
+
 ## 3. Components and Responsibilities
 
 | Component | File(s) | Responsibility | Status |
@@ -136,7 +189,26 @@ sequenceDiagram
 | Build wiring | `latex/build.py` + `main.py --build-pdf` | Render `main.tex` then optionally compile; end-to-end from the CLI. | Implemented |
 | SDK facade | `sdk/sdk.py` | Single entry point all consumers call (guideline 4.1); CLI delegates to it. | Implemented |
 | API Gatekeeper | `shared/gatekeeper.py` | Central rate-limited, retrying, monitored LLM entry point (guideline 5); real kickoff routes through it. | Implemented |
-| Sensitivity analysis | `research/sensitivity.py` + `notebooks/sensitivity_analysis.ipynb` | OAT parameter study with line/bar/scatter/box/heatmap figures (guideline 9). | Implemented |
+| Sensitivity analysis | `research/sensitivity.py` + `sensitivity_plots.py` + `notebooks/sensitivity_analysis.ipynb` | OAT sweep + finite-difference partial-derivative index + lean/baseline/rich comparison; six figures (line/bar/scatter/box/heatmap/waterfall); reachable via `BookGenSDK.run_sensitivity_analysis()` / `generate_sensitivity_figures()` (guideline 9). | Implemented |
+
+### 3.1 SDK API reference (public surface)
+
+External consumers use only `BookGenSDK` (guideline 4.1). Its public methods and
+their I/O contracts:
+
+| Method | Inputs | Returns |
+|---|---|---|
+| `BookGenSDK(config=None, hooks=None)` | optional `AppConfig`; optional `{before_/after_<stage>: [callable]}` | SDK instance |
+| `run_crew(dry_run=True)` | `dry_run: bool` | crew result / dry-run artifacts |
+| `generate_assets()` | — | `{"graph": path, "image": path}` |
+| `build_document(compile_after=False)` | `compile_after: bool` | `{"main_tex": path, "compiled": bool, "message": str, ...}` |
+| `generate_book(dry_run=True, build_pdf=False)` | flags | full-pipeline result dict (runs all three stages through the hooks) |
+| `estimate_cost()` | — | `{"model", "input_tokens", "output_tokens", "estimated_usd"}` |
+| `run_sensitivity_analysis()` | — | `{"oat", "partials", "comparison"}` |
+| `generate_sensitivity_figures(output_dir="generated/research")` | output dir | `list[Path]` (six figures) |
+
+`STAGES = ("run_crew", "generate_assets", "build_document")` are the points
+around which `before_<stage>(sdk)` / `after_<stage>(sdk, result)` hooks fire.
 
 ## 4. Data Flow and Contracts
 
@@ -212,11 +284,11 @@ synchronous block-until-reset overflow model that raises `BackpressureError` at
 | Tool | Purpose | Status |
 |---|---|---|
 | Ruff | Lint (guideline rule set), ruff 0 violations | Configured & passing |
-| pytest + pytest-cov | Tests + 85% coverage gate; 135 passed, 1 skipped, 95.22% coverage (gate 85%) | Configured & passing |
+| pytest + pytest-cov | Tests + 85% coverage gate; 139 passed, 2 skipped, 94.05% coverage (gate 85%) | Configured & passing |
 | Formatter (`ruff format` / black) | Consistent style | Configured |
 | pre-commit hooks | Lint/format/tests before commit | Configured (`scripts/hooks/pre-commit`) |
 | CI (GitHub Actions) | Ruff + tests on each PR | Configured (`.github/workflows/ci.yml`) |
 
-Automated gates replace manual review: 135 tests pass, 1 skip, at 95.22% coverage
+Automated gates replace manual review: 139 tests pass, 2 skips, at 94.05% coverage
 (gate 85%) with ruff 0 violations, and pre-commit plus CI enforce quality rather
 than assume it.

@@ -1,4 +1,4 @@
-﻿# Implementation Status
+# Implementation Status
 
 This document tracks what is complete, what is in progress, and what remains.
 
@@ -12,7 +12,7 @@ This document tracks what is complete, what is in progress, and what remains.
 | 3. Deterministic Harness | Complete | `graph_generator.py`, `citations.py` + `citation_report.py`, `validators.py` (+ latex-spec file checks), `assets.py`, `evidence.py`; headless Agg backend (`_mpl.py`); sample data, tests. (Phase C complete; a committed `references.bib` copy is now tracked for grader visibility.) |
 | Documentation | Complete | `docs/PROJECT_BLUEPRINT.md`, `COURSE_ALIGNMENT.md`, `IMPLEMENTATION_STATUS.md`, `ARCHITECTURE_DIAGRAM.md`, `QUICK_START.md`, `CONTRIBUTING.md`. |
 | 4. CrewAI Definitions | Complete | `agents.py`, `tasks.py`, `build_crew()`, `run_crew()`, CLI dry-run mode, generated intermediate artifacts, orchestration tests. |
-| Guideline Compliance (docs + quality config) | Complete | `docs/PRD.md`, `PLAN.md`, `TODO.md`, `PROMPTS.md`, `PRD_latex_pipeline.md`, `PRD_citation_management.md`; `pyproject.toml` ruff + coverage config; `shared/version.py`; `.env-example`. `ruff check` passes (0 violations); 135 tests pass, 1 skip; coverage 95.22% (gate 85%, pyproject fail_under=85) with `--cov`; `ruff format` clean; pre-commit hook (`scripts/hooks/pre-commit`) + CI (`.github/workflows/ci.yml`) added; README expanded (install/usage/config/license); `uv.lock` committed; all audit gap-closure items in `docs/TODO.md` are complete. |
+| Guideline Compliance (docs + quality config) | Complete | `docs/PRD.md`, `PLAN.md`, `TODO.md`, `PROMPTS.md`, `PRD_latex_pipeline.md`, `PRD_citation_management.md`; `pyproject.toml` ruff + coverage config; `shared/version.py`; `.env-example`. `ruff check` passes (0 violations); 139 tests pass, 2 skips; coverage 94.05% (gate 85%, pyproject fail_under=85) with `--cov`; `ruff format` clean; pre-commit hook (`scripts/hooks/pre-commit`) + CI (`.github/workflows/ci.yml`) added; README expanded (install/usage/config/license); `uv.lock` committed; all audit gap-closure items in `docs/TODO.md` are complete. |
 | Real Execution Support (Milestone 5) | Complete | Real runs remain opt-in and API-key guarded (`--run-crew` + `OPENAI_API_KEY`). When enabled, `crew.kickoff()` runs through `ApiGatekeeper`, task outputs persist to `generated/intermediate/`, `real_run_trace.json` logs task inputs/outputs, token usage is extracted when CrewAI exposes it, and config-driven budget alerts come from `config/budgets.json`. |
 | CrewAI Skills + build-skill | Complete | 3 `SKILL.md` knowledge packs under `skills/`, `orchestration/skills.py` discovery/assignment loader wired into agents (real-crew mode), unit tests; plus a Claude Code build skill at `.claude/skills/build-bookgen/`. |
 | LaTeX Renderer + Compiler (Phase E) | Complete | `latex/escaping.py`, 5 Jinja templates, `latex/renderer.py` (Hebrew-primary `main.tex` with cover/TOC/figures/table/formula/BiDi/bibliography), `latex/compiler.py` (multi-pass, graceful, UTF-8 log capture), `latex/build.py` wired into `main.py` (`--build-pdf`, renders **and compiles** end-to-end; emits `generated/pdf/final.pdf`). Build assets are copied into `generated/latex/assets/`, rendered citations are preflighted before compile, and the cover carries reconciled author/course/lecturer/date metadata. **Verified:** `--build-pdf` compiles a 19-page `final.pdf` (lualatex + biber, culmus `David CLM`). |
@@ -32,7 +32,7 @@ LaTeX rendering is complete (`src/bookgen/latex/renderer.py` renders the full He
 ### Recent hardening
 
 - **Skills attach to real agents.** `orchestration/skills.py::load_skills(agent_key)` discovers the `skills/*/SKILL.md` packs and returns activated `Skill` objects that `factory.create_agent` attaches per-agent to the real CrewAI `Agent` (course Method 1). The earlier leaf-dir string paths that were silently dropped are fixed.
-- **Gatekeeper thread-safe + richer limits.** `shared/gatekeeper.py` now uses `threading.Lock` + `Semaphore`, enforces per-minute **and** per-hour limits plus `concurrent_max`, and documents a synchronous block-until-reset overflow model with `BackpressureError` at `max_queue_depth`.
+- **Gatekeeper thread-safe + richer limits.** `shared/gatekeeper.py` now uses `threading.Lock` + `Semaphore`, enforces per-minute **and** per-hour limits plus `concurrent_max`, and documents a synchronous block-until-reset overflow model with `BackpressureError` at `max_queue_depth`. It also **logs every call** (monitoring, guideline 5.1) and emits a `logger.warning` **backpressure alert** before raising.
 - **models.json wired into real runs.** `config/models.json` drives per-agent model/temperature (factory builds the LLM) and carries a `pricing` block for `gpt-4o-mini`, `gpt-4o`, and `claude-sonnet-4-6`.
 - **SDK extension hooks.** `sdk/sdk.py` exposes `before_<stage>`/`after_<stage>` callables around `run_crew`/`generate_assets`/`build_document`, a `STAGES` registry (guideline 12), and `estimate_cost()` for a dry-run cost forecast.
 - **Parallel utilities + concurrent figures.** `shared/parallel.py` adds `parallel_map` (threads) and `cpu_parallel_map` (processes); the six sensitivity figures now render concurrently (guideline 15).
@@ -42,6 +42,10 @@ LaTeX rendering is complete (`src/bookgen/latex/renderer.py` renders the full He
 - **Compiler error scanning.** `compiler.scan_log_issues` now flags any `! ... Error` line in the build log.
 - **Markdown intro/inline handling.** `latex/markdown_manuscript.py` preserves prose before the first chapter as an intro section and converts `**bold**`/`*italic*`/`- ` lists to LaTeX.
 - **Sixth (waterfall) figure + executed notebook.** `research/sensitivity.py` + `sensitivity_plots.py` now produce six figures with a colorblind-safe Okabe-Ito palette, labeled axes/legends, a finite-difference `partial_sensitivity()` index, and `compare_baselines()`; `notebooks/sensitivity_analysis.ipynb` is executed and committed with outputs.
+- **Audit-driven accuracy pass.** Corrected stale test/coverage metrics across the README and docs to the verified **139 passed, 2 skipped, 94.05%**. Fixed the notebook's analytical conclusion (the most sensitive parameter is **sections**, ∂=3.5, not words) and made the OAT line chart use a **normalized sweep axis** so differently-scaled parameters are comparable. Added academic references (Saltelli/Morris/Sobol') to the analysis notebook.
+- **Sensitivity reachable via the SDK (guideline 4.1).** `BookGenSDK.run_sensitivity_analysis()` and `generate_sensitivity_figures()` expose the research deliverable through the single entry point; the notebook now imports only `BookGenSDK`.
+- **Cost forecast on the CLI (guideline 11).** New `--estimate-cost` flag prints the config-driven token/USD forecast (no API call); committed analysis figures live in `assets/analysis/` and are embedded in the README report.
+- **Dependency pinning + doc consistency.** Runtime dependencies in `pyproject.toml` now carry lower-bound versions (matching `uv.lock`); `docs/EXTENSIBILITY.md` §7 no longer describes the already-shipped lifecycle hooks as future work.
 
 ## Milestone numbering
 
@@ -81,10 +85,10 @@ uv run --no-project --with pydantic --with pytest --with pytest-cov --with matpl
 Known passing result:
 
 ```text
-135 passed, 1 skipped, 95.22% coverage
+139 passed, 2 skipped, 94.05% coverage
 ```
 
-Coverage: 95.22% (gate 85%, pyproject `fail_under=85`).
+Coverage: 94.05% (gate 85%, pyproject `fail_under=85`).
 
 ## Current CLI
 

@@ -92,3 +92,22 @@ def test_backpressure_when_queue_exceeds_depth() -> None:
     with pytest.raises(BackpressureError):
         for _ in range(6):
             gatekeeper.execute(lambda: "x")
+
+
+def test_backpressure_emits_warning_alert(caplog: pytest.LogCaptureFixture) -> None:
+    gatekeeper = ApiGatekeeper(
+        _config(requests_per_minute=1, max_queue_depth=2),
+        time_fn=_Clock(),
+        sleep_fn=lambda _: None,
+    )
+    with caplog.at_level("WARNING", logger="bookgen.gatekeeper"), pytest.raises(BackpressureError):
+        for _ in range(6):
+            gatekeeper.execute(lambda: "x")
+    assert any("backpressure alert" in message for message in caplog.messages)
+
+
+def test_calls_logged_for_monitoring(caplog: pytest.LogCaptureFixture) -> None:
+    gatekeeper = ApiGatekeeper(_config(), time_fn=_Clock(), sleep_fn=lambda _: None)
+    with caplog.at_level("INFO", logger="bookgen.gatekeeper"):
+        gatekeeper.execute(lambda: "ok")
+    assert any("gatekeeper call #" in message for message in caplog.messages)

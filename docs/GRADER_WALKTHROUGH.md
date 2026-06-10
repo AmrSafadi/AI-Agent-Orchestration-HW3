@@ -94,7 +94,7 @@ $env:PYTHONPATH="src"
 uv run --no-project --with pydantic --with pytest --with pytest-cov --with matplotlib --with jinja2 python -m pytest tests --cov=bookgen
 ```
 
-Expected: **135 passed, 1 skipped**, coverage **95.22%** against an 85% gate
+Expected: **139 passed, 2 skipped**, coverage **94.05%** against an 85% gate
 (`pyproject.toml` `fail_under=85`). Lint is clean:
 
 ```powershell
@@ -127,15 +127,15 @@ for technical terms and in the explicit BiDi demo block.
 
 ## 7. Visual Evidence
 
-Rendered pages from the committed `final.pdf` (PNGs under `docs/screenshots/`):
+Rendered pages from the committed `final.pdf` (PNGs under `assets/screenshots/`):
 
 | Page | Screenshot | Shows |
 |---|---|---|
-| Cover | `docs/screenshots/cover.png` | Hebrew title + author/course/lecturer/date (BiDi) |
-| Chapter 1 | `docs/screenshots/chapter1.png` | Hebrew prose with inline English technical terms |
-| Features | `docs/screenshots/features.png` | Embedded image, Python graph, and the `\begin{english}` BiDi block |
-| Table | `docs/screenshots/table.png` | Booktabs table (RTL) of agent roles |
-| Bibliography | `docs/screenshots/bibliography.png` | Resolved numbered citations |
+| Cover | `assets/screenshots/cover.png` | Hebrew title + author/course/lecturer/date (BiDi) |
+| Chapter 1 | `assets/screenshots/chapter1.png` | Hebrew prose with inline English technical terms |
+| Features | `assets/screenshots/features.png` | Embedded image, Python graph, and the `\begin{english}` BiDi block |
+| Table | `assets/screenshots/table.png` | Booktabs table (RTL) of agent roles |
+| Bibliography | `assets/screenshots/bibliography.png` | Resolved numbered citations |
 
 Notes for the grader:
 

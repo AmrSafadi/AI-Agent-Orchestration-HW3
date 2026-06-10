@@ -38,19 +38,31 @@ def generate_figures(output_dir: Path | str = "generated/research") -> list[Path
 
 
 def _plot_oat(results: dict, path: Path) -> Path:
-    """Line chart of estimated pages vs each swept parameter value."""
+    """Line chart of estimated pages vs each parameter's normalized sweep position.
+
+    The three parameters span very different raw ranges (chapters 3-10, sections
+    2-6, words 150-450), so plotting them on a shared *raw* x-axis would visually
+    distort the comparison (the wide ``words`` range would dominate). We map each
+    sweep onto its 0-1 fraction (min -> max) so the curves are directly
+    comparable: the steepest line has the largest total effect across its sweep
+    (here ``sections``), matching the partial-derivative ranking.
+    """
     with figure(path, (7, 4)) as ax:
         for index, (param, series) in enumerate(results.items()):
+            values = [v for v, _ in series]
+            low, high = min(values), max(values)
+            span = (high - low) or 1
+            fractions = [(value - low) / span for value in values]
             ax.plot(
-                [v for v, _ in series],
+                fractions,
                 [p for _, p in series],
                 marker="o",
                 color=PALETTE[index],
                 label=param,
             )
-        ax.set_xlabel("parameter value")
+        ax.set_xlabel("fraction of parameter sweep (min -> max)")
         ax.set_ylabel("estimated pages")
-        ax.set_title("OAT sensitivity of estimated page count")
+        ax.set_title("OAT sensitivity (normalized parameter sweep)")
         ax.legend(title="parameter")
     return path
 

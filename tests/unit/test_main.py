@@ -24,6 +24,11 @@ def test_parser_accepts_run_crew() -> None:
     assert args.run_crew
 
 
+def test_parser_accepts_estimate_cost() -> None:
+    args = build_parser().parse_args(["--estimate-cost"])
+    assert args.estimate_cost
+
+
 def test_dry_run_and_run_crew_are_mutually_exclusive() -> None:
     with pytest.raises(SystemExit):
         build_parser().parse_args(["--dry-run", "--run-crew"])

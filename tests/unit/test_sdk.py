@@ -39,3 +39,17 @@ def test_sdk_estimate_cost_returns_forecast() -> None:
     assert estimate["model"]
     assert estimate["output_tokens"] > 0
     assert estimate["estimated_usd"] is not None and estimate["estimated_usd"] >= 0
+
+
+def test_sdk_run_sensitivity_analysis_returns_study() -> None:
+    analysis = BookGenSDK().run_sensitivity_analysis()
+    assert set(analysis) == {"oat", "partials", "comparison"}
+    # The corrected finding: sections has the largest single-parameter effect.
+    partials = analysis["partials"]
+    assert partials["sections"] == max(partials.values())
+
+
+def test_sdk_generate_sensitivity_figures_writes_files(tmp_path: Path) -> None:
+    paths = BookGenSDK().generate_sensitivity_figures(str(tmp_path))
+    assert len(paths) == 6
+    assert all(Path(figure).exists() for figure in paths)

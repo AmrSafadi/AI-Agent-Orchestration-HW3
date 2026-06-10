@@ -22,6 +22,7 @@ bookgen.main` below).
 | Startup check (default) | `uv run --no-project --with pydantic --with matplotlib --with jinja2 python -m bookgen.main` | No |
 | Explicit dry-run | `… python -m bookgen.main --dry-run` | No |
 | Render + build PDF | `… python -m bookgen.main --build-pdf` (renders `main.tex`, then compiles the PDF; needs a TeX toolchain) — verified to produce a 19-page `final.pdf` (lualatex + biber, culmus David CLM); a committed snapshot is at the repo root | No |
+| Cost forecast | `… python -m bookgen.main --estimate-cost` (prints a config-driven token/USD forecast, then exits) | No |
 | Real crew run | `… python -m bookgen.main --run-crew` (needs `OPENAI_API_KEY`) | Yes |
 | Run tests | `uv run --no-project --with pydantic --with pytest --with pytest-cov --with matplotlib --with jinja2 python -m pytest tests --cov=bookgen` | No |
 
@@ -134,7 +135,7 @@ explicit Hebrew↔English BiDi block to demonstrate the RTL↔LTR transition.
 
 ## 6. Visual Evidence
 
-Screenshots of representative PDF pages are committed under `docs/screenshots/`.
+Screenshots of representative PDF pages are committed under `assets/screenshots/`.
 The LaTeX pipeline has landed: `main.tex` is rendered on every run, and
 `--build-pdf` compiles the final PDF end-to-end. The compiled,
 19-page `final.pdf` is committed (a snapshot at the repo root, plus

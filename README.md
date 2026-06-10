@@ -52,11 +52,11 @@ paid CrewAI path is implemented as an optional, API-key guarded workflow.
 - **Quality tooling:** Ruff lint (0 violations) + `ruff format`; a shared pre-commit
   hook; GitHub Actions CI enforcing an 85% coverage gate.
 - **Build skill:** a Claude Code `/build-bookgen` skill that encodes our build workflow.
-- **Tests:** 135 passed, 1 skipped, **95.22%** coverage.
+- **Tests:** 139 passed, 2 skipped, **94.05%** coverage.
 
 **Verified**
 - `ruff check` → 0 violations; `ruff format` → clean; every code file ≤ 150 lines.
-- `pytest tests --cov=bookgen` -> 135 passed, 1 skipped; coverage 95.22% (gate 85%).
+- `pytest tests --cov=bookgen` -> 139 passed, 2 skipped; coverage 94.05% (gate 85%).
 - The dry-run pipeline produces all five intermediate artifacts, assets, and
   `generated/latex/main.tex` with no API call.
 - `--dry-run --build-pdf` compiles the final PDF when a TeX toolchain is
@@ -70,6 +70,41 @@ paid CrewAI path is implemented as an optional, API-key guarded workflow.
 - Real paid CrewAI execution is optional. When used, raw task outputs,
   validated artifacts, token usage, and budget alerts are written under
   `generated/intermediate/`.
+
+### Analysis & Results
+
+A deterministic **parameter-sensitivity study** (a one-at-a-time sweep, a
+finite-difference partial-derivative index, and a lean/baseline/rich comparison)
+quantifies how the document's structural parameters drive its estimated compiled
+length, modelled as `pages = ceil(chapters * sections * words / 450) + 3`. Full
+methodology, equations, and references are in
+[`notebooks/sensitivity_analysis.ipynb`](notebooks/sensitivity_analysis.ipynb);
+the logic lives in `bookgen.research.sensitivity` and is reachable through
+`BookGenSDK().run_sensitivity_analysis()`.
+
+**Key finding:** at the baseline (6 chapters, 3 sections, ~250 words/section),
+**sections-per-chapter is the most influential parameter** (∂pages/∂sections =
+3.5 pages per unit, sweep range 13 pages), ahead of chapters (1.5 per unit, range
+12) and words-per-section (0.5 per unit, range 12). Words-per-section spans the
+widest raw value range but has the smallest per-unit effect — so the OAT chart
+uses a normalized sweep axis to keep the three parameters visually comparable.
+
+| | |
+|:---:|:---:|
+| ![OAT sensitivity, normalized sweep](assets/analysis/oat_lines.png) | ![Sensitivity magnitude by parameter](assets/analysis/sensitivity_bars.png) |
+| *OAT sweep on a normalized axis — `sections` is the steepest curve.* | *Page-count range per parameter across its sweep (sections largest).* |
+| ![Estimated-pages heatmap](assets/analysis/pages_heatmap.png) | ![Waterfall of page contributions](assets/analysis/waterfall.png) |
+| *Estimated pages over chapters × words-per-section.* | *Cumulative page contribution, baseline → full.* |
+
+All six figures (the four above plus a scatter and a box plot) are rendered
+concurrently by `BookGenSDK().generate_sensitivity_figures()` using a
+colorblind-safe Okabe–Ito palette at 150 DPI.
+
+**Cost analysis (config-driven, guideline 11).** `BookGenSDK.estimate_cost()` —
+also exposed on the CLI via `--estimate-cost` — forecasts token usage and USD
+from the `config/models.json` pricing block with no API call. A typical ~15-page
+run costs **~$0.02** on the default `gpt-4o-mini` (≈$0.35 on `gpt-4o`, ≈$0.50 on
+`claude-sonnet-4-6`). Full breakdown: [docs/COSTS.md](docs/COSTS.md).
 
 ## Installation
 
@@ -108,6 +143,9 @@ uv run --no-project --with pydantic --with matplotlib --with jinja2 python -m bo
 # Render and compile the PDF (requires lualatex + biber):
 uv run --no-project --with pydantic --with matplotlib --with jinja2 python -m bookgen.main --dry-run --build-pdf
 
+# Cost forecast for a real run (config-driven, no API call):
+uv run --no-project --with pydantic --with matplotlib --with jinja2 python -m bookgen.main --estimate-cost
+
 # Real crew run (needs OPENAI_API_KEY, costs money):
 uv run python -m bookgen.main --run-crew
 ```
@@ -130,8 +168,14 @@ The committed `final.pdf` at the repository root is the deliverable; running
 recompiles the PDF (and refreshes the committed `final.pdf` snapshot) when a TeX
 toolchain is present.
 
-For visual evidence, see the compiled PDF snapshot at `final.pdf` and the
-supporting screenshots in `docs/screenshots/`.
+**Compiled deliverable (Hebrew-primary, 19 pages) — sample pages:**
+
+| Cover | Chapter | Table | Bibliography |
+|:---:|:---:|:---:|:---:|
+| ![Cover page](assets/screenshots/cover.png) | ![Chapter page](assets/screenshots/chapter1.png) | ![Table page](assets/screenshots/table.png) | ![Bibliography page](assets/screenshots/bibliography.png) |
+
+The full snapshot is committed at [`final.pdf`](final.pdf); all rendered-page
+screenshots live in `assets/screenshots/`.
 
 ## Configuration Guide
 

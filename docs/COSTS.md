@@ -58,8 +58,9 @@ prices above:
 So a ~15-page document on the default `gpt-4o-mini` is on the order of a few
 cents per run; frontier models are roughly $0.35-$0.50.
 
-**Code-backed estimate.** `BookGenSDK.estimate_cost()` forecasts this on the
-dry-run path (no API call): it sizes the manuscript with
+**Code-backed estimate.** `BookGenSDK.estimate_cost()` forecasts this with no
+API call and is surfaced on the CLI via `--estimate-cost` (which first renders
+the dry-run manuscript, then sizes it): it sizes the manuscript with
 `orchestration/accounting.py::estimate_tokens`, applies the
 `config/models.json` price for the configured model via
 `accounting.py::estimate_cost_usd`, and returns the projected input/output

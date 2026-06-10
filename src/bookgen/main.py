@@ -32,6 +32,11 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="After rendering main.tex, attempt LaTeX compilation (requires a TeX toolchain).",
     )
+    parser.add_argument(
+        "--estimate-cost",
+        action="store_true",
+        help="Print a config-driven token/USD cost forecast for a real run, then exit (no API call).",
+    )
     return parser
 
 
@@ -51,6 +56,16 @@ def main(argv: list[str] | None = None) -> int:
     print(f"Project title: {project.name}")
     print(f"Topic: {project.topic}")
     print(f"Output directory: {sdk.config.output_dir}")
+
+    if args.estimate_cost:
+        sdk.run_crew(dry_run=True)  # produce the manuscript artifact used for sizing
+        forecast = sdk.estimate_cost()
+        print(
+            f"Cost forecast (model={forecast['model']}): "
+            f"~{forecast['input_tokens']} input + {forecast['output_tokens']} output tokens "
+            f"=> ~${forecast['estimated_usd']} (no API call)."
+        )
+        return 0
 
     dry_run = not args.run_crew
     print("Execution mode: " + ("DRY-RUN (default)." if dry_run else "REAL CREWAI RUN."))

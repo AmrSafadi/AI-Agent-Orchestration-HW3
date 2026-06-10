@@ -12,6 +12,10 @@ the backlog beyond the limit reaches ``max_queue_depth``, a ``BackpressureError`
 is raised instead of queueing unboundedly. A ``threading.Lock`` guards the
 sliding-window state and a semaphore enforces ``concurrent_max`` so the gatekeeper
 is safe under multithreaded use (guideline 15.2).
+
+Monitoring (guideline 5.1): every call is logged via the ``bookgen.gatekeeper``
+logger, and a backpressure **alert** (``logger.warning``) is emitted before the
+``BackpressureError`` is raised when the queue is full.
 """
 
 from __future__ import annotations
@@ -103,6 +107,10 @@ class ApiGatekeeper:
                 and len(self._calls) - self._config.requests_per_minute
                 >= self._config.max_queue_depth
             ):
+                self._logger.warning(
+                    "backpressure alert: deferred calls exceeded max_queue_depth=%d",
+                    self._config.max_queue_depth,
+                )
                 raise BackpressureError("rate-limit queue exceeded its maximum depth")
             wait = 0.0
             if minute_over and self._calls:
@@ -121,6 +129,7 @@ class ApiGatekeeper:
             self._calls.append(now)
             self._hour_calls.append(now)
             self._total += 1
+            self._logger.info("gatekeeper call #%d (recent=%d)", self._total, len(self._calls))
 
     def _prune(self) -> None:
         """Drop call timestamps that have aged out of their windows."""

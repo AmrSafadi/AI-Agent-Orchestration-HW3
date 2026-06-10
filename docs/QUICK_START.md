@@ -1,4 +1,4 @@
-﻿# Quick Start
+# Quick Start
 
 This guide shows how to run the current repository state.
 
@@ -48,10 +48,10 @@ uv run --no-project --with pydantic --with pytest --with pytest-cov --with matpl
 Expected result:
 
 ```text
-135 passed, 1 skipped, 95.22% coverage
+139 passed, 2 skipped, 94.05% coverage
 ```
 
-Coverage is 95.22% against an 85% gate, and ruff reports 0 violations.
+Coverage is 94.05% against an 85% gate, and ruff reports 0 violations.
 
 ## 4. Generate Deterministic Outputs
 
@@ -101,7 +101,7 @@ so a grader sees it immediately on clone. It was verified by compiling locally w
 contents, an embedded image, a Python-generated graph, a table, a mathematical formula,
 Hebrew-English BiDi text, and a bibliography with 3 resolved sources.
 
-Screenshots of representative pages are committed under `docs/screenshots/`
+Screenshots of representative pages are committed under `assets/screenshots/`
 for quick visual inspection: cover, chapter prose, feature page, table, and
 bibliography.
 

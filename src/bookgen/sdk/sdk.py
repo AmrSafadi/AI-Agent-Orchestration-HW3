@@ -100,3 +100,23 @@ class BookGenSDK:
             "output_tokens": output_tokens,
             "estimated_usd": round(cost, 6) if cost is not None else None,
         }
+
+    def run_sensitivity_analysis(self) -> dict[str, Any]:
+        """Run the parameter sensitivity study (OAT sweep, partials, baselines)."""
+        from bookgen.research.sensitivity import (
+            compare_baselines,
+            oat_sensitivity,
+            partial_sensitivity,
+        )
+
+        return {
+            "oat": oat_sensitivity(),
+            "partials": partial_sensitivity(),
+            "comparison": compare_baselines(),
+        }
+
+    def generate_sensitivity_figures(self, output_dir: str = "generated/research") -> list:
+        """Render the six sensitivity figures (guideline 9.3) and return their paths."""
+        from bookgen.research.sensitivity_plots import generate_figures
+
+        return generate_figures(output_dir)
